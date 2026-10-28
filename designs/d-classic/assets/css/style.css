@@ -1,0 +1,1137 @@
+/* ==========================================================================
+   Jingwei Kang — personal academic homepage
+   Direction: "Classic academic, refined"
+
+   Layout concept: one centred reading column (max 48rem) in which every
+   section below the hero shares the same two-column scaffold — a 12rem
+   margin column for the section heading and its sub-headings (years, research
+   themes) and a 33rem prose column — collapsing to a single column under 52em.
+
+   Type: Newsreader (display and prose, optical sizing on), Source Sans 3
+   (navigation, metadata, labels, buttons), the system monospace for BibTeX.
+   One size per job; the scale is listed in the tokens below.
+
+   Colour: warm-biased neutrals — paper and warm ink — with one ink-blue
+   accent. The dark theme is a warm charcoal with a lighter sky-blue accent,
+   chosen separately rather than inverted. Every colour on the page comes from
+   the six tokens below.
+   ========================================================================== */
+
+:root {
+  --bg: #FBFAF8;        /* paper */
+  --surface: #F3F0EB;   /* recessed surface: BibTeX blocks, email field */
+  --line: #E3DED6;      /* hairlines and borders */
+  --fg: #201D1A;        /* warm ink, 16.1:1 on --bg */
+  --muted: #625B53;     /* secondary text, 6.4:1 on --bg */
+  --accent: #2B4C78;    /* ink blue: links, markers, focus, 8.4:1 on --bg */
+
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-body: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-ui: "Source Sans 3", "Source Sans Pro", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+
+  /* Type scale — one size per job */
+  --text-xs: 0.75rem;      /* 12px  running labels: news dates, "Papers", years on narrow screens */
+  --text-ui: 0.9375rem;    /* 15px  navigation, author and venue lines, links, buttons */
+  --text-body: 1.125rem;   /* 18px  running text */
+  --text-md: 1.25rem;      /* 20px  paper titles, theme names, years, degrees, the bio */
+  --text-lg: 1.75rem;      /* 28px  section headings */
+  --text-xl: 2.75rem;      /* 44px  the name */
+  --text-mono: 0.8125rem;  /* 13px  BibTeX */
+
+  /* Layout */
+  --page: 48rem;           /* content width of the page (gutters come on top): 12 + 3 + 33rem */
+  --margin-col: 12rem;     /* heading column beside every section; also the portrait width */
+  --gutter: 3rem;          /* between the margin column and the prose */
+  --measure: 33rem;        /* prose column: about 70 characters of Newsreader at 18px */
+  --header-h: 4.0625rem;   /* sticky header: 2 × 0.875rem padding + 2.25rem toggle + 1px hairline */
+
+  /* Baseline nudges so margin-column headings sit on the first prose baseline
+     (measured with the web fonts loaded; see README) */
+  --h2-shift: -6px;
+  --side-shift: -1px;
+  --year-shift: 0px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1A17;        /* warm charcoal */
+    --surface: #262320;
+    --line: #34302B;
+    --fg: #EAE4DA;        /* warm off-white, 13.7:1 on --bg */
+    --muted: #A39B91;     /* 6.3:1 on --bg */
+    --accent: #8EB4E3;    /* sky blue, 8.1:1 on --bg */
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1C1A17;
+  --surface: #262320;
+  --line: #34302B;
+  --fg: #EAE4DA;
+  --muted: #A39B91;
+  --accent: #8EB4E3;
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Anchor jumps land just under the sticky header; the 1px overlap hides the
+     section's own hairline beneath the header's. */
+  scroll-padding-top: calc(var(--header-h) - 1px);
+}
+
+/* Smooth scrolling is switched on by main.js once the page and its web fonts
+   have loaded (html.fonts-ready). The jump to a #fragment on first load must
+   stay instant: a smooth scroll aims at a position measured in the fallback
+   fonts and lands off target when Newsreader and Source Sans 3 swap in. */
+@media (prefers-reduced-motion: no-preference) {
+  html.fonts-ready {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  font-kerning: normal;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+/* Hyphenated compounds that must not break at the hyphen (Off-Policy, L-shaped …) */
+.nb {
+  white-space: nowrap;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+::selection {
+  background: var(--line);
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg));
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button {
+    transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease, text-decoration-color 120ms ease;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-300%);
+}
+
+.skip-link:focus {
+  transform: none;
+  outline-color: var(--bg);
+  outline-offset: -4px;
+}
+
+/* One outer wrapper carries the side gutter; --page is the content width,
+   so the scaffold (12rem + 3rem + 33rem) fits exactly. */
+.page {
+  box-sizing: content-box;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* The small, letter-spaced running label: one treatment, three uses (the
+   "Papers" label, news dates, and the year headings on narrow screens). */
+.label,
+.news time {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Header and navigation
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+  padding-block: 0.875rem;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand:hover {
+  color: var(--accent);
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding-block: 0.3rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  text-decoration-color: transparent;
+}
+
+.site-nav a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--accent);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--fg);
+  border-color: var(--muted);
+}
+
+.theme-toggle svg {
+  width: 1.0625rem;
+  height: 1.0625rem;
+}
+
+/* Show the moon in the light theme (it leads to dark) and the sun in dark. */
+.icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, 1fr);
+  column-gap: var(--gutter);
+  row-gap: 1.5rem;
+  align-items: start;
+  padding-block: 3.5rem 3.25rem;
+}
+
+.portrait {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+/* The inline SVG monogram that stands in for a photo: set in the display
+   face with the page tokens, so it follows the theme toggle (an <img> could
+   only follow the system scheme). A photo replaces the whole <svg>. */
+.portrait text {
+  font-family: var(--font-display);
+  font-size: 112px;
+  font-weight: 500;
+  fill: var(--accent);
+}
+
+.hero-head {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.hero-body {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  max-width: var(--measure);
+}
+
+h1 {
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+}
+
+.role {
+  margin: 0.625rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.bio p {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  margin-bottom: 0.85em;
+}
+
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem 1.375rem;
+  margin: 1.375rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+}
+
+/* Vertical padding on inline links widens the touch target without moving the text. */
+.quick-links a,
+.pub-links a,
+.profiles a,
+.related a,
+.news p a,
+.site-footer a {
+  padding-block: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   Section scaffold: heading column + prose column
+   -------------------------------------------------------------------------- */
+
+/* The prose column carries the gutter as padding (not a grid gap) so that a
+   hairline on a heading and on its prose block reads as one continuous rule. */
+.section {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, 1fr);
+  column-gap: 0;
+  row-gap: 2rem;
+  padding-block: 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.section > h2 {
+  grid-column: 1;
+  position: relative;
+  top: var(--h2-shift);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+}
+
+/* Education opens with a 20px degree line rather than a 17px paragraph. */
+#education > h2 {
+  top: calc(var(--h2-shift) + 1px);
+}
+
+.side {
+  grid-column: 1;
+  position: relative;
+  top: var(--side-shift);
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+/* The year carries a hairline, so its text (not the box) is nudged. */
+.year {
+  top: 0;
+  padding-top: var(--year-shift);
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  grid-column: 2;
+  min-width: 0;
+  max-width: calc(var(--measure) + var(--gutter));
+  padding-left: var(--gutter);
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   News
+   -------------------------------------------------------------------------- */
+
+.news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  column-gap: 1rem;
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.news li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.news li:last-child {
+  padding-bottom: 0;
+}
+
+.news time {
+  padding-top: 0.25rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.news p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Research
+   -------------------------------------------------------------------------- */
+
+.theme p {
+  margin-bottom: 0.6em;
+}
+
+.related {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.related .label {
+  margin-right: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Publications
+   -------------------------------------------------------------------------- */
+
+.section--pubs {
+  row-gap: 1.5rem;
+}
+
+.section--pubs > .year:first-of-type,
+.section--pubs > .pubs:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.pubs {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  list-style: none;
+}
+
+/* Every year group after the first opens with a rule that runs across both columns. */
+.year ~ .year {
+  padding-top: calc(1.5rem + var(--year-shift));
+  border-top: 1px solid var(--line);
+}
+
+.pubs ~ .pubs {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.pub {
+  position: relative;
+  min-width: 0;
+}
+
+.pub + .pub {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+/* A link to the first paper of a year lands with the same 1.5rem of air above
+   the title that later papers get from their padding. */
+.pubs > .pub:first-child {
+  scroll-margin-top: 1.5rem;
+}
+
+.pub-title {
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+/* The first-author mark: a short accent dash. It hangs in the gutter beside
+   the title on wide screens and sits inline before the title on narrow ones;
+   the legend in the section intro uses the same mark. */
+.mark,
+.pub--first .pub-title::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 2px;
+  background: var(--accent);
+  vertical-align: 0.3em;
+}
+
+.mark {
+  margin-inline: 0.15rem;
+}
+
+.pub--first .pub-title::before {
+  position: absolute;
+  top: 0.68em;
+  left: calc(1.125rem - var(--gutter));
+}
+
+.pub + .pub.pub--first .pub-title::before {
+  top: calc(1.5rem + 0.68em);
+}
+
+.pub-meta {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+.pub-authors {
+  color: var(--fg);
+}
+
+.me {
+  font-weight: 600;
+}
+
+.pub-venue {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.venue {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.pub-summary {
+  margin: 0.5rem 0 0;
+  line-height: 1.5;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.125rem;
+  margin: 0.55rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+}
+
+/* A button dressed as a text link, for disclosures. */
+.textbutton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: -0.35rem 0;
+  padding: 0.35rem 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  cursor: pointer;
+}
+
+.textbutton:hover {
+  text-decoration-color: currentColor;
+}
+
+.textbutton::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 3.5px solid transparent;
+  border-bottom: 3.5px solid transparent;
+  border-left: 4.5px solid currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .textbutton::after {
+    transition: transform 150ms ease;
+  }
+}
+
+.textbutton[aria-expanded="true"]::after {
+  transform: rotate(90deg);
+}
+
+.bib {
+  margin-top: 0.75rem;
+}
+
+/* On wide screens the lines do not wrap, so the entries show as typed: they
+   are hand-wrapped at 62 columns, which fits the 33rem column at 13px. On
+   narrow screens the lines wrap (see the 52em block) rather than scroll. */
+.bib pre {
+  margin: 0;
+  padding: 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  line-height: 1.55;
+  white-space: pre;
+  overflow-x: auto;
+  tab-size: 2;
+}
+
+.bib-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.75rem;
+  margin: 0.5rem 0 0;
+  font-family: var(--font-ui);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+/* Every boxed control (Copy buttons, the email field, the theme toggle) is
+   2.25rem tall. */
+.btn,
+.email {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  line-height: 1.3;
+}
+
+.btn {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--muted);
+}
+
+.btn:active {
+  background: var(--surface);
+}
+
+.copy-status {
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Education
+   -------------------------------------------------------------------------- */
+
+.edu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.edu li + li {
+  margin-top: 1.25rem;
+}
+
+.edu-degree {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.edu-detail {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.625rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--font-ui);
+}
+
+.email {
+  background: var(--surface);
+  color: var(--fg);
+  font-size: var(--text-body);
+  text-decoration: none;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.email:hover {
+  border-color: var(--muted);
+}
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+}
+
+.profiles a {
+  font-weight: 500;
+}
+
+.profiles .handle {
+  margin-left: 0.4rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.profiles .handle::before {
+  content: "· ";
+}
+
+.address {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.375rem 1.5rem;
+  padding-block: 1.75rem 2.75rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+.footer-note {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens: one column, the heading above its prose
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 52em) {
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+  /* The name is right below in the hero, so the header keeps only the nav and the toggle. */
+  .site-header {
+    position: static;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    align-items: start;
+    padding-block: 0.75rem;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .site-nav {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0.2rem;
+  }
+
+  .theme-toggle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .site-nav ul {
+    gap: 0 1rem;
+  }
+
+  .hero {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+    row-gap: 1.5rem;
+    padding-block: 2rem 2.25rem;
+  }
+
+  .portrait {
+    grid-row: 1;
+  }
+
+  .hero-head {
+    align-self: center;
+  }
+
+  .hero-body {
+    grid-column: 1 / -1;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .role {
+    margin-top: 0.375rem;
+  }
+
+  .bio p {
+    font-size: var(--text-body);
+    line-height: 1.55;
+  }
+
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+    padding-block: 2.25rem;
+  }
+
+  .section > h2,
+  .side,
+  .body {
+    grid-column: 1;
+  }
+
+  /* #education > h2 is named so that it outranks its desktop-only nudge. */
+  .section > h2,
+  #education > h2 {
+    top: 0;
+    font-size: 1.5rem;
+  }
+
+  .side {
+    top: 0;
+    margin-top: 0.75rem;
+  }
+
+  /* Years become running labels above their papers, so they do not read as
+     one-word titles next to the 20px paper titles. */
+  .year {
+    margin-top: 0;
+    padding-top: 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .body {
+    max-width: var(--measure);
+    padding-left: 0;
+  }
+
+  .section--pubs {
+    row-gap: 1rem;
+  }
+
+  .year ~ .year {
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+  }
+
+  /* The year heading already carries the rule on narrow screens. */
+  .pubs ~ .pubs {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* The first-author dash moves inline, before the title. */
+  .pub--first .pub-title::before,
+  .pub + .pub.pub--first .pub-title::before {
+    position: static;
+    top: auto;
+    width: 0.875rem;
+    margin-right: 0.5rem;
+  }
+
+  .news li {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+  }
+
+  /* Nothing scrolls sideways inside a BibTeX box: long lines wrap. The Copy
+     button copies the text, not the wrapped layout. */
+  .bib pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+}
+
+/* Phones, up to 488px (the width from which the six nav links fit on one
+   row): the nav wraps into two even rows (text-wrap: balance) instead of
+   leaving an orphan; the date sits above its news item. */
+@media (max-width: 30.5em) {
+  .site-nav ul {
+    display: block;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+  .site-nav li {
+    display: inline-block;
+    margin-right: 0.875rem;
+  }
+
+  .site-nav li:last-child {
+    margin-right: 0;
+  }
+
+  .site-nav a {
+    padding-block: 0.2rem;
+  }
+
+  .news li {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.125rem;
+  }
+
+  .news time {
+    padding-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Without JavaScript: hide controls that need it, show every BibTeX entry
+   -------------------------------------------------------------------------- */
+
+.no-js .theme-toggle,
+.no-js .textbutton,
+.no-js .bib-foot,
+.no-js .btn-copy,
+.no-js .copy-status {
+  display: none;
+}
+
+.no-js .bib[hidden] {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Motion and print
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  .site-header,
+  .skip-link,
+  .btn,
+  .bib-foot,
+  .textbutton {
+    display: none;
+  }
+
+  .bib[hidden] {
+    display: block;
+  }
+
+  .bib pre {
+    white-space: pre-wrap;
+    overflow: visible;
+  }
+
+  .pub,
+  .news li,
+  .edu li {
+    break-inside: avoid;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .pub-links a::after {
+    content: " (" attr(href) ")";
+    font-weight: 400;
+  }
+}
