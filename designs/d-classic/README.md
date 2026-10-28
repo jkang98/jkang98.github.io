@@ -81,7 +81,7 @@ like `<!-- ===== News … ===== -->`, so search for `=====` to jump between them
 - **Publications**: see *Add a paper*.
 - **Education** (`<ul class="edu">`): the MSc and BSc entries carry no years because none were
   known when the site was built. Add them to the `edu-detail` line when you want them shown,
-  e.g. `Radboud University, Nijmegen, the Netherlands, 2021–2023`.
+  e.g. `Radboud University, Nijmegen, the Netherlands, YYYY–YYYY`.
 - **Contact**: the email address, the Copy button, the profile links, a commented-out CV link.
   The address appears **seven times** in `index.html`: the hero quick link and the Contact link
   each carry it in `href="mailto:…"` and in the link text, the Copy button has it in its
