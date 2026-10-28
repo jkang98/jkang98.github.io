@@ -45,13 +45,12 @@
   --font-ui:      "Source Sans 3", "Source Sans Pro", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --font-mono:    ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
 
-  /* ---- type scale ---- */
-  --text-xs:      0.75rem;    /* 12  running labels, dates, the brand */
-  --text-sm:      0.875rem;   /* 14  metadata, captions, venue lines */
-  --text-ui:      0.9375rem;  /* 15  navigation, author lines */
-  --text-base:    1rem;       /* 16  paper summaries */
+  /* ---- type scale: 12 / 14 / 16 / 18 / 20 / 24 / display ---- */
+  --text-xs:      0.75rem;    /* 12  running labels, the brand, buttons */
+  --text-sm:      0.875rem;   /* 14  metadata: dates, venue lines, the Papers lines, captions */
+  --text-base:    1rem;       /* 16  sans UI text (navigation, author lines, profiles) and paper summaries */
   --text-body:    1.125rem;   /* 18  prose */
-  --text-md:      1.25rem;    /* 20  paper titles, lead paragraph, degrees */
+  --text-md:      1.25rem;    /* 20  paper titles, the bio at wide viewports, degrees */
   --text-lg:      1.5rem;     /* 24  theme titles, hanging years */
   --text-display: clamp(2.625rem, 1.5rem + 3.4vw, 4.25rem); /* the name */
 
@@ -185,7 +184,7 @@ button { font: inherit; color: inherit; }
   background: var(--fg);
   color: var(--bg);
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   text-decoration: none;
   transform: translateY(-300%);
 }
@@ -207,13 +206,12 @@ button { font: inherit; color: inherit; }
   margin-right: auto;
 }
 
-/* Small, uppercase, letter-spaced sans: the running-label voice */
+/* Small, uppercase, letter-spaced sans: the running-label voice of the section labels and the
+   brand, and the control voice of the buttons. Dates, the Papers lines and the first-author
+   note are set in plain mixed case, so the section labels stay the only running labels. */
 .label,
-.refs-label,
-.first-label,
 .brand,
-.btn,
-.news time {
+.btn {
   font-family: var(--font-ui);
   font-size: var(--text-xs);
   font-weight: 600;
@@ -231,7 +229,7 @@ button { font: inherit; color: inherit; }
   padding: 0.9rem 0;
   border-bottom: 1px solid var(--rule);
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
 }
 
 /* The running head repeats the name, so it is shown only where the name is not right below it. */
@@ -366,18 +364,20 @@ img.portrait { object-fit: cover; }
 
 .role {
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   line-height: 1.5;
   color: var(--fg-muted);
 }
 
-.lead {
-  margin-top: 1.5rem;
+/* The bio: both paragraphs one step above the running text, so they read as one standfirst
+   rather than as a lead followed by a slightly smaller twin. */
+.lead { margin-top: 1.5rem; }
+.lead,
+.lead + p {
   font-size: clamp(1.125rem, 1rem + 0.5vw, var(--text-md));
-  line-height: max(var(--rhythm), 1.5em);
+  line-height: 1.5;
   max-width: var(--measure);
 }
-.lead + p { max-width: var(--measure); }
 
 .hero-links {
   display: flex;
@@ -385,7 +385,7 @@ img.portrait { object-fit: cover; }
   gap: 0.25rem 1.25rem;
   margin-top: 1.5rem;
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
 }
 
 @media (min-width: 52rem) {
@@ -407,6 +407,8 @@ img.portrait { object-fit: cover; }
 .news time {
   display: block;
   margin-bottom: 0.15rem;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
   color: var(--fg-muted);
   line-height: 1.5;
   font-variant-numeric: tabular-nums;
@@ -418,6 +420,7 @@ img.portrait { object-fit: cover; }
     display: grid;
     grid-template-columns: 5rem minmax(0, 1fr);
     column-gap: 1rem;
+    align-items: baseline;   /* the date sits on the first baseline of its sentence */
     padding: 0.5rem 0;
   }
   .news li:first-child { padding-top: 0; }
@@ -433,14 +436,19 @@ img.portrait { object-fit: cover; }
   margin-bottom: 0.5rem;
 }
 .theme p { max-width: var(--measure); }
+/* The Papers line hangs its label in a column of its own, like the dates and the years, so
+   every line of links starts at the same x: <span class="refs-label">, then the links wrapped
+   in <span class="refs-list">. */
 .refs {
+  display: grid;
+  grid-template-columns: 4rem minmax(0, 1fr);
   margin-top: 0.6rem;
   font-family: var(--font-ui);
   font-size: var(--text-sm);
   line-height: 1.5;
   color: var(--fg-muted);
 }
-.refs-label { margin-right: 0.5em; }
+.refs-label { font-weight: 600; }
 
 /* the marginal figure: carousel cells traced by a gaze path, drawn in ink */
 .plate {
@@ -521,7 +529,8 @@ img.portrait { object-fit: cover; }
   vertical-align: 0.1em;
 }
 
-/* One year group = the hanging year + its list; the rule runs across both columns. */
+/* One year group = the hanging year + its list. In the one-column layout its rule runs the full
+   width; in the two-column layout it moves onto the text column (see the media query below). */
 .year-group {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -554,7 +563,14 @@ img.portrait { object-fit: cover; }
     row-gap: 0;
     align-items: baseline;
     margin-top: 2.5rem;
+    padding-top: 0;
+    border-top: 0;
+  }
+  /* Two extents of hairline: a section rule runs across both columns, a year rule across the
+     text column only, so the year groups read as divisions inside Publications, not as sections. */
+  .year-group .pub-group {
     padding-top: 1.5rem;
+    border-top: 1px solid var(--rule);
   }
 }
 
@@ -566,8 +582,10 @@ img.portrait { object-fit: cover; }
 }
 /* An atomic box: balanced wrapping then treats a hyphenated compound as one word. */
 .pub-title .nb { display: inline-block; }
-/* The first-author square hangs in the gutter beside the title on wide screens; on narrow
-   screens, where there is no gutter, it sits in front of the "First author" label instead. */
+/* The first-author square hangs in the gutter beside the title on wide screens. On narrow
+   screens, where there is no gutter, a square and the words "First author" follow the author
+   line instead; on wide screens that label is hidden, since the square already says it (the
+   visually hidden "(first author)" in the name still says it to screen readers). */
 .pub-title .mark { display: none; }
 .first-label::before {
   content: "";
@@ -586,19 +604,21 @@ img.portrait { object-fit: cover; }
     left: -1.35rem;
     margin: 0;
   }
-  .first-label::before { display: none; }
+  .first-label { display: none; }
 }
 
 .pub-authors {
   margin-top: 0.35rem;
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   line-height: 1.5;
   max-width: var(--measure-sm);
 }
-.pub-authors .me { font-weight: 600; white-space: nowrap; }
+/* the owner's name: in the author line and in the full author list of the climate report */
+.pub .me { font-weight: 600; white-space: nowrap; }
 .first-label {
   margin-left: 0.25em;
+  font-size: var(--text-sm);
   color: var(--fg-muted);
   white-space: nowrap;
 }
@@ -699,14 +719,23 @@ summary {
   background: var(--bg-alt);
   border-radius: 2px;
   font-family: var(--font-mono);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   line-height: 1.5;
   color: var(--fg);
-  /* Entries are written at 72 columns or less and fit the text column unwrapped; in a
-     narrower column the lines wrap in place (the Copy button copies the unwrapped text). */
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
+  /* Entries are written at 72 columns or less with aligned continuation lines. In the narrow
+     one-column layout the block keeps that layout and scrolls sideways instead of re-wrapping
+     the hand-wrapped lines; in the two-column layout the lines fit the text column, and a
+     longer one wraps in place. The Copy button copies the text as written either way. */
+  white-space: pre;
+  overflow-x: auto;
   tab-size: 2;
+}
+@media (min-width: 52rem) {
+  .bib pre {
+    font-size: 0.8125rem;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
 }
 .bib .copy { display: block; margin-top: 0.5rem; }
 
@@ -733,7 +762,7 @@ summary {
 .edu p {
   margin-top: 0.25rem;
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   line-height: 1.5;
   max-width: var(--measure-sm);
 }
@@ -761,7 +790,7 @@ summary {
   padding: 0;
   list-style: none;
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   line-height: 1.5;
 }
 .profiles .id {
@@ -773,7 +802,7 @@ summary {
 .address {
   margin-top: 1.5rem;
   font-family: var(--font-ui);
-  font-size: var(--text-ui);
+  font-size: var(--text-base);
   line-height: 1.5;
   color: var(--fg-muted);
 }
@@ -834,6 +863,7 @@ summary {
 @media print {
   .masthead, .skip-link, .btn, .bib-toggle { display: none !important; }
   .bib[hidden] { display: block !important; }
+  .bib pre { white-space: pre-wrap; overflow-wrap: break-word; overflow: visible; }   /* paper cannot scroll */
   .section { break-inside: auto; }
   .pub-group > li { break-inside: avoid; }
   a { color: inherit; }

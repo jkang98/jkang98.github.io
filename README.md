@@ -41,14 +41,17 @@ Everything visible is in `index.html`, in page order. Each section starts with a
   `<time datetime="YYYY-MM">Mon YYYY</time>` followed by a `<p>`; link the paper's `#pub-…` id
   where there is one. Keep five to seven items and drop the oldest when you add one.
 - **Research** (`<article class="theme">` blocks): a heading, one paragraph that synthesises,
-  and a `Papers` line that links to publication entries by id. Leave the specifics to the entries.
+  and a `Papers` line (`<p class="refs">`: the label in one span, the links in
+  `<span class="refs-list">`) that links to publication entries by id. Leave the specifics to
+  the entries.
   The drawing in the margin is an inline SVG inside `<div class="plate">`; delete that block if
   you do not want it.
 - **Education** (`<ul class="edu">`): no years are shown because none were verified; add them to
   the second line of an entry when you want them (`Radboud University, Nijmegen, YYYY–YYYY`).
-- **Contact** (`<section id="contact">`): the email address appears three times in the file: the
-  `About` links, the `Contact` row (`href` and visible text, plus the `data-copy` attribute of the
-  Copy button) and the JSON-LD block. Change all of them.
+- **Contact** (`<section id="contact">`): the email address appears in three places (six
+  occurrences) in the file: the `About` link (`href` and visible text), the `Contact` row
+  (`href`, visible text and the `data-copy` attribute of the Copy button) and the JSON-LD
+  block. Replace all of them, for example with a global find-and-replace.
 
 The page is written in the first person. Keep sentences short and plain.
 
@@ -95,8 +98,10 @@ Template, with the parts to edit in capitals:
 Rules of thumb:
 
 - Not first author: drop the `first-author` class, the `<span class="mark">`, the hidden
-  `(first author)` span inside your name and the `<span class="first-label">`. Keep
-  `<span class="me">` around your own name in every entry: it is set in bold and never breaks.
+  `(first author)` span inside your name and the `<span class="first-label">` (the square
+  beside the title marks a first-author paper on wide screens; the label shows only in the
+  one-column layout). Keep `<span class="me">` around your own name in every entry: it is set
+  in bold and never breaks.
 - The dots in the venue line are written `&nbsp;·` (no-break space before the dot), so a line
   that wraps ends with the dot instead of starting with it. `<span class="nb">` keeps a page
   range or a date range such as `7–11` on one line, and a month and its year are joined the
@@ -107,29 +112,36 @@ Rules of thumb:
   `archivePrefix = {arXiv}`, as in the climate-impact entry.
 - The BibTeX can be pasted from the ACM Digital Library export. Keep every line at 72
   characters or fewer, breaking long fields onto indented continuation lines as the existing
-  entries do: the block then fits the text column without wrapping (on a phone the lines wrap
-  in place, and the Copy button still copies them unwrapped). Escape `&` as `&amp;` and `<`
-  as `&lt;`, and keep the `<pre>` tag at the start of its line: everything inside it is
-  copied verbatim.
+  entries do: the block then fits the text column without wrapping (on a phone it keeps that
+  layout and scrolls sideways, and the Copy button copies the text as written). Escape `&` as
+  `&amp;` and `<` as `&lt;`, and keep the `<pre>` tag at the start of its line: everything
+  inside it is copied verbatim.
 - Add a dated line to News when the paper is worth announcing, and a link in the matching
   Research theme's `Papers` line.
-- Run `npx -y html-validate index.html` afterwards: it reports a duplicated id and a link,
-  button or list that points at an id that does not exist (`data-copy-target` is not checked:
-  try the Copy button once).
+- Run `npx -y html-validate index.html` afterwards: it reports a duplicated id and a button or
+  list whose `aria-controls`, `aria-describedby` or `aria-labelledby` names an id that does not
+  exist. It does not check `href="#…"` links or `data-copy-target`: click the new News and
+  Research links and the Copy button once, or list the fragment links that have no target with
+
+  ```
+  for r in $(grep -o 'href="#[^"]*"' index.html | cut -d'#' -f2 | tr -d '"' | sort -u); do grep -q "id=\"$r\"" index.html || echo "missing id: $r"; done
+  ```
 
 ## Checking the HTML
 
 `npx -y html-validate index.html` reads `.htmlvalidate.json`, which starts from the
-`html-validate:recommended` preset and changes two rules:
+`html-validate:recommended` preset and turns one rule off:
 
-- `no-missing-references` is on, so an `aria-controls`, `aria-describedby` or
-  `aria-labelledby` that names an id that does not exist is an error. Without it a mistyped
-  id ships silently: the BibTeX button of that entry would simply do nothing.
 - `no-redundant-role` is off, because every `<ul>` on the page carries `role="list"` on
   purpose. Safari and VoiceOver stop announcing a list, and the position of each item in it,
   once its bullets are removed with `list-style: none`; the explicit role brings that back.
   The rule would flag the attribute as redundant, which it is only in other browsers. Keep
   `role="list"` when you copy a list.
+
+Everything else is the preset. The check that matters most when adding a paper is its
+`no-missing-references` rule: an `aria-controls`, `aria-describedby` or `aria-labelledby`
+that names an id that does not exist is an error, so a mistyped `bib-KEY` or `t-KEY` cannot
+ship. Plain `href="#…"` links are not covered (see "Adding a paper").
 
 ## Replacing the monogram with a photograph
 
@@ -176,7 +188,11 @@ so the button only ever overrides the system, never replaces it.
 ## Publishing on GitHub Pages
 
 1. Push the files to the `main` branch of the `personal-website` repository with `index.html`
-   at the root. Keep `.nojekyll`: it stops GitHub from running the files through Jekyll.
+   at the root. If the site is on another branch (it was built on a `claude/…` branch), merge
+   it into `main` first: open a pull request on GitHub, or run
+   `git checkout main && git merge <branch> && git push`. Alternatively, pick that branch
+   instead of `main` in step 2. Keep `.nojekyll`: it stops GitHub from running the files
+   through Jekyll.
 2. On GitHub open **Settings → Pages**. Under **Build and deployment** choose
    **Deploy from a branch**, select `main` and `/ (root)`, and save.
 3. After a minute the site is live at `https://jkang98.github.io/personal-website/`.

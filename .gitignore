@@ -1,0 +1,6 @@
+# designs/ holds the alternative design (d-classic), kept in the working tree only so the two
+# designs can be compared. It is not part of the site and must not be published: a push of
+# designs/ would make GitHub Pages serve it at /personal-website/designs/d-classic/.
+# Once a design is chosen, delete designs/ (or move the chosen files to the root) and delete
+# this file.
+designs/
