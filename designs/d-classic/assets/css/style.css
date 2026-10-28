@@ -33,6 +33,7 @@
   /* Type scale — one size per job */
   --text-xs: 0.75rem;      /* 12px  running labels: news dates, "Papers", years on narrow screens */
   --text-ui: 0.9375rem;    /* 15px  navigation, author and venue lines, links, buttons */
+  --text-sm: 1rem;         /* 16px  paper summaries */
   --text-body: 1.125rem;   /* 18px  running text */
   --text-md: 1.25rem;      /* 20px  paper titles, theme names, years, degrees, the bio */
   --text-lg: 1.75rem;      /* 28px  section headings */
@@ -140,7 +141,10 @@ p {
   text-wrap: pretty;
 }
 
-/* Hyphenated compounds that must not break at the hyphen (Off-Policy, L-shaped …) */
+/* Phrases that must not break across lines: the two names in the bio and the
+   compounds with a one-letter first part (F-shaped, L-shaped, F-pattern), where
+   the letter would stand alone at a line end. Every other hyphenated compound
+   breaks at its hyphen, as in print. */
 .nb {
   white-space: nowrap;
 }
@@ -162,6 +166,12 @@ a:hover {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
   border-radius: 2px;
+}
+
+/* The skip link moves focus to <main> (tabindex="-1"), so the next Tab starts
+   inside the content; no ring is drawn around the whole page. */
+main:focus {
+  outline: none;
 }
 
 ::selection {
@@ -365,13 +375,11 @@ button {
   background: var(--surface);
 }
 
-/* The inline SVG monogram that stands in for a photo: set in the display
-   face with the page tokens, so it follows the theme toggle (an <img> could
-   only follow the system scheme). A photo replaces the whole <svg>. */
-.portrait text {
-  font-family: var(--font-display);
-  font-size: 112px;
-  font-weight: 500;
+/* The inline SVG monogram that stands in for a photo: the outlines of "JK" in
+   Newsreader 500, the display face, filled with a page token so that it
+   follows the theme toggle (an <img> could only follow the system scheme) and
+   needs no font to load. A photo replaces the whole <svg>. */
+.portrait path {
   fill: var(--accent);
 }
 
@@ -424,12 +432,12 @@ h1 {
   font-weight: 500;
 }
 
-/* Vertical padding on inline links widens the touch target without moving the text. */
+/* Vertical padding on the links in single-row lists widens the touch target
+   without moving the text. Links inside running text (.news p, .related) get
+   none: their padding boxes would overlap across lines and steal taps. */
 .quick-links a,
 .pub-links a,
 .profiles a,
-.related a,
-.news p a,
 .site-footer a {
   padding-block: 0.35rem;
 }
@@ -492,6 +500,17 @@ h1 {
    News
    -------------------------------------------------------------------------- */
 
+/* The dates hang in the margin column, like the years in Publications, so
+   the items keep the full prose measure: the list spans both columns of the
+   scaffold and lays out its own date column, and the heading sits above it.
+   Each item rule then runs across both columns like the year rules. (Under
+   52em the date column narrows and the body keeps the measure; see below.) */
+#news > .body {
+  grid-column: 1 / -1;
+  max-width: none;
+  padding-left: 0;
+}
+
 .news {
   margin: 0;
   padding: 0;
@@ -500,8 +519,8 @@ h1 {
 
 .news li {
   display: grid;
-  grid-template-columns: 5.5rem minmax(0, 1fr);
-  column-gap: 1rem;
+  grid-template-columns: var(--margin-col) minmax(0, var(--measure));
+  column-gap: var(--gutter);
   padding-block: 0.7rem;
   border-top: 1px solid var(--line);
 }
@@ -600,14 +619,16 @@ h1 {
 
 /* The first-author mark: a short accent dash. It hangs in the gutter beside
    the title on wide screens and sits inline before the title on narrow ones;
-   the legend in the section intro uses the same mark. */
+   the legend in the section intro uses the same mark. It is drawn as a border,
+   not a background, so that forced-colours mode (Windows High Contrast, which
+   drops backgrounds but keeps borders) still shows it. */
 .mark,
 .pub--first .pub-title::before {
   content: "";
   display: inline-block;
   width: 1rem;
-  height: 2px;
-  background: var(--accent);
+  height: 0;
+  border-top: 2px solid var(--accent);
   vertical-align: 0.3em;
 }
 
@@ -650,8 +671,11 @@ h1 {
   color: var(--fg);
 }
 
+/* One step below the title (20 to 16px, the ratio of the rest of the scale),
+   so a three-line summary does not outweigh its two-line title. */
 .pub-summary {
   margin: 0.5rem 0 0;
+  font-size: var(--text-sm);
   line-height: 1.5;
 }
 
@@ -711,9 +735,13 @@ h1 {
   margin-top: 0.75rem;
 }
 
-/* On wide screens the lines do not wrap, so the entries show as typed: they
-   are hand-wrapped at 62 columns, which fits the 33rem column at 13px. On
-   narrow screens the lines wrap (see the 52em block) rather than scroll. */
+/* One BibTeX field per line, however long. Each line sits in a <span class="f">
+   that wraps whatever does not fit under the value, with a four-character
+   hanging indent, so an entry reads as typed at any width and nothing scrolls
+   sideways. The <code> is a flex column: the newlines between the spans are
+   whitespace-only text runs, which a flex container does not render, so they
+   stay in the copied text (the Copy button reads the plain text) without
+   adding blank lines. */
 .bib pre {
   margin: 0;
   padding: 0.875rem;
@@ -723,9 +751,20 @@ h1 {
   font-family: var(--font-mono);
   font-size: var(--text-mono);
   line-height: 1.55;
-  white-space: pre;
-  overflow-x: auto;
-  tab-size: 2;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.bib code {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bib .f {
+  min-width: 0;
+  padding-left: 4ch;
+  text-indent: -4ch;
 }
 
 .bib-foot {
@@ -769,6 +808,13 @@ h1 {
 
 .btn:active {
   background: var(--surface);
+}
+
+/* Room for both labels (Copy, Copied), so the button keeps its width while
+   its label confirms the copy. */
+.btn-copy {
+  min-width: 4.5rem;
+  justify-content: center;
 }
 
 .copy-status {
@@ -998,7 +1044,8 @@ h1 {
     color: var(--muted);
   }
 
-  .body {
+  .body,
+  #news > .body {
     max-width: var(--measure);
     padding-left: 0;
   }
@@ -1018,7 +1065,14 @@ h1 {
     border-top: 0;
   }
 
-  /* The first-author dash moves inline, before the title. */
+  /* The first-author dash moves inline, before the title, and the title hangs
+     by the width of the dash and its gap (0.875 + 0.5rem), so that every line
+     of the title starts at the same edge. */
+  .pub--first .pub-title {
+    padding-left: 1.375rem;
+    text-indent: -1.375rem;
+  }
+
   .pub--first .pub-title::before,
   .pub + .pub.pub--first .pub-title::before {
     position: static;
@@ -1027,16 +1081,10 @@ h1 {
     margin-right: 0.5rem;
   }
 
+  /* The date becomes a narrow label beside its item. */
   .news li {
     grid-template-columns: 5rem minmax(0, 1fr);
     column-gap: 0.75rem;
-  }
-
-  /* Nothing scrolls sideways inside a BibTeX box: long lines wrap. The Copy
-     button copies the text, not the wrapped layout. */
-  .bib pre {
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
   }
 }
 
@@ -1070,6 +1118,16 @@ h1 {
 
   .news time {
     padding-top: 0;
+  }
+}
+
+/* Small phones, up to 384px: the BibTeX type drops to 12px (41 columns), so
+   the longest lines that cannot wrap, a 40-character DOI line or a citation
+   key, still fit on one line. */
+@media (max-width: 24em) {
+  .bib pre {
+    padding: 0.75rem;
+    font-size: 0.75rem;
   }
 }
 
@@ -1113,11 +1171,6 @@ h1 {
 
   .bib[hidden] {
     display: block;
-  }
-
-  .bib pre {
-    white-space: pre-wrap;
-    overflow: visible;
   }
 
   .pub,

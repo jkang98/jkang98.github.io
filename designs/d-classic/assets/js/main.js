@@ -96,9 +96,10 @@
   }
 
   /* ---------------------------------------------------------------------
-     Publication entries. Each <li class="pub"> wires itself up: the links
-     are described by the paper title, and the BibTeX button controls the
-     entry's own .bib block. No ids need to be typed by hand.
+     Publication entries. Each <li class="pub"> wires itself up: the links,
+     the BibTeX button and the Copy button in the BibTeX block are described
+     by the paper title, and the BibTeX button controls the entry's own .bib
+     block. No ids need to be typed by hand.
      --------------------------------------------------------------------- */
 
   var pubs = document.querySelectorAll('.pub');
@@ -112,7 +113,7 @@
       if (!title.id) {
         title.id = 'title-' + key;
       }
-      Array.prototype.forEach.call(pub.querySelectorAll('.pub-links a, .pub-links button'), function (control) {
+      Array.prototype.forEach.call(pub.querySelectorAll('.pub-links a, .pub-links button, .bib .btn-copy'), function (control) {
         if (!control.hasAttribute('aria-describedby')) {
           control.setAttribute('aria-describedby', title.id);
         }
@@ -134,9 +135,12 @@
 
   /* ---------------------------------------------------------------------
      Copy buttons. data-copy holds the text to copy (the email address); a
-     button without it copies the <pre> of the BibTeX block it sits in.
-     Feedback goes into the button label and the adjacent live region. If
-     the clipboard is unavailable, the text is selected so Ctrl/Cmd+C works.
+     button without it copies the text of the <pre> in the BibTeX block it
+     sits in. The button label confirms the copy (its width is reserved in
+     style.css, so nothing moves) and the adjacent live region announces it;
+     the region stays visible only when it says more than the label does.
+     If the clipboard is unavailable, the text is selected so Ctrl/Cmd+C
+     works.
      --------------------------------------------------------------------- */
 
   function writeClipboard(text) {
@@ -188,9 +192,10 @@
     var status = button.parentNode.querySelector('[role="status"]');
     var timer = null;
 
-    function report(label, message) {
+    function report(label, message, showMessage) {
       button.textContent = label;
       if (status) {
+        status.classList.toggle('visually-hidden', !showMessage);
         status.textContent = '';
         window.setTimeout(function () {
           status.textContent = message;
@@ -201,6 +206,7 @@
         button.textContent = original;
         if (status) {
           status.textContent = '';
+          status.classList.remove('visually-hidden');
         }
       }, 2500);
     }
@@ -220,11 +226,11 @@
       }
       writeClipboard(text).then(
         function () {
-          report('Copied', 'Copied to the clipboard.');
+          report('Copied', 'Copied to the clipboard.', false);
         },
         function () {
           selectContents(source);
-          report('Select and copy', 'Copying is blocked here; the text is selected, press Ctrl+C or Cmd+C.');
+          report('Select and copy', 'Copying is blocked here; the text is selected, press Ctrl+C or Cmd+C.', true);
         }
       );
     });
