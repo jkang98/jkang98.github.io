@@ -138,7 +138,7 @@ h1, h2, h3, h4 {
   text-wrap: balance;
 }
 
-p { margin: 0; }
+p { margin: 0; text-wrap: pretty; }   /* no one-word last lines where the browser supports it */
 p + p { margin-top: 1rem; }
 
 a {
@@ -258,6 +258,7 @@ button { font: inherit; color: inherit; }
   text-decoration: underline;
   text-decoration-color: transparent;
   text-underline-offset: 0.2em;
+  /* tap target: see the rule after the disclosure controls */
 }
 .site-nav a:hover { text-decoration-color: var(--accent); }
 
@@ -501,7 +502,8 @@ img.portrait { object-fit: cover; }
 @keyframes m-pop-ring { to { opacity: var(--motif-ring); transform: scale(1); } }
 
 /* ---- Publications ---- */
-.intro { max-width: var(--measure); }
+/* the same specificity as .section > .content, so the prose measure wins for the intro */
+.section > .content.intro { max-width: var(--measure); }
 .intro-note {
   margin-top: 0.5rem;
   font-family: var(--font-ui);
@@ -540,6 +542,8 @@ img.portrait { object-fit: cover; }
   margin: 0;
   padding: 0;
   list-style: none;
+  /* .year-group sits outside .content, so the list caps itself in the one-column layout */
+  max-width: var(--column);
 }
 .pub-group > li + li { margin-top: 2rem; }
 
@@ -592,7 +596,7 @@ img.portrait { object-fit: cover; }
   line-height: 1.5;
   max-width: var(--measure-sm);
 }
-.pub-authors .me { font-weight: 600; }
+.pub-authors .me { font-weight: 600; white-space: nowrap; }
 .first-label {
   margin-left: 0.25em;
   color: var(--fg-muted);
@@ -639,8 +643,6 @@ summary {
   display: inline-flex;
   align-items: center;
   gap: 0.4em;
-  margin: 0;
-  padding: 0;
   background: none;
   border: 0;
   cursor: pointer;
@@ -671,6 +673,25 @@ summary::after {
 .bib-toggle[aria-expanded="true"]::after,
 details[open] > summary::after { transform: translateY(0.1em) rotate(-135deg); }
 
+/* Small standalone links and controls get a tap target of at least 24px without moving:
+   the padding enlarges the box and the negative margin takes that height back out of the
+   layout. The inline links become inline-block so that the margin applies. */
+.site-nav a,
+.profiles a,
+.colophon a,
+.pub-links a,
+.bib-toggle,
+summary {
+  padding: 0.2rem 0;
+  margin: -0.2rem 0;
+}
+.site-nav a,
+.profiles a,
+.colophon a { display: inline-block; }
+/* as inline-blocks the nav links are already a 24px line tall; on a phone two rows of them sit
+   24px apart, so a smaller padding keeps each hit area from reaching the other row's text */
+.site-nav a { padding: 0.1rem 0; margin: -0.1rem 0; }
+
 .bib { margin-top: 0.6rem; }
 .bib pre {
   margin: 0;
@@ -681,16 +702,13 @@ details[open] > summary::after { transform: translateY(0.1em) rotate(-135deg); }
   font-size: 0.8125rem;
   line-height: 1.5;
   color: var(--fg);
-  /* Entries are written at 72 columns or less and fit the text column; a narrow screen
-     scrolls the block sideways rather than re-wrapping the hanging indents. */
-  white-space: pre;
-  overflow-x: auto;
+  /* Entries are written at 72 columns or less and fit the text column unwrapped; in a
+     narrower column the lines wrap in place (the Copy button copies the unwrapped text). */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
   tab-size: 2;
 }
 .bib .copy { display: block; margin-top: 0.5rem; }
-@media (min-width: 52rem) {
-  .bib pre { white-space: pre-wrap; overflow-wrap: break-word; }
-}
 
 .authors-all { margin-top: 0.35rem; }
 .authors-all p {
@@ -750,7 +768,7 @@ details[open] > summary::after { transform: translateY(0.1em) rotate(-135deg); }
   color: var(--fg-muted);
   font-variant-numeric: tabular-nums;
 }
-.profiles .id::before { content: " · "; }
+.profiles .id::before { content: "\00a0· "; }
 
 .address {
   margin-top: 1.5rem;
@@ -816,7 +834,6 @@ details[open] > summary::after { transform: translateY(0.1em) rotate(-135deg); }
 @media print {
   .masthead, .skip-link, .btn, .bib-toggle { display: none !important; }
   .bib[hidden] { display: block !important; }
-  .bib pre { white-space: pre-wrap; overflow-wrap: break-word; }
   .section { break-inside: auto; }
   .pub-group > li { break-inside: avoid; }
   a { color: inherit; }

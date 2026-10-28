@@ -76,7 +76,7 @@
     <div class="wrap masthead-row">
       <a class="brand" href="#top">Jingwei Kang</a>
       <nav class="site-nav" aria-label="Sections">
-        <ul>
+        <ul role="list">
           <li><a href="#about">About</a></li>
           <li><a href="#news">News</a></li>
           <li><a href="#research">Research</a></li>
@@ -107,9 +107,9 @@
       </div>
       <div class="content">
         <h1 id="name">Jingwei Kang</h1>
-        <p class="role">PhD candidate ·&nbsp;Information Retrieval Lab (IRLab) ·&nbsp;University of Amsterdam</p>
+        <p class="role">PhD candidate&nbsp;· Information Retrieval Lab (IRLab)&nbsp;· University of Amsterdam</p>
         <p class="lead">I am a PhD candidate at the <a href="https://irlab.science.uva.nl/">Information Retrieval Lab</a> of the University of Amsterdam, supervised by Maarten de Rijke. <span class="nb">I study</span> how people browse carousel interfaces in streaming and recommendation services, and how to model and evaluate that behaviour: click models, eye-tracking studies, carousel-specific evaluation metrics, and offline and <span class="nb">off-policy</span> evaluation.</p>
-        <p>I also work on online and stochastic learning to rank, and I collaborate closely with Harrie Oosterhuis of Radboud University. I am a member of TAIMLab, the Trustworthy AI in Media Lab run by Maastricht University, the University of Amsterdam and the media company RTL, where I work on unbiased and diverse video recommender systems.</p>
+        <p>I also work on online and stochastic learning to rank, and I collaborate closely with Harrie Oosterhuis of Radboud University. I am a member of TAIMLab, the Trustworthy AI in Media Lab run by Maastricht University, the University of Amsterdam and the media company RTL, where I work on unbiased and diverse video recommender&nbsp;systems.</p>
         <p class="hero-links">
           <a href="mailto:j.kang@uva.nl">j.kang@uva.nl</a>
           <a rel="me" href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ">Google Scholar</a>
@@ -125,14 +125,14 @@
     <section class="section" id="news" aria-labelledby="news-title">
       <h2 class="label" id="news-title">News</h2>
       <div class="content">
-        <ul class="news">
+        <ul class="news" role="list">
           <li><time datetime="2026-11">Nov 2026</time><p><a href="#pub-n2dcg">“Revisiting N2DCG”</a> will appear at CIKM 2026 in Rome.</p></li>
-          <li><time datetime="2026-09">Sep 2026</time><p>Presented <a href="#pub-recsys-ds">an overview of my PhD research</a> at the RecSys 2026 Doctoral Symposium in Minneapolis.</p></li>
+          <li><time datetime="2026-09">Sep 2026</time><p>I presented <a href="#pub-recsys-ds">an overview of my PhD research</a> at the RecSys 2026 Doctoral Symposium in&nbsp;Minneapolis.</p></li>
           <li><time datetime="2026-07">Jul 2026</time><p><a href="#pub-eye-tracking">“Following the Eye-Tracking Evidence”</a> was published at SIGIR 2026 in Melbourne.</p></li>
           <li><time datetime="2025-11">Nov 2025</time><p>Our <a href="#pub-federated">dataset paper on federated online learning to rank</a> appeared at CIKM 2025.</p></li>
-          <li><time datetime="2025-07">Jul 2025</time><p>Two papers in July: <a href="#pub-recgaze">RecGaze</a> (SIGIR 2025, resource track) and <a href="#pub-click-models">“Rethinking Click Models”</a> (ICTIR 2025).</p></li>
-          <li><time datetime="2024-07">Jul 2024</time><p><a href="#pub-hessian">Short paper on Hessian estimation</a> for stochastic learning to rank at SIGIR 2024.</p></li>
-          <li><time datetime="2023-09">Sep 2023</time><p>Joined the IRLab at the University of Amsterdam as a PhD candidate.</p></li>
+          <li><time datetime="2025-07">Jul 2025</time><p>Two papers appeared in July: <a href="#pub-recgaze">RecGaze</a> (SIGIR 2025, resource track) and <a href="#pub-click-models">“Rethinking Click Models”</a> (ICTIR 2025).</p></li>
+          <li><time datetime="2024-07">Jul 2024</time><p>My <a href="#pub-hessian">short paper on Hessian estimation</a> for stochastic learning to rank appeared at SIGIR 2024.</p></li>
+          <li><time datetime="2023-09">Sep 2023</time><p>I joined the IRLab at the University of Amsterdam as a PhD candidate.</p></li>
         </ul>
       </div>
     </section>
@@ -205,22 +205,22 @@
         <article class="theme">
           <h3>How people browse carousels</h3>
           <p>Streaming and recommendation services lay out their catalogues as carousels: rows of items that scroll sideways, stacked down the page. With eye tracking we record how people actually look at them. The RecGaze dataset makes such recordings public for the first time, and testing established web-search assumptions against carousel eye-tracking data shows that most of them hold only in part, or fail outright, once the interface is a carousel.</p>
-          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-recgaze">RecGaze</a> (SIGIR ’25) · <a href="#pub-eye-tracking">Following the <span class="nb">Eye-Tracking</span> Evidence</a> (SIGIR ’26)</p>
+          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-recgaze">RecGaze</a> (SIGIR ’25)&nbsp;· <a href="#pub-eye-tracking">Following the <span class="nb">Eye-Tracking</span> Evidence</a> (SIGIR ’26)</p>
         </article>
         <article class="theme">
           <h3>Click models for carousel interfaces</h3>
-          <p>Click models explain how clicks arise from what people see and what they prefer. Instead of sorting them into older taxonomies, I categorise click models by three mathematically grounded design choices that cover single-list, grid and carousel interfaces, probabilistic graphical models and neural models alike, and use those choices to derive new click models for carousels. My PhD programme extends this into a click-model design framework built on the relations between observed variables, together with discrete-choice click models.</p>
-          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-click-models">Rethinking Click Models</a> (ICTIR ’25) · <a href="#pub-recsys-ds">From Click Modeling to Offline and <span class="nb">Off-Policy</span> Evaluation</a> (RecSys ’26)</p>
+          <p>Click models explain how clicks arise from what people see and what they prefer. Instead of sorting them into older taxonomies, I categorise click models by three mathematically grounded design choices. They cover single-list, grid and carousel interfaces, and probabilistic graphical models and neural models alike. From them I derive a new click model for carousels. My PhD programme extends this into a click-model design framework built on the relations between observed variables, together with discrete-choice click models.</p>
+          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-click-models">Rethinking Click Models</a> (ICTIR ’25)&nbsp;· <a href="#pub-recsys-ds">From Click Modeling to Offline and <span class="nb">Off-Policy</span> Evaluation</a> (RecSys ’26)</p>
         </article>
         <article class="theme">
           <h3>Evaluating carousel recommendation</h3>
           <p>N2DCG, the NDCG adaptation for carousels, rests on an ideal ranking and a browsing discount that the eye-tracking evidence does not support, so I reformulate it on empirical grounds. The same line of work leads to carousel-specific offline metrics and to the <span class="nb">off-policy</span> evaluation of carousel recommendation policies from logged interaction data.</p>
-          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-n2dcg">Revisiting N2DCG</a> (CIKM ’26) · <a href="#pub-recsys-ds">From Click Modeling to Offline and <span class="nb">Off-Policy</span> Evaluation</a> (RecSys ’26)</p>
+          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-n2dcg">Revisiting N2DCG</a> (CIKM ’26)&nbsp;· <a href="#pub-recsys-ds">From Click Modeling to Offline and <span class="nb">Off-Policy</span> Evaluation</a> (RecSys ’26)</p>
         </article>
         <article class="theme">
           <h3>Learning to rank</h3>
           <p>Beyond carousels, I work on learning to rank. Estimating the Hessian of ranking objectives makes gradient-boosted decision trees usable for stochastic learning to rank, and a large-scale web-search dataset we built supports research on federated online learning to rank.</p>
-          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-hessian">Estimating the Hessian Matrix of Ranking Objectives</a> (SIGIR ’24) · <a href="#pub-federated">A <span class="nb">Large-Scale</span> Web Search Dataset for Federated Online Learning to Rank</a> (CIKM ’25)</p>
+          <p class="refs"><span class="refs-label">Papers</span> <a href="#pub-hessian">Estimating the Hessian Matrix of Ranking Objectives</a> (SIGIR ’24)&nbsp;· <a href="#pub-federated">A <span class="nb">Large-Scale</span> Web Search Dataset for Federated Online Learning to Rank</a> (CIKM ’25)</p>
         </article>
       </div>
     </section>
@@ -232,16 +232,16 @@
       <h2 class="label" id="publications-title">Publications</h2>
       <div class="content intro">
         <p>Newest first. Each entry links to the arXiv version and, where there is one, the publisher’s DOI, and opens to a BibTeX entry you can copy.</p>
-        <p class="intro-note"><span class="mark" aria-hidden="true"></span>marks papers on which I am the first author. The full list is also on <a rel="me" href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ">Google Scholar</a>, <a rel="me" href="https://orcid.org/0009-0003-9283-4060">ORCID</a> and <a rel="me" href="https://www.semanticscholar.org/author/Jingwei-Kang/2297338062">Semantic Scholar</a>.</p>
+        <p class="intro-note"><span class="mark" aria-hidden="true"></span><span class="visually-hidden">A coloured square </span>marks papers on which I am the first author. Also listed on <a rel="me" href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ">Google Scholar</a>, <a rel="me" href="https://orcid.org/0009-0003-9283-4060">ORCID</a> and <a rel="me" href="https://www.semanticscholar.org/author/Jingwei-Kang/2297338062">Semantic Scholar</a>.</p>
       </div>
 
       <div class="year-group">
       <h3 class="year" id="year-2026">2026</h3>
-      <ul class="pub-group" aria-labelledby="year-2026">
+      <ul class="pub-group" role="list" aria-labelledby="year-2026">
         <li class="pub first-author" id="pub-recsys-ds">
           <h4 class="pub-title" id="t-recsys-ds"><span class="mark" aria-hidden="true"></span>From Click Modeling to Offline and <span class="nb">Off-Policy</span> Evaluation in Carousel Recommendation</h4>
-          <p class="pub-authors"><span class="me">Jingwei Kang</span> <span class="first-label">First author</span></p>
-          <p class="pub-venue"><span class="venue">RecSys ’26</span> · 20th ACM Conference on Recommender Systems, Doctoral Symposium (single-author PhD research overview) · Minneapolis, September 2026 · pp. 1932–1938</p>
+          <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span> <span class="first-label" aria-hidden="true">First author</span></p>
+          <p class="pub-venue"><span class="venue">RecSys ’26</span>&nbsp;· 20th ACM Conference on Recommender Systems, Doctoral Symposium (single-author PhD research overview)&nbsp;· Minneapolis, September&nbsp;2026&nbsp;· <span class="nb">pp.&nbsp;1932–1938</span></p>
           <p class="pub-summary">Lays out the PhD programme: a click-model design framework built on relations between observed variables, discrete-choice click models, carousel-specific offline metrics, and off-policy evaluation of carousel recommendation policies from logged data.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2608.22022" aria-describedby="t-recsys-ds">arXiv:2608.22022</a>
@@ -267,8 +267,8 @@
 
         <li class="pub first-author" id="pub-n2dcg">
           <h4 class="pub-title" id="t-n2dcg"><span class="mark" aria-hidden="true"></span>Revisiting N2DCG: An Empirically Grounded Reformulation of Carousel Recommendation Evaluation</h4>
-          <p class="pub-authors"><span class="me">Jingwei Kang</span>, Santiago de Leon-Martinez, Maarten de Rijke, Harrie Oosterhuis <span class="first-label">First author</span></p>
-          <p class="pub-venue"><span class="venue">CIKM ’26</span> · 35th ACM International Conference on Information and Knowledge Management · Rome, 7–11 November 2026 · to appear</p>
+          <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Santiago de Leon-Martinez, Maarten de Rijke, Harrie Oosterhuis <span class="first-label" aria-hidden="true">First author</span></p>
+          <p class="pub-venue"><span class="venue">CIKM ’26</span>&nbsp;· 35th ACM International Conference on Information and Knowledge Management&nbsp;· Rome, <span class="nb">7–11</span> November&nbsp;2026&nbsp;· to appear</p>
           <p class="pub-summary">Shows that N2DCG, the NDCG adaptation for carousels, uses an ideal ranking that violates carousel constraints and a discount that does not match observed browsing; proposes a reformulated metric grounded in eye-tracking data.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2608.21877" aria-describedby="t-n2dcg">arXiv:2608.21877</a>
@@ -294,8 +294,8 @@
 
         <li class="pub first-author" id="pub-eye-tracking">
           <h4 class="pub-title" id="t-eye-tracking"><span class="mark" aria-hidden="true"></span>Following the <span class="nb">Eye-Tracking</span> Evidence: Established <span class="nb">Web-Search</span> Assumptions Fail in Carousel Interfaces</h4>
-          <p class="pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Harrie Oosterhuis <span class="first-label">First author</span></p>
-          <p class="pub-venue"><span class="venue">SIGIR ’26</span> · 49th International ACM SIGIR Conference on Research and Development in Information Retrieval · Melbourne, July 2026 · pp. 734–744</p>
+          <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Harrie Oosterhuis <span class="first-label" aria-hidden="true">First author</span></p>
+          <p class="pub-venue"><span class="venue">SIGIR ’26</span>&nbsp;· 49th International ACM SIGIR Conference on Research and Development in Information Retrieval&nbsp;· Melbourne, July&nbsp;2026&nbsp;· <span class="nb">pp.&nbsp;734–744</span></p>
           <p class="pub-summary">Tests four web-search behavioural assumptions on carousel eye-tracking data: the F-pattern holds only vertically, users follow an L-shaped pattern after clicking, the examination hypothesis fails, and users skip carousel headings.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2604.21019" aria-describedby="t-eye-tracking">arXiv:2604.21019</a>
@@ -324,11 +324,11 @@
 
       <div class="year-group">
       <h3 class="year" id="year-2025">2025</h3>
-      <ul class="pub-group" aria-labelledby="year-2025">
+      <ul class="pub-group" role="list" aria-labelledby="year-2025">
         <li class="pub" id="pub-federated">
           <h4 class="pub-title" id="t-federated">A <span class="nb">Large-Scale</span> Web Search Dataset for Federated Online Learning to Rank</h4>
           <p class="pub-authors">Marcel Gregoriadis, <span class="me">Jingwei Kang</span>, Johan Pouwelse</p>
-          <p class="pub-venue"><span class="venue">CIKM ’25</span> · 34th ACM International Conference on Information and Knowledge Management · November 2025 · pp. 6387–6391</p>
+          <p class="pub-venue"><span class="venue">CIKM ’25</span>&nbsp;· 34th ACM International Conference on Information and Knowledge Management&nbsp;· November&nbsp;2025&nbsp;· <span class="nb">pp.&nbsp;6387–6391</span></p>
           <p class="pub-summary">A large-scale web-search dataset built for studying federated online learning to rank.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2508.12353" aria-describedby="t-federated">arXiv:2508.12353</a>
@@ -354,8 +354,8 @@
 
         <li class="pub first-author" id="pub-click-models">
           <h4 class="pub-title" id="t-click-models"><span class="mark" aria-hidden="true"></span>Rethinking Click Models in Light of Carousel Interfaces: <span class="nb">Theory-Based</span> Categorization and Design of Click Models</h4>
-          <p class="pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Santiago de Leon-Martinez, Harrie Oosterhuis <span class="first-label">First author</span></p>
-          <p class="pub-venue"><span class="venue">ICTIR ’25</span> · International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval · July 2025 · pp. 44–55</p>
+          <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Santiago de Leon-Martinez, Harrie Oosterhuis <span class="first-label" aria-hidden="true">First author</span></p>
+          <p class="pub-venue"><span class="venue">ICTIR ’25</span>&nbsp;· International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval&nbsp;· July&nbsp;2025&nbsp;· <span class="nb">pp.&nbsp;44–55</span></p>
           <p class="pub-summary">Replaces outdated click-model taxonomies with three mathematically grounded design choices that cover single-list, grid and carousel click models (PGMs and neural), and derives a new carousel click model from them.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2506.18548" aria-describedby="t-click-models">arXiv:2506.18548</a>
@@ -383,7 +383,7 @@
         <li class="pub" id="pub-recgaze">
           <h4 class="pub-title" id="t-recgaze">RecGaze: The First Eye Tracking and User Interaction Dataset for Carousel Interfaces</h4>
           <p class="pub-authors">Santiago de Leon-Martinez, <span class="me">Jingwei Kang</span>, Róbert Móro, Maarten de Rijke, Branislav Kveton, Harrie Oosterhuis, Maria Bielikova</p>
-          <p class="pub-venue"><span class="venue">SIGIR ’25</span> · 48th International ACM SIGIR Conference on Research and Development in Information Retrieval, Resource &amp; Reproducibility track · July 2025 · pp. 3702–3711</p>
+          <p class="pub-venue"><span class="venue">SIGIR ’25</span>&nbsp;· 48th International ACM SIGIR Conference on Research and Development in Information Retrieval, Resource &amp; Reproducibility track&nbsp;· July&nbsp;2025&nbsp;· <span class="nb">pp.&nbsp;3702–3711</span></p>
           <p class="pub-summary">The first public carousel dataset combining eye tracking, clicks and cursor movements (87 users, 3,477 interactions), revealing a golden-triangle / F-shaped browsing pattern.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2504.20792" aria-describedby="t-recgaze">arXiv:2504.20792</a>
@@ -417,7 +417,7 @@
             <summary>All 31 authors</summary>
             <p>Maarten de Rijke, Bart van den Hurk, Flora Salim, Alaa Al Khourdajie, Nan Bai, Renato Calzone, Declan Curran, Getnet Demil, Lesley Frew, Noah Gießing, Mukesh Kumar Gupta, Maria Heuss, Sanaa Hobeichi, David Huard, <span class="me">Jingwei Kang</span>, Ana Lucic, Tanwi Mallick, Shruti Nath, Andrew Okem, Barbara Pernici, Thilina Rajapakse, Hira Saleem, Harry Scells, Nicole Schneider, Damiano Spina, Yuanyuan Tian, Edmund Totin, Andrew Trotman, Ramamurthy Valavandan, Dereje Workneh, Yangxinyu Xie.</p>
           </details>
-          <p class="pub-venue"><span class="venue">arXiv</span> · Report on the MANILA24 workshop (SIGIR 2024 Workshop on Information Retrieval and Climate Impact) · preprint, April 2025</p>
+          <p class="pub-venue"><span class="venue">arXiv</span>&nbsp;· Report on the MANILA24 workshop (SIGIR 2024 Workshop on Information Retrieval and Climate Impact)&nbsp;· preprint, April&nbsp;2025</p>
           <p class="pub-summary">Workshop report on how information retrieval can support climate-impact research.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2504.01162" aria-describedby="t-climate">arXiv:2504.01162</a>
@@ -455,12 +455,12 @@
 
       <div class="year-group">
       <h3 class="year" id="year-2024">2024</h3>
-      <ul class="pub-group" aria-labelledby="year-2024">
+      <ul class="pub-group" role="list" aria-labelledby="year-2024">
         <li class="pub first-author" id="pub-hessian">
           <h4 class="pub-title" id="t-hessian"><span class="mark" aria-hidden="true"></span>Estimating the Hessian Matrix of Ranking Objectives for Stochastic Learning to Rank with Gradient Boosted Trees</h4>
-          <p class="pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Harrie Oosterhuis <span class="first-label">First author</span></p>
-          <p class="pub-venue"><span class="venue">SIGIR ’24</span> · 47th International ACM SIGIR Conference on Research and Development in Information Retrieval, short paper · July 2024 · pp. 2390–2394</p>
-          <p class="pub-summary">Makes gradient-boosted decision trees usable for stochastic learning to rank by estimating the Hessian of ranking objectives.</p>
+          <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Harrie Oosterhuis <span class="first-label" aria-hidden="true">First author</span></p>
+          <p class="pub-venue"><span class="venue">SIGIR ’24</span>&nbsp;· 47th International ACM SIGIR Conference on Research and Development in Information Retrieval, short paper&nbsp;· July&nbsp;2024&nbsp;· <span class="nb">pp.&nbsp;2390–2394</span></p>
+          <p class="pub-summary">Makes gradient-boosted decision trees usable for stochastic learning to rank by estimating the Hessian of ranking&nbsp;objectives.</p>
           <p class="pub-links">
             <a href="https://arxiv.org/abs/2404.12190" aria-describedby="t-hessian">arXiv:2404.12190</a>
             <a href="https://doi.org/10.1145/3626772.3657918" aria-describedby="t-hessian">doi:10.1145/3626772.3657918</a>
@@ -493,11 +493,11 @@
     <section class="section" id="education" aria-labelledby="education-title">
       <h2 class="label" id="education-title">Education</h2>
       <div class="content">
-        <ul class="edu">
+        <ul class="edu" role="list">
           <li>
             <h3>PhD candidate</h3>
             <p>Information Retrieval Lab (IRLab), University of Amsterdam</p>
-            <p class="edu-note">Since September 2023 · supervised by Maarten de Rijke</p>
+            <p class="edu-note">Since September 2023&nbsp;· supervised by Maarten de Rijke</p>
           </li>
           <li>
             <h3>MSc in Data Science</h3>
@@ -520,7 +520,7 @@
           <a class="email" id="email" href="mailto:j.kang@uva.nl">j.kang@uva.nl</a>
           <button type="button" class="btn copy" data-copy="j.kang@uva.nl" data-select="email" aria-label="Copy email address">Copy</button>
         </p>
-        <ul class="profiles">
+        <ul class="profiles" role="list">
           <li><a rel="me" href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ">Google Scholar</a></li>
           <li><a rel="me" href="https://orcid.org/0009-0003-9283-4060">ORCID</a><span class="id">0009-0003-9283-4060</span></li>
           <li><a rel="me" href="https://openreview.net/profile?id=~Jingwei_Kang1">OpenReview</a></li>
@@ -539,7 +539,7 @@
   </main>
 
   <footer class="wrap colophon">
-    <p>Jingwei Kang · Information Retrieval Lab, University of Amsterdam</p>
+    <p>Jingwei Kang&nbsp;· Information Retrieval Lab, University of Amsterdam</p>
     <p><a href="#top">Back to top</a></p>
     <p class="colophon-note">Static page without analytics or cookies; the theme choice stays in your browser.</p>
   </footer>

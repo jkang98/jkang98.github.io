@@ -11,6 +11,7 @@ assets/js/main.js                 theme toggle, BibTeX disclosures, copy buttons
 assets/img/favicon.svg            browser-tab icon
 assets/img/portrait-placeholder.svg   monogram shown on the portrait plate until a photo exists
 .nojekyll                         tells GitHub Pages to serve the files as they are
+.htmlvalidate.json                settings for the HTML check (see "Checking the HTML")
 ```
 
 All URLs are relative (`assets/css/style.css`, never `/assets/...`), so the site works at
@@ -22,7 +23,7 @@ the toggle and copy buttons are hidden.
 
 ```
 python3 -m http.server 8000        # then open http://localhost:8000/
-npx -y html-validate index.html    # should report no errors
+npx -y html-validate index.html    # should report no errors (see "Checking the HTML")
 ```
 
 Check a change at a narrow width (the browser's device toolbar at 390 px: nothing may scroll
@@ -44,7 +45,7 @@ Everything visible is in `index.html`, in page order. Each section starts with a
   The drawing in the margin is an inline SVG inside `<div class="plate">`; delete that block if
   you do not want it.
 - **Education** (`<ul class="edu">`): no years are shown because none were verified; add them to
-  the second line of an entry when you want them (`Radboud University, Nijmegen, 2021–2023`).
+  the second line of an entry when you want them (`Radboud University, Nijmegen, YYYY–YYYY`).
 - **Contact** (`<section id="contact">`): the email address appears three times in the file: the
   `About` links, the `Contact` row (`href` and visible text, plus the `data-copy` attribute of the
   Copy button) and the JSON-LD block. Change all of them.
@@ -67,8 +68,8 @@ Template, with the parts to edit in capitals:
 ```html
 <li class="pub first-author" id="pub-KEY">
   <h4 class="pub-title" id="t-KEY"><span class="mark" aria-hidden="true"></span>TITLE</h4>
-  <p class="pub-authors"><span class="me">Jingwei Kang</span>, CO-AUTHOR ONE, CO-AUTHOR TWO <span class="first-label">First author</span></p>
-  <p class="pub-venue"><span class="venue">VENUE ’YY</span> · FULL CONFERENCE NAME · CITY, MONTH YEAR · pp. FIRST–LAST</p>
+  <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, CO-AUTHOR ONE, CO-AUTHOR TWO <span class="first-label" aria-hidden="true">First author</span></p>
+  <p class="pub-venue"><span class="venue">VENUE ’YY</span>&nbsp;· FULL CONFERENCE NAME&nbsp;· CITY, MONTH&nbsp;YEAR&nbsp;· <span class="nb">pp.&nbsp;FIRST–LAST</span></p>
   <p class="pub-summary">ONE SENTENCE ON WHAT THE PAPER SHOWS.</p>
   <p class="pub-links">
     <a href="https://arxiv.org/abs/XXXX.XXXXX" aria-describedby="t-KEY">arXiv:XXXX.XXXXX</a>
@@ -93,20 +94,42 @@ Template, with the parts to edit in capitals:
 
 Rules of thumb:
 
-- Not first author: drop the `first-author` class, the `<span class="mark">` and the
-  `<span class="first-label">`. Keep `<span class="me">` around your own name in every entry.
-- Accepted but not yet published: end the venue line with `· to appear`, leave `pages` out and
-  add `note = {To appear}`.
+- Not first author: drop the `first-author` class, the `<span class="mark">`, the hidden
+  `(first author)` span inside your name and the `<span class="first-label">`. Keep
+  `<span class="me">` around your own name in every entry: it is set in bold and never breaks.
+- The dots in the venue line are written `&nbsp;·` (no-break space before the dot), so a line
+  that wraps ends with the dot instead of starting with it. `<span class="nb">` keeps a page
+  range or a date range such as `7–11` on one line, and a month and its year are joined the
+  same way (`July&nbsp;2026`).
+- Accepted but not yet published: end the venue line with `&nbsp;· to appear`, leave `pages`
+  out and add `note = {To appear}`.
 - Preprint without a DOI: leave the DOI link out and use `@misc` with `eprint = {XXXX.XXXXX}` and
   `archivePrefix = {arXiv}`, as in the climate-impact entry.
 - The BibTeX can be pasted from the ACM Digital Library export. Keep every line at 72
   characters or fewer, breaking long fields onto indented continuation lines as the existing
-  entries do (on a phone the block scrolls sideways instead of re-wrapping). Escape `&` as
-  `&amp;` and `<` as `&lt;`, and keep the `<pre>` tag at the start of its line: everything
-  inside it is copied verbatim.
+  entries do: the block then fits the text column without wrapping (on a phone the lines wrap
+  in place, and the Copy button still copies them unwrapped). Escape `&` as `&amp;` and `<`
+  as `&lt;`, and keep the `<pre>` tag at the start of its line: everything inside it is
+  copied verbatim.
 - Add a dated line to News when the paper is worth announcing, and a link in the matching
   Research theme's `Papers` line.
-- Run `npx -y html-validate index.html` afterwards: it catches a duplicated or missing id.
+- Run `npx -y html-validate index.html` afterwards: it reports a duplicated id and a link,
+  button or list that points at an id that does not exist (`data-copy-target` is not checked:
+  try the Copy button once).
+
+## Checking the HTML
+
+`npx -y html-validate index.html` reads `.htmlvalidate.json`, which starts from the
+`html-validate:recommended` preset and changes two rules:
+
+- `no-missing-references` is on, so an `aria-controls`, `aria-describedby` or
+  `aria-labelledby` that names an id that does not exist is an error. Without it a mistyped
+  id ships silently: the BibTeX button of that entry would simply do nothing.
+- `no-redundant-role` is off, because every `<ul>` on the page carries `role="list"` on
+  purpose. Safari and VoiceOver stop announcing a list, and the position of each item in it,
+  once its bullets are removed with `list-style: none`; the explicit role brings that back.
+  The rule would flag the attribute as redundant, which it is only in other browsers. Keep
+  `role="list"` when you copy a list.
 
 ## Replacing the monogram with a photograph
 
