@@ -63,9 +63,8 @@ like `<!-- ===== News … ===== -->`, so search for `=====` to jump between them
 - **Research**: an intro paragraph, then pairs of `<h3 class="side">` (theme name) and
   `<div class="body theme">` (one paragraph plus a `Papers` line that links to `#pub-KEY` ids).
 - **Publications**: see *Add a paper*.
-- **Education** (`<ul class="edu">`): the MSc and BSc entries carry no years because none were
-  known when the site was built. Add them to the `edu-detail` line when you want them shown,
-  e.g. `Radboud University, Nijmegen, the Netherlands, YYYY–YYYY`.
+- **Education** (`<ul class="edu">`): one `<li>` per degree, newest first; the years sit at the
+  end of each `edu-detail` line (BSc 2016–2020, MSc 2021–2023).
 - **Contact**: the email address, the Copy button, the profile links, a commented-out CV link.
   The address appears **seven times** in `index.html`: the hero quick link and the Contact link
   each carry it in `href="mailto:…"` and in the link text, the Copy button has it in its
@@ -250,5 +249,4 @@ a panel of its own over the field.
 
 ## Known gaps
 
-- Education entries have no years.
 - No CV link yet (see above).
