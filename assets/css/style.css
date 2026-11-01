@@ -938,13 +938,13 @@ h1 {
   margin: 0;
 }
 
-/* The news window: the first three items show, the rest scroll inside it.
-   main.js sets --news-window to the bottom edge of the third item once the
+/* The news window: the first five items show, the rest scroll inside it.
+   main.js sets --news-window to the bottom edge of the fifth item once the
    fonts have loaded and keeps the bottom fade while there is more below;
-   the fallback height is about three two-line items. */
+   the fallback height is about five one-line items. */
 .news-window {
   position: relative;
-  max-height: var(--news-window, 14.5rem);
+  max-height: var(--news-window, 17rem);
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;

@@ -237,9 +237,9 @@
   });
 })();
 
-/* The news window: size it to the first three items (measured after the
+/* The news window: size it to the first five items (measured after the
    fonts load, and again on resize) and fade its bottom edge while there is
-   more to scroll. With fewer than four items it is not limited at all. */
+   more to scroll. With fewer than six items it is not limited at all. */
 (function () {
   var win = document.querySelector('.news-window');
   if (!win) { return; }
@@ -251,15 +251,15 @@
   }
 
   function size() {
-    if (items.length < 4) {
+    if (items.length < 6) {
       win.style.removeProperty('--news-window');
       win.classList.remove('has-more');
       return;
     }
-    var third = items[2];
-    // the third item plus the strip the bottom fade covers (2.25rem, see .news-window.has-more)
+    var fifth = items[4];
+    // the fifth item plus the strip the bottom fade covers (2.25rem, see .news-window.has-more)
     var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    win.style.setProperty('--news-window', (third.offsetTop + third.offsetHeight - items[0].offsetTop + 2.25 * rem) + 'px');
+    win.style.setProperty('--news-window', (fifth.offsetTop + fifth.offsetHeight - items[0].offsetTop + 2.25 * rem) + 'px');
     update();
   }
 
