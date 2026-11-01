@@ -215,8 +215,8 @@ print stylesheet drops it.
   the dark field; if you make the field darker or the glows brighter, re-check the contrast.
 - **To slow or stop the flow.** Every blob tours the whole field on its own closed route (the
   `@keyframes tour-…` rules: translations from its resting place through the corners and the
-  centre) and its own period (`--k` times the base `--field-flow`, 60 s). `--field-flow: 120s`
-  halves the pace, `0s` stops it. It is already off for readers who prefer reduced motion, and on
+  centre) and its own period (`--k` times the base `--field-flow`, 22 s, paced like midem's own loop).
+  `--field-flow: 44s` halves the pace, `0s` stops it. It is already off for readers who prefer reduced motion, and on
   phones only the three blobs above the highlight layer move. To keep the page still in every
   browser, remove the `field__mover` animations (or the mover wrappers) from the markup.
 - **The ground copy.** `body` carries a flat copy of the field (same tokens: the orange left

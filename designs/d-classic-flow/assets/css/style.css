@@ -38,13 +38,13 @@
   --field-khaki: #C3CA8B;                /* bottom right, under the yellow highlight */
   --field-yellow: rgb(228 247 38 / 50%);     /* acid yellow, overlay layer: the pale zone and the yellow corner */
   --field-peri-hi: rgb(164 154 241 / 55%);   /* periwinkle, overlay layer: the pink-lilac top right */
-  --field-blur: clamp(56px, 13vmin, 120px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
+  --field-blur: clamp(72px, 16vmin, 170px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
   --field-wash: rgb(255 255 255 / 12%);  /* the light wash behind the reading column */
   --field-wash-span: 24.5rem;            /* half-width of the full-strength wash (the column is 24rem wide, plus a little) */
   --field-wash-feather: 8rem;            /* the wash fades out over this width on each side */
   --field-grain: var(--grain-light);
   --field-grain-opacity: 1;              /* multiplier on the grain tile's own strength */
-  --field-flow: 60s;                     /* base period of one tour of the field (each blob uses a multiple of it); 0s stops it */
+  --field-flow: 22s;                     /* base period of one tour of the field (each blob uses a multiple of it), paced like midem's loop; 0s stops it */
   /* The grain tiles: 256px of SVG fractal noise (seamless), mapped to white (light theme) or
      mid-grey (dark theme) specks. The last row of the colour matrix is the alpha ramp
      (alpha = a * noise + b): light 1.52 / -0.8 gives a 6/255 amplitude, as measured on the
@@ -396,48 +396,48 @@ button {
   --c: var(--field-orange);
   --x: -3vw;
   --y: 45vh;
-  --rx: 23vw;
-  --ry: 70vh;
+  --rx: 30vw;
+  --ry: 80vh;
 }
 
 .field__blob--orange-top {
   --c: var(--field-orange);
   --x: 39vw;
   --y: -4vh;
-  --rx: 22vmin;
-  --ry: 22vmin;
+  --rx: 34vmin;
+  --ry: 34vmin;
 }
 
 .field__blob--orange-bottom {
   --c: var(--field-orange);
   --x: 17vw;
   --y: 103vh;
-  --rx: 29vw;
-  --ry: 20vh;
+  --rx: 36vw;
+  --ry: 30vh;
 }
 
 .field__blob--khaki {
   --c: var(--field-khaki);
   --x: 86vw;
   --y: 95vh;
-  --rx: 16vw;
-  --ry: 26vh;
+  --rx: 26vw;
+  --ry: 34vh;
 }
 
 .field__blob--peri-right {
   --c: var(--field-peri);
   --x: 83vw;
   --y: 70vh;
-  --rx: max(28vmin, 24vw);
-  --ry: max(28vmin, 24vw);
+  --rx: max(38vmin, 34vw);
+  --ry: max(38vmin, 34vw);
 }
 
 .field__blob--peri {
   --c: var(--field-peri);
   --x: 26vw;
   --y: 48vh;
-  --rx: 22vmin;
-  --ry: 22vmin;
+  --rx: 36vmin;
+  --ry: 36vmin;
 }
 
 /* Overlay layer */
@@ -455,8 +455,8 @@ button {
   --c: var(--field-yellow);
   --x: 84vw;
   --y: 82vh;
-  --rx: 26vw;
-  --ry: 55vh;
+  --rx: 34vw;
+  --ry: 70vh;
   --rot: -22deg;
 }
 
@@ -464,8 +464,8 @@ button {
   --c: var(--field-peri-hi);
   --x: 62vw;
   --y: 6vh;
-  --rx: 50vw;
-  --ry: 24vh;
+  --rx: 60vw;
+  --ry: 34vh;
   --rot: 8deg;
 }
 
@@ -576,14 +576,14 @@ button {
 }
 
 /* Per-blob route, period factor (times --field-flow) and phase. */
-.field__mover--orange-left { --tour: tour-orange-left; --k: 0.9; --phase: -12s; }
-.field__mover--orange-top { --tour: tour-orange-top; --k: 1.03; --phase: -31s; }
-.field__mover--orange-bottom { --tour: tour-orange-bottom; --k: 1.17; --phase: -50s; --ks: 0.32; --pb: -6s; }
-.field__mover--khaki { --tour: tour-khaki; --k: 0.97; --phase: -20s; --ks: 0.27; --pb: -3s; }
-.field__mover--peri-right { --tour: tour-peri-right; --k: 1.1; --phase: -42s; }
-.field__mover--peri { --tour: tour-peri; --k: 0.83; --phase: -7s; --ks: 0.24; --pb: -10s; }
-.field__mover--yellow-hi { --tour: tour-yellow-hi; --k: 1.23; --phase: -26s; }
-.field__mover--peri-hi { --tour: tour-peri-hi; --k: 1; --phase: -15s; }
+.field__mover--orange-left { --tour: tour-orange-left; --k: 0.9; --phase: -4s; }
+.field__mover--orange-top { --tour: tour-orange-top; --k: 1.03; --phase: -11s; }
+.field__mover--orange-bottom { --tour: tour-orange-bottom; --k: 1.17; --phase: -18s; --ks: 0.32; --pb: -6s; }
+.field__mover--khaki { --tour: tour-khaki; --k: 0.97; --phase: -7s; --ks: 0.27; --pb: -3s; }
+.field__mover--peri-right { --tour: tour-peri-right; --k: 1.1; --phase: -15s; }
+.field__mover--peri { --tour: tour-peri; --k: 0.83; --phase: -3s; --ks: 0.24; --pb: -10s; }
+.field__mover--yellow-hi { --tour: tour-yellow-hi; --k: 1.23; --phase: -10s; }
+.field__mover--peri-hi { --tour: tour-peri-hi; --k: 1; --phase: -6s; }
 
 /* Phones: only the three blobs above the overlay keep touring, so the
    blended layer is composited once and the battery is spared. */
