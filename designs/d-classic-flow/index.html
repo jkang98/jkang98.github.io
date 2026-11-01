@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jingwei Kang</title>
+  <!-- ===== Head: the description below is what search engines and link previews show. Keep it in step with the bio. ===== -->
+  <meta name="description" content="Jingwei Kang is a PhD candidate at the Information Retrieval Lab (IRLab) of the University of Amsterdam, working on carousel interfaces, click models and evaluation for recommender systems.">
+  <meta property="og:title" content="Jingwei Kang">
+  <meta property="og:description" content="PhD candidate at the Information Retrieval Lab (IRLab), University of Amsterdam. Carousel interfaces, click models, eye-tracking studies and evaluation for recommender systems.">
+  <meta property="og:type" content="profile">
+  <meta property="profile:first_name" content="Jingwei">
+  <meta property="profile:last_name" content="Kang">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="#D290F7">
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1B1B1B">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+  <script>
+    // Apply a saved theme before the first paint and mark that scripts run (the script
+    // tag at the end of <body> puts the no-js class back if main.js fails to load).
+    // It sits above the stylesheets so that it never waits for the network.
+    (function () {
+      var root = document.documentElement;
+      root.classList.remove('no-js');
+      try {
+        var theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === 'light') {
+          root.setAttribute('data-theme', theme);
+        }
+      } catch (error) {
+        // Storage can be unavailable (private mode, blocked cookies); the system preference applies.
+      }
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ===== Fonts: the Google Fonts stylesheet is requested as a print sheet and switched to all media once it has arrived, so the page is painted in the fallback fonts straight away (display=swap) and never waits for fonts.googleapis.com, even when that server is slow or unreachable. The <noscript> copy loads it the ordinary way without JavaScript. Keep the two URLs identical. ===== -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;family=Source+Sans+3:ital,wght@0,400..600;1,400..600&amp;display=swap" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&amp;family=Source+Sans+3:ital,wght@0,400..600;1,400..600&amp;display=swap"></noscript>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- ===== Structured data: keep the sameAs list identical to the personal profile links in the Contact section (Scholar, ORCID, OpenReview, Semantic Scholar, LinkedIn, GitHub); the IRLab group link stays out. ===== -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jingwei Kang",
+      "jobTitle": "PhD candidate",
+      "email": "mailto:j.kang@uva.nl",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "University of Amsterdam",
+        "department": {
+          "@type": "Organization",
+          "name": "Information Retrieval Lab (IRLab)",
+          "url": "https://irlab.science.uva.nl/"
+        }
+      },
+      "alumniOf": [
+        { "@type": "CollegeOrUniversity", "name": "Radboud University" },
+        { "@type": "CollegeOrUniversity", "name": "Central South University" }
+      ],
+      "knowsAbout": ["Recommender systems", "User modeling"],
+      "sameAs": [
+        "https://scholar.google.com/citations?user=pT_2QWUAAAAJ",
+        "https://orcid.org/0009-0003-9283-4060",
+        "https://openreview.net/profile?id=~Jingwei_Kang1",
+        "https://www.semanticscholar.org/author/Jingwei-Kang/2297338062",
+        "https://www.linkedin.com/in/jingwei-kang-918597163/",
+        "https://github.com/jkang98"
+      ]
+    }
+  </script>
+</head>
+<body id="top">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===== The field: the page background, fixed behind everything and purely decorative. Its colours, placement, grain and drift live in style.css under "The field"; the order of the blobs here is their paint order (later ones on top): the three drifting blobs come after the overlay so that the blended layer never has to be redrawn. ===== -->
+  <div class="field" aria-hidden="true">
+    <div class="field__mover field__mover--orange-top"><div class="field__mover-y"><div class="field__blob field__blob--orange-top"></div></div></div>
+    <div class="field__mover field__mover--khaki"><div class="field__mover-y"><div class="field__blob field__blob--khaki field__blob--breathe"></div></div></div>
+    <div class="field__mover field__mover--peri-right"><div class="field__mover-y"><div class="field__blob field__blob--peri-right"></div></div></div>
+    <div class="field__overlay">
+      <div class="field__mover field__mover--yellow-hi"><div class="field__mover-y"><div class="field__blob field__blob--yellow-hi"></div></div></div>
+      <div class="field__mover field__mover--peri-hi"><div class="field__mover-y"><div class="field__blob field__blob--peri-hi"></div></div></div>
+    </div>
+    <div class="field__mover field__mover--orange-left"><div class="field__mover-y"><div class="field__blob field__blob--orange-left"></div></div></div>
+    <div class="field__mover field__mover--orange-bottom"><div class="field__mover-y"><div class="field__blob field__blob--orange-bottom field__blob--breathe"></div></div></div>
+    <div class="field__mover field__mover--peri"><div class="field__mover-y"><div class="field__blob field__blob--peri field__blob--breathe"></div></div></div>
+    <div class="field__wash"></div>
+    <div class="field__grain"></div>
+  </div>
+
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="#top">Jingwei Kang</a>
+      <nav class="site-nav" aria-label="Sections">
+        <ul role="list">
+          <li><a href="#about">About</a></li>
+          <li><a href="#news">News</a></li>
+          <li><a href="#research">Research</a></li>
+          <li><a href="#publications">Publications</a></li>
+          <li><a href="#education">Education</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" type="button" aria-pressed="false" title="Dark theme">
+        <span class="visually-hidden">Dark theme</span>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5a8.5 8.5 0 1 0 10.7 10.7z"/>
+        </svg>
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M5.3 5.3l1.8 1.8M16.9 16.9l1.8 1.8M5.3 18.7l1.8-1.8M16.9 7.1l1.8-1.8"/>
+        </svg>
+      </button>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <!-- ===== Intro: name, role line, portrait and bio. The monogram is an inline SVG (the letters are Newsreader outlines, so no font needs to load) so that it follows the theme toggle; to use a photo, replace the whole <svg class="portrait"> with an <img> (see README.md). ===== -->
+      <section class="hero" id="about" aria-labelledby="name">
+        <div class="hero-head">
+          <h1 id="name">Jingwei Kang</h1>
+          <p class="role">PhD candidate&nbsp;· Information Retrieval Lab (IRLab), University of Amsterdam</p>
+        </div>
+        <svg class="portrait" viewBox="0 0 320 400" role="img" aria-labelledby="portrait-title" focusable="false">
+          <title id="portrait-title">Monogram with the initials J K, standing in for a portrait of Jingwei Kang</title>
+          <path d="M131.0 167.4L131.1 213.0Q131.1 218.8 129.1 223.6Q127.1 228.3 123.4 231.6Q119.7 235.0 114.8 236.7Q109.8 238.4 103.9 238.4L103.9 238.4Q100.1 238.4 97.5 237.5Q94.9 236.7 93.6 235.0Q92.2 233.4 92.2 231.2L92.2 231.2Q92.2 229.0 93.6 227.4Q94.9 225.9 97.4 225.9L97.4 225.9Q98.5 225.9 99.7 226.8Q101.0 227.6 102.5 228.8Q103.9 229.9 105.6 230.8Q107.3 231.7 109.3 231.7L109.3 231.7Q113.5 231.7 116.2 228.6Q118.8 225.5 118.8 217.8L118.8 217.8L118.8 167.4L109.7 164.5L109.7 161.6L140.0 161.6L140.0 164.5L131.0 167.4ZM184.8 192.9L219.3 231.3L227.8 234.4L227.8 237.3L197.0 237.3L197.0 234.7L203.8 231.9L176.6 201.3L164.8 201.3L164.8 194.9L177.6 194.9L204.6 167.1L195.9 164.5L195.9 161.6L221.8 161.6L221.8 164.5L213.2 167.3L182.1 198.1L184.8 192.9ZM178.0 164.5L169.0 167.4L169.0 231.4L177.9 234.4L177.9 237.3L147.8 237.3L147.8 234.4L156.8 231.4L156.8 167.4L147.8 164.5L147.8 161.6L178.0 161.6L178.0 164.5Z"/>
+        </svg>
+        <div class="hero-body">
+          <div class="bio">
+            <p>I study how people browse carousel interfaces in streaming and recommender systems, and how to model and evaluate that behaviour: click models, eye-tracking studies, offline metrics made for carousels, and off-policy evaluation from logged interactions. I have also worked on stochastic learning to rank with gradient-boosted trees, and on online learning to rank.</p>
+            <p>My supervisor is Maarten de Rijke; I work closely with Harrie Oosterhuis of Radboud University. I am also a member of TAIMLab, a joint lab of Maastricht University, the University of Amsterdam and RTL, where I work on unbiased and diverse video recommender systems.</p>
+          </div>
+          <ul class="quick-links" role="list" aria-label="Profiles and email">
+            <li><a href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ" rel="me">Google Scholar</a></li>
+            <li><a href="https://orcid.org/0009-0003-9283-4060" rel="me">ORCID</a></li>
+            <li><a href="https://github.com/jkang98" rel="me">GitHub</a></li>
+            <li><a href="mailto:j.kang@uva.nl">j.kang@uva.nl</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== News: one <li> per item, newest at the top. Keep five to seven items. datetime is YYYY-MM. ===== -->
+      <section class="section" id="news" aria-labelledby="news-heading">
+        <h2 id="news-heading">News</h2>
+        <div class="body">
+          <ol class="news" role="list" reversed>
+            <li>
+              <time datetime="2026-11">Nov 2026</time>
+              <p><a href="#pub-kang2026n2dcg">Revisiting N2DCG</a>, our reformulation of carousel recommendation evaluation, will appear at CIKM 2026 in Rome.</p>
+            </li>
+            <li>
+              <time datetime="2026-09">Sep 2026</time>
+              <p>I presented <a href="#pub-kang2026click">an overview of my PhD research</a> at the RecSys 2026 Doctoral Symposium in Minneapolis.</p>
+            </li>
+            <li>
+              <time datetime="2026-07">Jul 2026</time>
+              <p><a href="#pub-kang2026eyetracking">Following the Eye-Tracking Evidence</a> was published at SIGIR 2026 in Melbourne.</p>
+            </li>
+            <li>
+              <time datetime="2025-11">Nov 2025</time>
+              <p>Our <a href="#pub-gregoriadis2025federated">web search dataset for federated online learning to rank</a> appeared at CIKM 2025.</p>
+            </li>
+            <li>
+              <time datetime="2025-07">Jul 2025</time>
+              <p>Two papers appeared in July: <a href="#pub-deleon2025recgaze">RecGaze</a>, an eye-tracking dataset for carousel interfaces, in the SIGIR 2025 resource track, and <a href="#pub-kang2025rethinking">Rethinking Click Models</a> at ICTIR 2025.</p>
+            </li>
+            <li>
+              <time datetime="2024-07">Jul 2024</time>
+              <p>A short paper on <a href="#pub-kang2024hessian">estimating the Hessian of ranking objectives</a> for stochastic learning to rank was published at SIGIR 2024.</p>
+            </li>
+            <li>
+              <time datetime="2023-09">Sep 2023</time>
+              <p>I joined the IRLab at the University of Amsterdam as a PhD candidate.</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ===== Research: an intro, then pairs of <h3 class="side"> (theme name) and <div class="body theme"> (text + Papers line). ===== -->
+      <section class="section" id="research" aria-labelledby="research-heading">
+        <h2 id="research-heading">Research</h2>
+        <div class="body">
+          <p>Most of my work starts from one observation: recommendations are often shown as carousels, yet most click models and evaluation metrics assume a single ranked list. The themes below follow from that.</p>
+        </div>
+
+        <h3 class="side">How people browse carousels</h3>
+        <div class="body theme">
+          <p>RecGaze is the first public dataset that combines eye tracking, clicks and cursor movements on carousels (87 users, 3,477 interactions) and shows a golden-triangle, <span class="nb">F-shaped</span> browsing pattern. A second study tests four assumptions imported from web search and finds that most of them fail: the <span class="nb">F-pattern</span> holds only vertically, users follow an <span class="nb">L-shaped</span> path after clicking, the examination hypothesis does not hold, and users skip carousel headings.</p>
+          <p class="related"><span class="label">Papers</span><a href="#pub-deleon2025recgaze">RecGaze</a> (SIGIR ’25)&nbsp;· <a href="#pub-kang2026eyetracking">Following the Eye-Tracking Evidence</a> (SIGIR ’26)</p>
+        </div>
+
+        <h3 class="side">Click models for carousels</h3>
+        <div class="body theme">
+          <p>Click-model taxonomies were built for single ranked lists. I replace them with three mathematically grounded design choices that cover single-list, grid and carousel click models, both probabilistic graphical models and neural ones, and use those choices to derive a click model made for carousels.</p>
+          <p class="related"><span class="label">Papers</span><a href="#pub-kang2025rethinking">Rethinking Click Models</a> (ICTIR ’25)&nbsp;· <a href="#pub-kang2026click">PhD research overview</a> (RecSys ’26)</p>
+        </div>
+
+        <h3 class="side">Evaluating carousels offline and off-policy</h3>
+        <div class="body theme">
+          <p>N2DCG, the usual NDCG adaptation for carousels, relies on an ideal ranking that violates carousel constraints and on a discount that does not match observed browsing; our reformulation grounds both in eye-tracking data. Off-policy evaluation of carousel recommendation policies from logged data belongs to the same programme.</p>
+          <p class="related"><span class="label">Papers</span><a href="#pub-kang2026n2dcg">Revisiting N2DCG</a> (CIKM ’26)&nbsp;· <a href="#pub-kang2026click">PhD research overview</a> (RecSys ’26)</p>
+        </div>
+
+        <h3 class="side">Stochastic and online learning to rank</h3>
+        <div class="body theme">
+          <p>Estimating the Hessian of ranking objectives makes gradient-boosted decision trees usable for stochastic learning to rank; with collaborators I also built a large-scale web search dataset for federated online learning to rank.</p>
+          <p class="related"><span class="label">Papers</span><a href="#pub-kang2024hessian">Estimating the Hessian Matrix of Ranking Objectives</a> (SIGIR ’24)&nbsp;· <a href="#pub-gregoriadis2025federated">A&nbsp;Large-Scale Web Search Dataset</a> (CIKM ’25)</p>
+        </div>
+      </section>
+
+      <!-- ===== Publications: grouped by year, newest first. Each year is an <h3 class="side year"> plus an <ol class="body pubs">.
+           To add a paper, copy one <li class="pub"> block (template in README.md). Only id="pub-KEY" needs to be unique; the
+           BibTeX and Copy buttons find their own blocks. In the BibTeX keep the <pre> at the left margin and one field per line,
+           each line in its own <span class="f">: the Copy button copies the plain text, the spans only lay it out. ===== -->
+      <section class="section section--pubs" id="publications" aria-labelledby="publications-heading">
+        <h2 id="publications-heading">Publications</h2>
+        <div class="body">
+          <p>Newest first. Entries marked <span class="mark" aria-hidden="true"></span><span class="visually-hidden">with a dash</span> are my first-author papers.</p>
+        </div>
+
+        <h3 class="side year" id="year-2026">2026</h3>
+        <ol class="body pubs" role="list" aria-labelledby="year-2026">
+          <li class="pub pub--first" id="pub-kang2026n2dcg">
+            <h4 class="pub-title">Revisiting N2DCG: An Empirically Grounded Reformulation of Carousel Recommendation Evaluation</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Santiago de Leon-Martinez, Maarten de Rijke, Harrie Oosterhuis</p>
+            <p class="pub-meta pub-venue"><span class="venue">CIKM ’26</span>&nbsp;· 35th ACM International Conference on Information and Knowledge Management, Rome, Italy, November 2026&nbsp;· to appear</p>
+            <p class="pub-summary">Shows that N2DCG, the NDCG adaptation for carousels, uses an ideal ranking that violates carousel constraints and a discount that does not match observed browsing; proposes a reformulated metric grounded in eye-tracking data.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2608.21877">arXiv</a>
+              <a href="https://doi.org/10.1145/3799682.3839894">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>kang2026n2dcg,</span>
+<span class="f">  author    = {Kang, Jingwei and de Leon-Martinez, Santiago and de Rijke, Maarten and Oosterhuis, Harrie},</span>
+<span class="f">  title     = {Revisiting {N2DCG}: An Empirically Grounded Reformulation of Carousel Recommendation Evaluation},</span>
+<span class="f">  booktitle = {Proceedings of the 35th ACM International Conference on Information and Knowledge Management (CIKM '26)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2026},</span>
+<span class="f">  doi       = {10.1145/3799682.3839894},</span>
+<span class="f">  note      = {To appear}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+
+          <li class="pub pub--first" id="pub-kang2026click">
+            <h4 class="pub-title">From Click Modeling to Offline and Off-Policy Evaluation in Carousel Recommendation</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (sole author)</span></span></p>
+            <p class="pub-meta pub-venue"><span class="venue">RecSys ’26</span>&nbsp;· 20th ACM Conference on Recommender Systems, Doctoral Symposium, Minneapolis, USA, September 2026, pp. 1932–1938</p>
+            <p class="pub-summary">Lays out the PhD programme: a click-model design framework built on relations between observed variables, discrete-choice click models, carousel-specific offline metrics, and off-policy evaluation of carousel recommendation policies from logged data.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2608.22022">arXiv</a>
+              <a href="https://doi.org/10.1145/3773078.3831937">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>kang2026click,</span>
+<span class="f">  author    = {Kang, Jingwei},</span>
+<span class="f">  title     = {From Click Modeling to Offline and Off-Policy Evaluation in Carousel Recommendation},</span>
+<span class="f">  booktitle = {Proceedings of the 20th ACM Conference on Recommender Systems (RecSys '26)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2026},</span>
+<span class="f">  pages     = {1932--1938},</span>
+<span class="f">  doi       = {10.1145/3773078.3831937},</span>
+<span class="f">  note      = {Doctoral Symposium}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+
+          <li class="pub pub--first" id="pub-kang2026eyetracking">
+            <h4 class="pub-title">Following the Eye-Tracking Evidence: Established Web-Search Assumptions Fail in Carousel Interfaces</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Harrie Oosterhuis</p>
+            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’26</span>&nbsp;· 49th International ACM SIGIR Conference on Research and Development in Information Retrieval, Melbourne, Australia, July 2026, pp. 734–744</p>
+            <p class="pub-summary">Tests four web-search behavioural assumptions on carousel eye-tracking data: the <span class="nb">F-pattern</span> holds only vertically, users follow an <span class="nb">L-shaped</span> pattern after clicking, the examination hypothesis fails, and users skip carousel headings.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2604.21019">arXiv</a>
+              <a href="https://doi.org/10.1145/3805712.3809657">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>kang2026eyetracking,</span>
+<span class="f">  author    = {Kang, Jingwei and de Rijke, Maarten and Oosterhuis, Harrie},</span>
+<span class="f">  title     = {Following the Eye-Tracking Evidence: Established Web-Search Assumptions Fail in Carousel Interfaces},</span>
+<span class="f">  booktitle = {Proceedings of the 49th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '26)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2026},</span>
+<span class="f">  pages     = {734--744},</span>
+<span class="f">  doi       = {10.1145/3805712.3809657}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="side year" id="year-2025">2025</h3>
+        <ol class="body pubs" role="list" aria-labelledby="year-2025">
+          <li class="pub" id="pub-gregoriadis2025federated">
+            <h4 class="pub-title">A&nbsp;Large-Scale Web Search Dataset for Federated Online Learning to Rank</h4>
+            <p class="pub-meta pub-authors">Marcel Gregoriadis, <span class="me">Jingwei Kang</span>, Johan Pouwelse</p>
+            <p class="pub-meta pub-venue"><span class="venue">CIKM ’25</span>&nbsp;· 34th ACM International Conference on Information and Knowledge Management, November 2025, pp. 6387–6391</p>
+            <p class="pub-summary">A large-scale web search dataset built for studying federated online learning to rank.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2508.12353">arXiv</a>
+              <a href="https://doi.org/10.1145/3746252.3761651">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>gregoriadis2025federated,</span>
+<span class="f">  author    = {Gregoriadis, Marcel and Kang, Jingwei and Pouwelse, Johan},</span>
+<span class="f">  title     = {A Large-Scale Web Search Dataset for Federated Online Learning to Rank},</span>
+<span class="f">  booktitle = {Proceedings of the 34th ACM International Conference on Information and Knowledge Management (CIKM '25)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2025},</span>
+<span class="f">  pages     = {6387--6391},</span>
+<span class="f">  doi       = {10.1145/3746252.3761651}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+
+          <li class="pub pub--first" id="pub-kang2025rethinking">
+            <h4 class="pub-title">Rethinking Click Models in Light of Carousel Interfaces: Theory-Based Categorization and Design of Click Models</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Santiago de Leon-Martinez, Harrie Oosterhuis</p>
+            <p class="pub-meta pub-venue"><span class="venue">ICTIR ’25</span>&nbsp;· International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval, July 2025, pp. 44–55</p>
+            <p class="pub-summary">Replaces outdated click-model taxonomies with three mathematically grounded design choices that cover single-list, grid and carousel click models (PGMs and neural), and derives a new carousel click model from them.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2506.18548">arXiv</a>
+              <a href="https://doi.org/10.1145/3731120.3744585">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>kang2025rethinking,</span>
+<span class="f">  author    = {Kang, Jingwei and de Rijke, Maarten and de Leon-Martinez, Santiago and Oosterhuis, Harrie},</span>
+<span class="f">  title     = {Rethinking Click Models in Light of Carousel Interfaces: Theory-Based Categorization and Design of Click Models},</span>
+<span class="f">  booktitle = {Proceedings of the International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval (ICTIR '25)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2025},</span>
+<span class="f">  pages     = {44--55},</span>
+<span class="f">  doi       = {10.1145/3731120.3744585}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+
+          <li class="pub" id="pub-deleon2025recgaze">
+            <h4 class="pub-title">RecGaze: The First Eye Tracking and User Interaction Dataset for Carousel Interfaces</h4>
+            <p class="pub-meta pub-authors">Santiago de Leon-Martinez, <span class="me">Jingwei Kang</span>, Róbert Móro, Maarten de Rijke, Branislav Kveton, Harrie Oosterhuis, Maria Bielikova</p>
+            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’25</span>&nbsp;· 48th International ACM SIGIR Conference on Research and Development in Information Retrieval, resource &amp; reproducibility track, July 2025, pp. 3702–3711</p>
+            <p class="pub-summary">The first public carousel dataset combining eye tracking, clicks and cursor movements (87 users, 3,477 interactions), revealing a golden-triangle, <span class="nb">F-shaped</span> browsing pattern.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2504.20792">arXiv</a>
+              <a href="https://doi.org/10.1145/3726302.3730301">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>deleon2025recgaze,</span>
+<span class="f">  author    = {de Leon-Martinez, Santiago and Kang, Jingwei and M{\'o}ro, R{\'o}bert and de Rijke, Maarten and Kveton, Branislav and Oosterhuis, Harrie and Bielikova, Maria},</span>
+<span class="f">  title     = {{RecGaze}: The First Eye Tracking and User Interaction Dataset for Carousel Interfaces},</span>
+<span class="f">  booktitle = {Proceedings of the 48th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '25)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2025},</span>
+<span class="f">  pages     = {3702--3711},</span>
+<span class="f">  doi       = {10.1145/3726302.3730301}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+
+          <li class="pub" id="pub-derijke2025climate">
+            <h4 class="pub-title">Information Retrieval for Climate Impact</h4>
+            <p class="pub-meta pub-authors">Maarten de Rijke, Bart van den Hurk, Flora Salim, …, <span class="me">Jingwei Kang</span>, … (31 authors)</p>
+            <p class="pub-meta pub-venue"><span class="venue">arXiv</span>&nbsp;· Report on the MANILA24 workshop (SIGIR 2024 Workshop on Information Retrieval and Climate Impact), preprint, April 2025</p>
+            <p class="pub-summary">Workshop report on how information retrieval can support climate-impact research.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2504.01162">arXiv</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@misc{<wbr>derijke2025climate,</span>
+<span class="f">  author        = {de Rijke, Maarten and van den Hurk, Bart and Salim, Flora and Al Khourdajie, Alaa and Bai, Nan and Calzone, Renato and Curran, Declan and Demil, Getnet and Frew, Lesley and Gie{\ss}ing, Noah and Gupta, Mukesh Kumar and Heuss, Maria and Hobeichi, Sanaa and Huard, David and Kang, Jingwei and Lucic, Ana and Mallick, Tanwi and Nath, Shruti and Okem, Andrew and Pernici, Barbara and Rajapakse, Thilina and Saleem, Hira and Scells, Harry and Schneider, Nicole and Spina, Damiano and Tian, Yuanyuan and Totin, Edmund and Trotman, Andrew and Valavandan, Ramamurthy and Workneh, Dereje and Xie, Yangxinyu},</span>
+<span class="f">  title         = {Information Retrieval for Climate Impact},</span>
+<span class="f">  year          = {2025},</span>
+<span class="f">  eprint        = {2504.01162},</span>
+<span class="f">  archivePrefix = {arXiv},</span>
+<span class="f">  howpublished  = {arXiv preprint},</span>
+<span class="f">  note          = {Report on the MANILA24 workshop (SIGIR 2024 Workshop on Information Retrieval and Climate Impact)}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="side year" id="year-2024">2024</h3>
+        <ol class="body pubs" role="list" aria-labelledby="year-2024">
+          <li class="pub pub--first" id="pub-kang2024hessian">
+            <h4 class="pub-title">Estimating the Hessian Matrix of Ranking Objectives for Stochastic Learning to Rank with Gradient Boosted Trees</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, Maarten de Rijke, Harrie Oosterhuis</p>
+            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’24</span>&nbsp;· 47th International ACM SIGIR Conference on Research and Development in Information Retrieval, short paper, July 2024, pp. 2390–2394</p>
+            <p class="pub-summary">Makes gradient-boosted decision trees usable for stochastic learning to rank by estimating the Hessian of ranking objectives.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/2404.12190">arXiv</a>
+              <a href="https://doi.org/10.1145/3626772.3657918">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>kang2024hessian,</span>
+<span class="f">  author    = {Kang, Jingwei and de Rijke, Maarten and Oosterhuis, Harrie},</span>
+<span class="f">  title     = {Estimating the {Hessian} Matrix of Ranking Objectives for Stochastic Learning to Rank with Gradient Boosted Trees},</span>
+<span class="f">  booktitle = {Proceedings of the 47th International ACM SIGIR Conference on Research and Development in Information Retrieval (SIGIR '24)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {2024},</span>
+<span class="f">  pages     = {2390--2394},</span>
+<span class="f">  doi       = {10.1145/3626772.3657918}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ===== Education: add years to the edu-detail lines once you want them shown, e.g. "Radboud University, Nijmegen, the Netherlands, YYYY–YYYY". ===== -->
+      <section class="section" id="education" aria-labelledby="education-heading">
+        <h2 id="education-heading">Education</h2>
+        <div class="body">
+          <ul class="edu" role="list">
+            <li>
+              <p class="edu-degree">PhD candidate, Information Retrieval Lab</p>
+              <p class="edu-detail">University of Amsterdam, since September 2023. Supervisor: Maarten de Rijke.</p>
+            </li>
+            <li>
+              <p class="edu-degree">MSc in Data Science</p>
+              <p class="edu-detail">Radboud University, Nijmegen, the Netherlands</p>
+            </li>
+            <li>
+              <p class="edu-degree">BSc in Data Science</p>
+              <p class="edu-detail">Central South University <span lang="zh">(中南大学)</span>, Changsha, China</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ===== Contact: the email address appears seven times in this file: the hero quick link and the link below each carry it in href="mailto:…" and in the link text, the Copy button has it in data-copy, the JSON-LD in <head> has it as email, and this comment names it. Use find-and-replace on j.kang@uva.nl across this file; it catches all seven. ===== -->
+      <section class="section" id="contact" aria-labelledby="contact-heading">
+        <h2 id="contact-heading">Contact</h2>
+        <div class="body">
+          <p>Email is the best way to reach me, whether about a paper, a dataset or a possible collaboration.</p>
+          <p class="email-row">
+            <a class="email" id="email-address" href="mailto:j.kang@uva.nl">j.kang@uva.nl</a>
+            <button class="btn btn-copy" type="button" data-copy="j.kang@uva.nl" aria-describedby="email-address">Copy</button>
+            <span class="copy-status" role="status" aria-live="polite"></span>
+          </p>
+          <ul class="profiles" role="list">
+            <li><a href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ" rel="me">Google Scholar</a></li>
+            <li><a href="https://orcid.org/0009-0003-9283-4060" rel="me">ORCID</a><span class="handle">0009-0003-9283-4060</span></li>
+            <li><a href="https://openreview.net/profile?id=~Jingwei_Kang1" rel="me">OpenReview</a></li>
+            <li><a href="https://www.semanticscholar.org/author/Jingwei-Kang/2297338062" rel="me">Semantic Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/jingwei-kang-918597163/" rel="me">LinkedIn</a></li>
+            <li><a href="https://github.com/jkang98" rel="me">GitHub</a><span class="handle">jkang98</span></li>
+            <li><a href="https://irlab.science.uva.nl/">IRLab</a></li>
+          </ul>
+          <!-- A CV link can go here once a PDF exists: <p><a href="assets/cv.pdf">Curriculum vitae (PDF)</a></p> — see README.md. -->
+          <p class="address">Information Retrieval Lab, University of Amsterdam, Amsterdam, the Netherlands.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===== Footer: update the year once a year. ===== -->
+    <footer class="site-footer">
+      <p>© 2026 Jingwei Kang&nbsp;· Information Retrieval Lab, University of Amsterdam</p>
+      <p><a href="#top">Back to top</a></p>
+      <p class="footer-note">A static page without analytics or cookies; the theme choice stays in your browser.</p>
+    </footer>
+  </div>
+
+  <!-- If this file fails to load, the page falls back to its scriptless state (every BibTeX entry shown, the inert controls hidden). -->
+  <script src="assets/js/main.js" onerror="document.documentElement.classList.add('no-js')"></script>
+</body>
+</html>

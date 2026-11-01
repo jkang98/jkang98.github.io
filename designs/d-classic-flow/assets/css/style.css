@@ -1,0 +1,1558 @@
+/* ==========================================================================
+   Jingwei Kang — personal academic homepage
+   Direction: "Classic academic, refined"
+
+   Layout concept: one centred reading column (max 48rem) in which every
+   section below the hero shares the same two-column scaffold — a 12rem
+   margin column for the section heading and its sub-headings (years, research
+   themes) and a 33rem prose column — collapsing to a single column under 52em.
+
+   Type: Newsreader (display and prose, optical sizing on), Source Sans 3
+   (navigation, metadata, labels, buttons), the system monospace for BibTeX.
+   One size per job; the scale is listed in the tokens below.
+
+   Colour: the page sits on "the field", a fixed, grainy colour field in the
+   manner of midem.com: a lilac ground with soft orange, periwinkle and khaki
+   blobs, an overlay layer of acid-yellow and periwinkle highlights, fine film
+   grain and a slow drift (section "The field" below). The type is set
+   directly on it: a plum-black ink, a dark muted grey and a deep indigo for
+   links, each chosen for 4.5:1 or better against the field behind the reading
+   column, which a soft light wash keeps calmer than the edges. The dark theme
+   is the field's dark variant (near-black ground, the same blobs as muted
+   glows), not an inversion. Every colour on the page comes from the tokens
+   below.
+   ========================================================================== */
+
+:root {
+  --bg: #D290F7;                         /* the field's lilac ground: painted under the field, and the flat colour for the browser chrome */
+  --surface: rgb(255 255 255 / 42%);     /* recessed surface: BibTeX blocks, email field, buttons, the portrait plate */
+  --line: rgb(36 30 36 / 26%);           /* hairlines and borders: translucent ink */
+  --fg: #241E24;                         /* plum-black ink, at least 7:1 on the field behind the column */
+  --muted: #342E33;                      /* secondary text: 4.5:1 even on the field's pure orange (L 0.35) */
+  --accent: #2C1F72;                     /* deep indigo: links, markers, focus; 4.5:1 on the field's pure orange */
+
+  /* The field (section "The field" below): midem's palette, as measured on the reference page. */
+  --field-base: #D290F7;                 /* lilac ground */
+  --field-orange: #EE8432;               /* left edge, bottom left, top centre */
+  --field-peri: #A69DF2;                 /* periwinkle: centre left, right of centre */
+  --field-khaki: #C3CA8B;                /* bottom right, under the yellow highlight */
+  --field-yellow: rgb(228 247 38 / 50%);     /* acid yellow, overlay layer: the pale zone and the yellow corner */
+  --field-peri-hi: rgb(164 154 241 / 55%);   /* periwinkle, overlay layer: the pink-lilac top right */
+  --field-blur: clamp(56px, 13vmin, 120px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
+  --field-wash: rgb(255 255 255 / 12%);  /* the light wash behind the reading column */
+  --field-wash-span: 24.5rem;            /* half-width of the full-strength wash (the column is 24rem wide, plus a little) */
+  --field-wash-feather: 8rem;            /* the wash fades out over this width on each side */
+  --field-grain: var(--grain-light);
+  --field-grain-opacity: 1;              /* multiplier on the grain tile's own strength */
+  --field-flow: 22s;                     /* base period of the flow (each blob uses a multiple of it); 0s stops it */
+  /* The grain tiles: 256px of SVG fractal noise (seamless), mapped to white (light theme) or
+     mid-grey (dark theme) specks. The last row of the colour matrix is the alpha ramp
+     (alpha = a * noise + b): light 1.52 / -0.8 gives a 6/255 amplitude, as measured on the
+     reference; dark 0.88 / -0.46 is fainter. */
+  --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.52 0 0 0 -0.8'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .4 0 0 0 0 .4 0.88 0 0 0 -0.46'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E");
+
+  --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-body: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --font-ui: "Source Sans 3", "Source Sans Pro", "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
+
+  /* Type scale — one size per job */
+  --text-xs: 0.75rem;      /* 12px  running labels: news dates, "Papers", years on narrow screens */
+  --text-ui: 0.9375rem;    /* 15px  navigation, author and venue lines, links, buttons */
+  --text-sm: 1rem;         /* 16px  paper summaries */
+  --text-body: 1.125rem;   /* 18px  running text */
+  --text-md: 1.25rem;      /* 20px  paper titles, theme names, years, degrees, the bio */
+  --text-lg: 1.75rem;      /* 28px  section headings */
+  --text-xl: 2.75rem;      /* 44px  the name */
+  --text-mono: 0.8125rem;  /* 13px  BibTeX */
+
+  /* Layout */
+  --page: 48rem;           /* content width of the page (gutters come on top): 12 + 3 + 33rem */
+  --margin-col: 12rem;     /* heading column beside every section; also the portrait width */
+  --gutter: 3rem;          /* between the margin column and the prose */
+  --measure: 33rem;        /* prose column: about 70 characters of Newsreader at 18px */
+
+  /* Baseline nudges so margin-column headings sit on the first prose baseline
+     (measured with the web fonts loaded; see README) */
+  --h2-shift: -6px;
+  --side-shift: -1px;
+  --year-shift: 0px;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1B1B1B;                       /* the field's near-black ground */
+    --surface: rgb(255 255 255 / 8%);
+    --line: rgb(236 230 236 / 22%);
+    --fg: #ECE6EC;                       /* cool off-white */
+    --muted: #D0C8D1;                    /* 4.5:1 on the brightest glow behind the column (L <= 0.093) */
+    --accent: #D6C2FC;                   /* pale lilac-periwinkle */
+    --field-base: #1B1B1B;
+    --field-orange: rgb(238 132 50 / 34%);   /* the same blobs, as muted glows (overlay doubles midtones on a dark ground, so the highlights stay faint) */
+    --field-peri: rgb(166 157 242 / 36%);
+    --field-khaki: rgb(195 202 139 / 20%);
+    --field-yellow: rgb(228 247 38 / 10%);
+    --field-peri-hi: rgb(164 154 241 / 12%);
+    --field-wash: rgb(27 27 27 / 45%);   /* in the dark theme the wash dims the glows behind the column */
+    --field-grain: var(--grain-dark);
+    --field-grain-opacity: 1;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #1B1B1B;
+  --surface: rgb(255 255 255 / 8%);
+  --line: rgb(236 230 236 / 22%);
+  --fg: #ECE6EC;
+  --muted: #D0C8D1;
+  --accent: #D6C2FC;
+  --field-base: #1B1B1B;
+  --field-orange: rgb(238 132 50 / 34%);
+  --field-peri: rgb(166 157 242 / 36%);
+  --field-khaki: rgb(195 202 139 / 20%);
+  --field-yellow: rgb(228 247 38 / 10%);
+  --field-peri-hi: rgb(164 154 241 / 12%);
+  --field-wash: rgb(27 27 27 / 45%);
+  --field-grain: var(--grain-dark);
+  --field-grain-opacity: 1;
+  color-scheme: dark;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  /* Anchor jumps leave a little air above the section's hairline. */
+  scroll-padding-top: 1rem;
+}
+
+/* Smooth scrolling is switched on by main.js once the page and its web fonts
+   have loaded (html.fonts-ready). The jump to a #fragment on first load must
+   stay instant: a smooth scroll aims at a position measured in the fallback
+   fonts and lands off target when Newsreader and Source Sans 3 swap in. */
+@media (prefers-reduced-motion: no-preference) {
+  html.fonts-ready {
+    scroll-behavior: smooth;
+  }
+}
+
+/* The ground under the field. The body carries a flat, document-anchored copy
+   of the field (the orange left edge, the periwinkle tint and the yellow
+   highlight on the right, the two bottom corners, the wash and the grain) built
+   from the same tokens. In a browser the fixed field covers it completely; it
+   shows only where a fixed layer cannot be drawn, such as a full-page
+   screenshot, which draws the fixed layer once at the top, so that the rest
+   of the page still reads as the field. The print stylesheet removes it. */
+body {
+  margin: 0;
+  background-color: var(--bg);
+  background-image:
+    var(--field-grain),
+    linear-gradient(
+      to right,
+      transparent calc(50% - var(--field-wash-span) - var(--field-wash-feather)),
+      var(--field-wash) calc(50% - var(--field-wash-span)),
+      var(--field-wash) calc(50% + var(--field-wash-span)),
+      transparent calc(50% + var(--field-wash-span) + var(--field-wash-feather))
+    ),
+    radial-gradient(ellipse 60vw 45vh at 100% 100%, var(--field-yellow), transparent 70%),
+    radial-gradient(ellipse 45vw 35vh at 100% 100%, var(--field-khaki), transparent 70%),
+    radial-gradient(ellipse 55vw 32vh at 0% 100%, var(--field-orange), transparent 70%),
+    linear-gradient(to right, transparent 55%, color-mix(in srgb, var(--field-peri) 55%, transparent) 100%),
+    linear-gradient(to right, var(--field-orange) 0, color-mix(in srgb, var(--field-orange) 85%, transparent) 9%, transparent 30%);
+  background-blend-mode: normal, normal, overlay, normal, normal, normal, normal;
+  background-size: 256px 256px, auto, auto, auto, auto, auto, auto;
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.55;
+  font-optical-sizing: auto;
+  font-kerning: normal;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+/* Phrases that must not break across lines: the two names in the bio and the
+   compounds with a one-letter first part (F-shaped, L-shaped, F-pattern), where
+   the letter would stand alone at a line end. Every other hyphenated compound
+   breaks at its hyphen, as in print. */
+.nb {
+  white-space: nowrap;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Shift+Tab scrolls a control in top-aligned at scroll-padding-top; the margin
+   keeps its focus ring clear of the viewport edge. Anchor jumps target
+   sections, not controls, so they are unaffected. */
+a,
+button {
+  scroll-margin-top: 6px;
+}
+
+/* The skip link moves focus to <main> (tabindex="-1"), so the next Tab starts
+   inside the content; no ring is drawn around the whole page. */
+main:focus {
+  outline: none;
+}
+
+::selection {
+  background: var(--line);
+  background: color-mix(in srgb, var(--accent) 22%, var(--bg));
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button {
+    transition: color 120ms ease, border-color 120ms ease, background-color 120ms ease, text-decoration-color 120ms ease;
+  }
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  z-index: 100;
+  padding: 0.5rem 0.75rem;
+  border-radius: 3px;
+  background: var(--fg);
+  color: var(--bg);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  text-decoration: none;
+  transform: translateY(-300%);
+}
+
+.skip-link:focus {
+  transform: none;
+  outline-color: var(--bg);
+  outline-offset: -4px;
+}
+
+/* One outer wrapper carries the side gutter; --page is the content width,
+   so the scaffold (12rem + 3rem + 33rem) fits exactly. */
+.page {
+  box-sizing: content-box;
+  max-width: var(--page);
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* The small, letter-spaced running label: one treatment, three uses (the
+   "Papers" label, news dates, and the year headings on narrow screens). */
+.label,
+.news time {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   The field: the page background
+
+   A fixed, full-viewport layer behind everything (<div class="field"> at the
+   top of <body>), built from the --field-* tokens above:
+
+   - the ground (--field-base) and eight soft blobs. Each blob is one element
+     with a radial gradient whose stops trace a Gaussian edge (full colour up
+     to rx - 2 sigma, half at rx, gone at rx + 3 sigma; sigma = --field-blur),
+     which looks the same as a hard shape under filter: blur() but is painted
+     once instead of being blurred every frame. Its colour (--c), centre
+     (--x/--y, in viewport units), half-size (--rx/--ry) and rotation (--rot)
+     are set per blob below;
+   - six blobs sit in the main layer; two (acid yellow, periwinkle) sit in
+     .field__overlay, which blends with mix-blend-mode: overlay and so lights
+     up the lilac into pink-lilac and the khaki corner into acid yellow;
+   - three main blobs drift slowly (transform animations on their own
+     composited layers; nothing under prefers-reduced-motion). They are
+     painted above .field__overlay, not under it: a moving layer under a
+     blended one would make the browser re-blend the whole field every frame,
+     while this way the blended part is composited once and only the three
+     small layers move;
+   - .field__wash lifts the strip behind the reading column so that the text
+     keeps its contrast while the edges stay saturated;
+   - .field__grain tiles the SVG noise at --field-grain-opacity.
+
+   To tone the field down, raise the wash or lower the blob colours' alpha
+   (as the dark theme does); to change the palette, change the --field-*
+   colours; to stop the drift, set --field-drift to 0s. See README.md.
+   -------------------------------------------------------------------------- */
+
+.field {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--field-base);
+  pointer-events: none;
+  isolation: isolate;
+  transform: translateZ(0);
+}
+
+.field__blob {
+  --s: var(--field-blur);
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: calc(2 * (var(--rx) + 3 * var(--s)));
+  height: calc(2 * (var(--ry) + 3 * var(--s)));
+  translate: -50% -50%;
+  rotate: var(--rot, 0deg);
+  background-image: radial-gradient(
+    ellipse calc(var(--rx) + 3 * var(--s)) calc(var(--ry) + 3 * var(--s)) at 50% 50%,
+    var(--c) calc(var(--rx) - 2 * var(--s)),
+    color-mix(in srgb, var(--c) 84%, transparent) calc(var(--rx) - var(--s)),
+    color-mix(in srgb, var(--c) 50%, transparent) var(--rx),
+    color-mix(in srgb, var(--c) 16%, transparent) calc(var(--rx) + var(--s)),
+    color-mix(in srgb, var(--c) 2.5%, transparent) calc(var(--rx) + 2 * var(--s)),
+    transparent calc(var(--rx) + 3 * var(--s))
+  );
+}
+
+/* Main layer: placement measured from the reference at 1440 x 900 (x in vw,
+   y in vh, so the composition follows the viewport; sizes in vmin so that the
+   blobs stay round on phones). The orange keeps to the left edge and the
+   bottom-left corner, the periwinkle to the left of the prose column. The
+   blobs orange top, khaki and periwinkle right sit under the overlay layer
+   and take its highlights; the others sit above it. All of them flow (see
+   "The flow" below). */
+.field__blob--orange-left {
+  --c: var(--field-orange);
+  --x: -3vw;
+  --y: 45vh;
+  --rx: 23vw;
+  --ry: 70vh;
+}
+
+.field__blob--orange-top {
+  --c: var(--field-orange);
+  --x: 39vw;
+  --y: -4vh;
+  --rx: 22vmin;
+  --ry: 22vmin;
+}
+
+.field__blob--orange-bottom {
+  --c: var(--field-orange);
+  --x: 17vw;
+  --y: 103vh;
+  --rx: 29vw;
+  --ry: 20vh;
+}
+
+.field__blob--khaki {
+  --c: var(--field-khaki);
+  --x: 86vw;
+  --y: 95vh;
+  --rx: 16vw;
+  --ry: 26vh;
+}
+
+.field__blob--peri-right {
+  --c: var(--field-peri);
+  --x: 83vw;
+  --y: 70vh;
+  --rx: max(28vmin, 24vw);
+  --ry: max(28vmin, 24vw);
+}
+
+.field__blob--peri {
+  --c: var(--field-peri);
+  --x: 26vw;
+  --y: 48vh;
+  --rx: 22vmin;
+  --ry: 22vmin;
+}
+
+/* Overlay layer */
+.field__overlay {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: overlay;
+}
+
+/* Overlay layer: a long acid-yellow band leaning from the bottom right up
+   towards the centre (pale where it crosses the lilac and the periwinkle,
+   acid yellow over the khaki corner) and a periwinkle band across the top
+   (the pink-lilac top right, the salmon top centre). */
+.field__blob--yellow-hi {
+  --c: var(--field-yellow);
+  --x: 84vw;
+  --y: 82vh;
+  --rx: 26vw;
+  --ry: 55vh;
+  --rot: -22deg;
+}
+
+.field__blob--peri-hi {
+  --c: var(--field-peri-hi);
+  --x: 62vw;
+  --y: 6vh;
+  --rx: 50vw;
+  --ry: 24vh;
+  --rot: 8deg;
+}
+
+/* The flow. Every blob, the two highlight blobs included, wanders over
+   the field like something afloat: each sits in two nested movers, one
+   animating its x position and one its y, on periods that differ per blob
+   (--kx, --ky times the base --field-flow) and never coincide, so the paths
+   are Lissajous-like curves that do not visibly repeat. Negative delays
+   (--px, --py) start every blob mid-path. A few blobs also breathe (slow
+   scale). Everything is a composited transform; the only per-frame cost is
+   the overlay blend, which midem pays too. Under prefers-reduced-motion the
+   movers stand still at the reference composition. */
+.field__mover,
+.field__mover-y {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+}
+
+.field__mover {
+  animation: field-flow-x calc(var(--field-flow) * var(--kx, 1)) ease-in-out var(--px, 0s) infinite alternate;
+}
+
+.field__mover-y {
+  animation: field-flow-y calc(var(--field-flow) * var(--ky, 1)) ease-in-out var(--py, 0s) infinite alternate;
+}
+
+.field__blob--breathe {
+  animation: field-breathe calc(var(--field-flow) * var(--ks, 1)) ease-in-out var(--pb, 0s) infinite alternate;
+}
+
+@keyframes field-flow-x {
+  0% { transform: translateX(calc(var(--ax) * -1)); }
+  28% { transform: translateX(calc(var(--ax) * 0.55)); }
+  52% { transform: translateX(calc(var(--ax) * -0.25)); }
+  76% { transform: translateX(var(--ax)); }
+  100% { transform: translateX(calc(var(--ax) * 0.1)); }
+}
+
+@keyframes field-flow-y {
+  0% { transform: translateY(calc(var(--ay) * 0.2)); }
+  24% { transform: translateY(calc(var(--ay) * -1)); }
+  50% { transform: translateY(calc(var(--ay) * 0.4)); }
+  72% { transform: translateY(calc(var(--ay) * -0.3)); }
+  100% { transform: translateY(var(--ay)); }
+}
+
+@keyframes field-breathe {
+  from { transform: scale(0.9); }
+  to { transform: scale(1.12); }
+}
+
+/* Per-blob amplitudes (--ax, --ay: how far it roams), period factors
+   (--kx, --ky) and phase offsets (--px, --py). */
+.field__mover--orange-left { --ax: 10vw; --ay: 16vw; --kx: 1.3; --ky: 1.05; --px: -5s; --py: -11s; }
+.field__mover--orange-top { --ax: 16vw; --ay: 9vw; --kx: 0.9; --ky: 1.25; --px: -13s; --py: -3s; }
+.field__mover--orange-bottom { --ax: 18vw; --ay: 10vw; --kx: 1.15; --ky: 0.85; --px: -2s; --py: -9s; --ks: 1.1; --pb: -6s; }
+.field__mover--khaki { --ax: 12vw; --ay: 14vw; --kx: 1; --ky: 1.35; --px: -8s; --py: -15s; --ks: 0.9; --pb: -3s; }
+.field__mover--peri-right { --ax: 20vw; --ay: 14vw; --kx: 1.2; --ky: 0.95; --px: -16s; --py: -6s; }
+.field__mover--peri { --ax: 22vw; --ay: 16vw; --kx: 0.85; --ky: 1.1; --px: -7s; --py: -12s; --ks: 0.75; --pb: -10s; }
+.field__mover--yellow-hi { --ax: 14vw; --ay: 12vw; --kx: 1.4; --ky: 1; --px: -10s; --py: -2s; }
+.field__mover--peri-hi { --ax: 18vw; --ay: 8vw; --kx: 1.05; --ky: 1.3; --px: -4s; --py: -14s; }
+
+/* Phones: only the three blobs above the overlay keep flowing, so the
+   blended layer is composited once and the battery is spared. */
+@media (max-width: 52em) {
+  .field__mover--orange-top,
+  .field__mover--khaki,
+  .field__mover--peri-right,
+  .field__mover--yellow-hi,
+  .field__mover--peri-hi,
+  .field__mover--orange-top .field__mover-y,
+  .field__mover--khaki .field__mover-y,
+  .field__mover--peri-right .field__mover-y,
+  .field__mover--yellow-hi .field__mover-y,
+  .field__mover--peri-hi .field__mover-y {
+    animation: none;
+  }
+}
+
+/* The wash: a vertical band of --field-wash behind the reading column, full
+   strength across the column and fading out over --field-wash-feather. On
+   phones the column is the whole width, so the whole field is washed. */
+.field__wash {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(
+    to right,
+    transparent calc(50% - var(--field-wash-span) - var(--field-wash-feather)),
+    var(--field-wash) calc(50% - var(--field-wash-span)),
+    var(--field-wash) calc(50% + var(--field-wash-span)),
+    transparent calc(50% + var(--field-wash-span) + var(--field-wash-feather))
+  );
+}
+
+.field__grain {
+  position: absolute;
+  inset: 0;
+  background: var(--field-grain) 0 0 / 256px 256px repeat;
+  opacity: var(--field-grain-opacity);
+}
+
+/* Less transparency: no highlights, no grain, a stronger wash. */
+@media (prefers-reduced-transparency: reduce) {
+  :root {
+    --field-wash: rgb(255 255 255 / 55%);
+    --field-grain-opacity: 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --field-wash: rgb(27 27 27 / 60%);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --field-wash: rgb(27 27 27 / 60%);
+  }
+
+  .field__overlay {
+    display: none;
+  }
+}
+
+/* Forced colours (Windows High Contrast) draw their own backgrounds. */
+@media (forced-colors: active) {
+  .field {
+    display: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Header and navigation
+   -------------------------------------------------------------------------- */
+
+/* The header scrolls with the page: a bar that stays on top would need a
+   panel of its own on the field, and the field is meant to run uninterrupted. */
+.site-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+  padding-block: 0.875rem;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+}
+
+.brand {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--fg);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.brand:hover {
+  color: var(--accent);
+}
+
+.site-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 1.375rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  display: inline-block;
+  padding-block: 0.3rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  text-decoration-color: transparent;
+}
+
+.site-nav a:hover {
+  color: var(--fg);
+  text-decoration-color: var(--accent);
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  color: var(--fg);
+  border-color: var(--muted);
+}
+
+.theme-toggle svg {
+  width: 1.0625rem;
+  height: 1.0625rem;
+}
+
+/* Show the moon in the light theme (it leads to dark) and the sun in dark. */
+.icon-sun {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .icon-sun {
+    display: block;
+  }
+
+  :root:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+}
+
+:root[data-theme="dark"] .icon-sun {
+  display: block;
+}
+
+:root[data-theme="dark"] .icon-moon {
+  display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, 1fr);
+  column-gap: var(--gutter);
+  row-gap: 1.5rem;
+  align-items: start;
+  padding-block: 3.5rem 3.25rem;
+}
+
+.portrait {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+}
+
+/* The inline SVG monogram that stands in for a photo: the outlines of "JK" in
+   Newsreader 500, the display face, filled with a page token so that it
+   follows the theme toggle (an <img> could only follow the system scheme) and
+   needs no font to load. A photo replaces the whole <svg>. */
+.portrait path {
+  fill: var(--accent);
+}
+
+.hero-head {
+  grid-column: 2;
+  grid-row: 1;
+  min-width: 0;
+}
+
+.hero-body {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  max-width: var(--measure);
+}
+
+h1 {
+  font-size: var(--text-xl);
+  line-height: 1.1;
+  letter-spacing: -0.012em;
+}
+
+.role {
+  margin: 0.625rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  line-height: 1.45;
+  color: var(--fg);
+}
+
+.bio p {
+  font-size: var(--text-md);
+  line-height: 1.5;
+  margin-bottom: 0.85em;
+}
+
+.bio p:last-child {
+  margin-bottom: 0;
+}
+
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  /* Row gap is twice the links' tap padding so wrapped rows never overlap. */
+  gap: 0.75rem 1.375rem;
+  margin: 1.375rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+}
+
+/* Vertical padding on the links in single-row lists widens the touch target
+   without moving the text. Links inside running text (.news p, .related) get
+   none: their padding boxes would overlap across lines and steal taps. */
+.quick-links a,
+.pub-links a,
+.profiles a,
+.site-footer a {
+  padding-block: 0.35rem;
+}
+
+/* --------------------------------------------------------------------------
+   Section scaffold: heading column + prose column
+   -------------------------------------------------------------------------- */
+
+/* The prose column carries the gutter as padding (not a grid gap) so that a
+   hairline on a heading and on its prose block reads as one continuous rule. */
+.section {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, 1fr);
+  column-gap: 0;
+  row-gap: 2rem;
+  padding-block: 3rem;
+  border-top: 1px solid var(--line);
+}
+
+.section > h2 {
+  grid-column: 1;
+  position: relative;
+  top: var(--h2-shift);
+  font-size: var(--text-lg);
+  line-height: 1.2;
+}
+
+/* Education opens with a 20px degree line rather than a 17px paragraph. */
+#education > h2 {
+  top: calc(var(--h2-shift) + 1px);
+}
+
+.side {
+  grid-column: 1;
+  position: relative;
+  top: var(--side-shift);
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+/* The year carries a hairline, so its text (not the box) is nudged. */
+.year {
+  top: 0;
+  padding-top: var(--year-shift);
+  font-variant-numeric: tabular-nums;
+}
+
+.body {
+  grid-column: 2;
+  min-width: 0;
+  max-width: calc(var(--measure) + var(--gutter));
+  padding-left: var(--gutter);
+}
+
+.body > :last-child {
+  margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   News
+   -------------------------------------------------------------------------- */
+
+/* The dates hang in the margin column, like the years in Publications, so
+   the items keep the full prose measure: the list spans both columns of the
+   scaffold and lays out its own date column, and the heading sits above it.
+   Each item rule then runs across both columns like the year rules. (Under
+   52em the date column narrows and the body keeps the measure; see below.) */
+#news > .body {
+  grid-column: 1 / -1;
+  max-width: none;
+  padding-left: 0;
+}
+
+.news {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.news li {
+  display: grid;
+  grid-template-columns: var(--margin-col) minmax(0, var(--measure));
+  column-gap: var(--gutter);
+  padding-block: 0.7rem;
+  border-top: 1px solid var(--line);
+}
+
+.news li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.news li:last-child {
+  padding-bottom: 0;
+}
+
+.news time {
+  padding-top: 0.25rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.news p {
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Research
+   -------------------------------------------------------------------------- */
+
+.theme p {
+  margin-bottom: 0.6em;
+}
+
+.related {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.related .label {
+  margin-right: 0.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   Publications
+   -------------------------------------------------------------------------- */
+
+.section--pubs {
+  row-gap: 1.5rem;
+}
+
+.section--pubs > .year:first-of-type,
+.section--pubs > .pubs:first-of-type {
+  margin-top: 0.5rem;
+}
+
+.pubs {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  list-style: none;
+}
+
+/* Every year group after the first opens with a rule that runs across both columns. */
+.year ~ .year {
+  padding-top: calc(1.5rem + var(--year-shift));
+  border-top: 1px solid var(--line);
+}
+
+.pubs ~ .pubs {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.pub {
+  position: relative;
+  min-width: 0;
+}
+
+.pub + .pub {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+/* A link to the first paper of a year lands with the same 1.5rem of air above
+   the title that later papers get from their padding. */
+.pubs > .pub:first-child {
+  scroll-margin-top: 1.5rem;
+}
+
+.pub-title {
+  font-size: var(--text-md);
+  line-height: 1.3;
+}
+
+/* The first-author mark: a short accent dash. It hangs in the gutter beside
+   the title on wide screens and sits inline before the title on narrow ones;
+   the legend in the section intro uses the same mark. It is drawn as a border,
+   not a background, so that forced-colours mode (Windows High Contrast, which
+   drops backgrounds but keeps borders) still shows it. */
+.mark,
+.pub--first .pub-title::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 0;
+  border-top: 2px solid var(--accent);
+  vertical-align: 0.3em;
+}
+
+.mark {
+  margin-inline: 0.15rem;
+}
+
+.pub--first .pub-title::before {
+  position: absolute;
+  top: 0.68em;
+  left: calc(1.125rem - var(--gutter));
+}
+
+.pub + .pub.pub--first .pub-title::before {
+  top: calc(1.5rem + 0.68em);
+}
+
+.pub-meta {
+  margin: 0.3rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+}
+
+.pub-authors {
+  color: var(--fg);
+}
+
+.me {
+  font-weight: 600;
+}
+
+.pub-venue {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.venue {
+  font-weight: 600;
+  color: var(--fg);
+}
+
+/* One step below the title (20 to 16px, the ratio of the rest of the scale),
+   so a three-line summary does not outweigh its two-line title. */
+.pub-summary {
+  margin: 0.5rem 0 0;
+  font-size: var(--text-sm);
+  line-height: 1.5;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 1.125rem;
+  margin: 0.55rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+}
+
+/* A button dressed as a text link, for disclosures. */
+.textbutton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: -0.35rem 0;
+  padding: 0.35rem 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.16em;
+  text-decoration-color: var(--line);
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  cursor: pointer;
+}
+
+.textbutton:hover {
+  text-decoration-color: currentColor;
+}
+
+.textbutton::after {
+  content: "";
+  width: 0;
+  height: 0;
+  margin-top: 1px;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  border-left: 6px solid currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .textbutton::after {
+    transition: transform 150ms ease;
+  }
+}
+
+.textbutton[aria-expanded="true"]::after {
+  transform: rotate(90deg);
+}
+
+.bib {
+  margin-top: 0.75rem;
+}
+
+/* One BibTeX field per line, however long. Each line sits in a <span class="f">
+   that wraps whatever does not fit under the value, with a four-character
+   hanging indent, so an entry reads as typed at any width and nothing scrolls
+   sideways. The <code> is a flex column: the newlines between the spans are
+   whitespace-only text runs, which a flex container does not render, so they
+   stay in the copied text (the Copy button reads the plain text) without
+   adding blank lines. */
+.bib pre {
+  margin: 0;
+  padding: 0.875rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--surface);
+  font-family: var(--font-mono);
+  font-size: var(--text-mono);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+.bib code {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.bib .f {
+  min-width: 0;
+  padding-left: 4ch;
+  text-indent: -4ch;
+}
+
+.bib-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.375rem 0.75rem;
+  margin: 0.5rem 0 0;
+  font-family: var(--font-ui);
+}
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+/* Every boxed control (Copy buttons, the email field, the theme toggle) is
+   2.25rem tall. */
+.btn,
+.email {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  line-height: 1.3;
+}
+
+.btn {
+  background: var(--surface);
+  color: var(--fg);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--muted);
+}
+
+.btn:active {
+  background: var(--line);
+}
+
+/* Room for both labels (Copy, Copied), so the button keeps its width while
+   its label confirms the copy. */
+.btn-copy {
+  min-width: 4.5rem;
+  justify-content: center;
+}
+
+.copy-status {
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Education
+   -------------------------------------------------------------------------- */
+
+.edu {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.edu li + li {
+  margin-top: 1.25rem;
+}
+
+.edu-degree {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-md);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.edu-detail {
+  margin: 0.2rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Contact
+   -------------------------------------------------------------------------- */
+
+.email-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.625rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--font-ui);
+}
+
+.email {
+  background: var(--surface);
+  color: var(--fg);
+  font-size: var(--text-body);
+  text-decoration: none;
+  user-select: all;
+  -webkit-user-select: all;
+}
+
+.email:hover {
+  border-color: var(--muted);
+}
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+  gap: 0.625rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+}
+
+.profiles a {
+  font-weight: 500;
+}
+
+.profiles .handle {
+  margin-left: 0.3rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.profiles .handle::before {
+  content: "·";
+  margin-right: 0.3rem;
+}
+
+.address {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.site-footer {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.375rem 1.5rem;
+  padding-block: 1.75rem 2.75rem;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-ui);
+  font-size: var(--text-ui);
+  color: var(--muted);
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.site-footer a {
+  color: inherit;
+}
+
+.footer-note {
+  grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------------------------------
+   Narrow screens: one column, the heading above its prose
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 52em) {
+  html {
+    scroll-padding-top: 1rem;
+  }
+
+  /* The name is right below in the hero, so the header keeps only the nav and the toggle. */
+  .site-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: 1rem;
+    align-items: start;
+    padding-block: 0.75rem;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .site-nav {
+    grid-column: 1;
+    grid-row: 1;
+    padding-top: 0.2rem;
+  }
+
+  .theme-toggle {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .site-nav ul {
+    gap: 0 1rem;
+  }
+
+  .hero {
+    grid-template-columns: 5.5rem minmax(0, 1fr);
+    column-gap: 1.25rem;
+    row-gap: 1.5rem;
+    padding-block: 2rem 2.25rem;
+  }
+
+  .portrait {
+    grid-row: 1;
+  }
+
+  .hero-head {
+    align-self: center;
+  }
+
+  .hero-body {
+    grid-column: 1 / -1;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .role {
+    margin-top: 0.375rem;
+  }
+
+  .bio p {
+    font-size: var(--text-body);
+    line-height: 1.55;
+  }
+
+  .section {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 1rem;
+    padding-block: 2.25rem;
+  }
+
+  .section > h2,
+  .side,
+  .body {
+    grid-column: 1;
+  }
+
+  /* #education > h2 is named so that it outranks its desktop-only nudge. */
+  .section > h2,
+  #education > h2 {
+    top: 0;
+    font-size: 1.5rem;
+  }
+
+  .side {
+    top: 0;
+    margin-top: 0.75rem;
+  }
+
+  /* Years become running labels above their papers, so they do not read as
+     one-word titles next to the 20px paper titles. */
+  .year {
+    margin-top: 0;
+    padding-top: 0;
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .body,
+  #news > .body {
+    max-width: var(--measure);
+    padding-left: 0;
+  }
+
+  .section--pubs {
+    row-gap: 1rem;
+  }
+
+  .year ~ .year {
+    margin-top: 0.5rem;
+    padding-top: 1.5rem;
+  }
+
+  /* The year heading already carries the rule on narrow screens. */
+  .pubs ~ .pubs {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Without a gutter to hang in, the first-author dash becomes a short
+     overline above the title, so every title keeps the same left edge as its
+     authors, venue and summary. */
+  .pub--first .pub-title {
+    padding-left: 0;
+    text-indent: 0;
+  }
+
+  .pub--first .pub-title::before,
+  .pub + .pub.pub--first .pub-title::before {
+    position: static;
+    top: auto;
+    display: block;
+    width: 1rem;
+    margin: 0 0 0.45rem;
+  }
+
+  /* The date becomes a narrow label beside its item. */
+  .news li {
+    grid-template-columns: 5rem minmax(0, 1fr);
+    column-gap: 0.75rem;
+  }
+}
+
+/* Phones, up to 488px (the width from which the six nav links fit on one
+   row): the nav wraps into two even rows (text-wrap: balance) instead of
+   leaving an orphan; the date sits above its news item. */
+@media (max-width: 30.5em) {
+  .site-nav ul {
+    display: block;
+    line-height: 1.3;
+    text-wrap: balance;
+  }
+
+  .site-nav li {
+    display: inline-block;
+    margin-right: 0.875rem;
+  }
+
+  .site-nav li:last-child {
+    margin-right: 0;
+  }
+
+  .site-nav a {
+    padding-block: 0.2rem;
+  }
+
+  .news li {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0.125rem;
+  }
+
+  .news time {
+    padding-top: 0;
+  }
+}
+
+/* Small phones, up to 384px: the BibTeX type drops to 12px (41 columns), so
+   the longest lines that cannot wrap, a 40-character DOI line or a citation
+   key, still fit on one line. */
+@media (max-width: 24em) {
+  .bib pre {
+    padding: 0.75rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Without JavaScript: hide controls that need it, show every BibTeX entry
+   -------------------------------------------------------------------------- */
+
+.no-js .theme-toggle,
+.no-js .textbutton,
+.no-js .bib-foot,
+.no-js .btn-copy,
+.no-js .copy-status {
+  display: none;
+}
+
+.no-js .bib[hidden] {
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Motion and print
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  /* Plain white paper: no field, black ink, in whichever theme the page was. */
+  :root,
+  :root:not([data-theme="light"]),
+  :root[data-theme="dark"] {
+    --bg: #FFFFFF;
+    --surface: #F2F2F2;
+    --line: #BBBBBB;
+    --fg: #000000;
+    --muted: #333333;
+    --accent: #000000;
+    color-scheme: light;
+  }
+
+  body {
+    background-image: none;
+  }
+
+  .field,
+  .site-header,
+  .skip-link,
+  .btn,
+  .bib-foot,
+  .textbutton {
+    display: none;
+  }
+
+  .bib[hidden] {
+    display: block;
+  }
+
+  .pub,
+  .news li,
+  .edu li {
+    break-inside: avoid;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  .pub-links a::after {
+    content: " (" attr(href) ")";
+    font-weight: 400;
+  }
+}
