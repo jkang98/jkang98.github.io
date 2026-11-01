@@ -38,7 +38,7 @@
   --field-khaki: #C3CA8B;                /* bottom right, under the yellow highlight */
   --field-yellow: rgb(228 247 38 / 50%);     /* acid yellow, overlay layer: the pale zone and the yellow corner */
   --field-peri-hi: rgb(164 154 241 / 55%);   /* periwinkle, overlay layer: the pink-lilac top right */
-  --field-blur: clamp(72px, 16vmin, 170px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
+  --field-blur: clamp(56px, 13vmin, 120px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
   --field-wash: rgb(255 255 255 / 12%);  /* the light wash behind the reading column */
   --field-wash-span: 24.5rem;            /* half-width of the full-strength wash (the column is 24rem wide, plus a little) */
   --field-wash-feather: 8rem;            /* the wash fades out over this width on each side */
@@ -396,48 +396,48 @@ button {
   --c: var(--field-orange);
   --x: -3vw;
   --y: 45vh;
-  --rx: 30vw;
-  --ry: 80vh;
+  --rx: 23vw;
+  --ry: 70vh;
 }
 
 .field__blob--orange-top {
   --c: var(--field-orange);
   --x: 39vw;
   --y: -4vh;
-  --rx: 34vmin;
-  --ry: 34vmin;
+  --rx: 22vmin;
+  --ry: 22vmin;
 }
 
 .field__blob--orange-bottom {
   --c: var(--field-orange);
   --x: 17vw;
   --y: 103vh;
-  --rx: 36vw;
-  --ry: 30vh;
+  --rx: 29vw;
+  --ry: 20vh;
 }
 
 .field__blob--khaki {
   --c: var(--field-khaki);
   --x: 86vw;
   --y: 95vh;
-  --rx: 26vw;
-  --ry: 34vh;
+  --rx: 16vw;
+  --ry: 26vh;
 }
 
 .field__blob--peri-right {
   --c: var(--field-peri);
   --x: 83vw;
   --y: 70vh;
-  --rx: max(38vmin, 34vw);
-  --ry: max(38vmin, 34vw);
+  --rx: max(28vmin, 24vw);
+  --ry: max(28vmin, 24vw);
 }
 
 .field__blob--peri {
   --c: var(--field-peri);
   --x: 26vw;
   --y: 48vh;
-  --rx: 36vmin;
-  --ry: 36vmin;
+  --rx: 22vmin;
+  --ry: 22vmin;
 }
 
 /* Overlay layer */
@@ -455,8 +455,8 @@ button {
   --c: var(--field-yellow);
   --x: 84vw;
   --y: 82vh;
-  --rx: 34vw;
-  --ry: 70vh;
+  --rx: 26vw;
+  --ry: 55vh;
   --rot: -22deg;
 }
 
@@ -464,8 +464,8 @@ button {
   --c: var(--field-peri-hi);
   --x: 62vw;
   --y: 6vh;
-  --rx: 60vw;
-  --ry: 34vh;
+  --rx: 50vw;
+  --ry: 24vh;
   --rot: 8deg;
 }
 
