@@ -213,12 +213,12 @@ print stylesheet drops it.
   values in the two dark blocks). The text tokens below were chosen for 4.5:1 against the darkest
   colour of the light field (its pure orange, relative luminance 0.35) and the brightest glow of
   the dark field; if you make the field darker or the glows brighter, re-check the contrast.
-- **To slow or stop the flow.** Every blob drifts over the field on its own horizontal and
-  vertical period (the `.field__mover--…` rules set how far, `--ax`/`--ay`, and how fast, `--kx`/
-  `--ky`, relative to the base period `--field-flow`, 22 s). `--field-flow: 44s` halves the pace,
-  `0s` stops it. It is already off for readers who prefer reduced motion, and on phones only the
-  three blobs above the highlight layer move. To keep the page still in every browser, remove the
-  `field__mover` animations (or the mover wrappers) from the markup.
+- **To slow or stop the flow.** Every blob tours the whole field on its own closed route (the
+  `@keyframes tour-…` rules: translations from its resting place through the corners and the
+  centre) and its own period (`--k` times the base `--field-flow`, 60 s). `--field-flow: 120s`
+  halves the pace, `0s` stops it. It is already off for readers who prefer reduced motion, and on
+  phones only the three blobs above the highlight layer move. To keep the page still in every
+  browser, remove the `field__mover` animations (or the mover wrappers) from the markup.
 - **The ground copy.** `body` carries a flat copy of the field (same tokens: the orange left
   edge, the periwinkle and yellow on the right, the corners, the wash, the grain). A browser never
   shows it, because the fixed field covers it; it is there for full-page screenshots and similar

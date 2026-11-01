@@ -44,7 +44,7 @@
   --field-wash-feather: 8rem;            /* the wash fades out over this width on each side */
   --field-grain: var(--grain-light);
   --field-grain-opacity: 1;              /* multiplier on the grain tile's own strength */
-  --field-flow: 22s;                     /* base period of the flow (each blob uses a multiple of it); 0s stops it */
+  --field-flow: 60s;                     /* base period of one tour of the field (each blob uses a multiple of it); 0s stops it */
   /* The grain tiles: 256px of SVG fractal noise (seamless), mapped to white (light theme) or
      mid-grey (dark theme) specks. The last row of the colour matrix is the alpha ramp
      (alpha = a * noise + b): light 1.52 / -0.8 gives a 6/255 amplitude, as measured on the
@@ -469,48 +469,28 @@ button {
   --rot: 8deg;
 }
 
-/* The flow. Every blob, the two highlight blobs included, wanders over
-   the field like something afloat: each sits in two nested movers, one
-   animating its x position and one its y, on periods that differ per blob
-   (--kx, --ky times the base --field-flow) and never coincide, so the paths
-   are Lissajous-like curves that do not visibly repeat. Negative delays
-   (--px, --py) start every blob mid-path. A few blobs also breathe (slow
-   scale). Everything is a composited transform; the only per-frame cost is
-   the overlay blend, which midem pays too. Under prefers-reduced-motion the
-   movers stand still at the reference composition. */
+/* The flow. Every blob, the two highlight blobs included, tours the whole
+   field: each follows its own closed route through the corners and the
+   centre (the tour-… keyframes, translations from its resting place in
+   viewport units), on its own period and phase, so the colours keep
+   trading places: the orange is sometimes on the right or along the top,
+   the periwinkle and the khaki wander to the left. Everything is a
+   composited transform; the only per-frame cost is the overlay blend, which
+   midem pays too. Under prefers-reduced-motion the movers stand still at the
+   reference composition. */
 .field__mover,
 .field__mover-y {
   position: absolute;
   inset: 0;
-  will-change: transform;
 }
 
 .field__mover {
-  animation: field-flow-x calc(var(--field-flow) * var(--kx, 1)) ease-in-out var(--px, 0s) infinite alternate;
-}
-
-.field__mover-y {
-  animation: field-flow-y calc(var(--field-flow) * var(--ky, 1)) ease-in-out var(--py, 0s) infinite alternate;
+  will-change: transform;
+  animation: var(--tour) calc(var(--field-flow) * var(--k, 1)) ease-in-out var(--phase, 0s) infinite;
 }
 
 .field__blob--breathe {
-  animation: field-breathe calc(var(--field-flow) * var(--ks, 1)) ease-in-out var(--pb, 0s) infinite alternate;
-}
-
-@keyframes field-flow-x {
-  0% { transform: translateX(calc(var(--ax) * -1)); }
-  28% { transform: translateX(calc(var(--ax) * 0.55)); }
-  52% { transform: translateX(calc(var(--ax) * -0.25)); }
-  76% { transform: translateX(var(--ax)); }
-  100% { transform: translateX(calc(var(--ax) * 0.1)); }
-}
-
-@keyframes field-flow-y {
-  0% { transform: translateY(calc(var(--ay) * 0.2)); }
-  24% { transform: translateY(calc(var(--ay) * -1)); }
-  50% { transform: translateY(calc(var(--ay) * 0.4)); }
-  72% { transform: translateY(calc(var(--ay) * -0.3)); }
-  100% { transform: translateY(var(--ay)); }
+  animation: field-breathe calc(var(--field-flow) * var(--ks, 0.3)) ease-in-out var(--pb, 0s) infinite alternate;
 }
 
 @keyframes field-breathe {
@@ -518,30 +498,101 @@ button {
   to { transform: scale(1.12); }
 }
 
-/* Per-blob amplitudes (--ax, --ay: how far it roams), period factors
-   (--kx, --ky) and phase offsets (--px, --py). */
-.field__mover--orange-left { --ax: 10vw; --ay: 16vw; --kx: 1.3; --ky: 1.05; --px: -5s; --py: -11s; }
-.field__mover--orange-top { --ax: 16vw; --ay: 9vw; --kx: 0.9; --ky: 1.25; --px: -13s; --py: -3s; }
-.field__mover--orange-bottom { --ax: 18vw; --ay: 10vw; --kx: 1.15; --ky: 0.85; --px: -2s; --py: -9s; --ks: 1.1; --pb: -6s; }
-.field__mover--khaki { --ax: 12vw; --ay: 14vw; --kx: 1; --ky: 1.35; --px: -8s; --py: -15s; --ks: 0.9; --pb: -3s; }
-.field__mover--peri-right { --ax: 20vw; --ay: 14vw; --kx: 1.2; --ky: 0.95; --px: -16s; --py: -6s; }
-.field__mover--peri { --ax: 22vw; --ay: 16vw; --kx: 0.85; --ky: 1.1; --px: -7s; --py: -12s; --ks: 0.75; --pb: -10s; }
-.field__mover--yellow-hi { --ax: 14vw; --ay: 12vw; --kx: 1.4; --ky: 1; --px: -10s; --py: -2s; }
-.field__mover--peri-hi { --ax: 18vw; --ay: 8vw; --kx: 1.05; --ky: 1.3; --px: -4s; --py: -14s; }
+/* Rests at the left edge, mid-height. */
+@keyframes tour-orange-left {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(45vw, -30vh); }
+  40% { transform: translate(95vw, 5vh); }
+  60% { transform: translate(72vw, 45vh); }
+  80% { transform: translate(25vw, 42vh); }
+  100% { transform: translate(0, 0); }
+}
 
-/* Phones: only the three blobs above the overlay keep flowing, so the
+/* Rests at the top, centre-left. */
+@keyframes tour-orange-top {
+  0% { transform: translate(0, 0); }
+  22% { transform: translate(48vw, 58vh); }
+  45% { transform: translate(-18vw, 92vh); }
+  68% { transform: translate(-32vw, 30vh); }
+  86% { transform: translate(12vw, -8vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Rests below the bottom edge, left of centre. */
+@keyframes tour-orange-bottom {
+  0% { transform: translate(0, 0); }
+  18% { transform: translate(58vw, -58vh); }
+  40% { transform: translate(74vw, -100vh); }
+  62% { transform: translate(18vw, -82vh); }
+  82% { transform: translate(-12vw, -32vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Rests in the bottom-right corner. */
+@keyframes tour-khaki {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-52vw, -8vh); }
+  50% { transform: translate(-72vw, -80vh); }
+  72% { transform: translate(-22vw, -62vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Rests right of centre, low. */
+@keyframes tour-peri-right {
+  0% { transform: translate(0, 0); }
+  20% { transform: translate(-62vw, -22vh); }
+  42% { transform: translate(-76vw, -62vh); }
+  64% { transform: translate(-30vw, -66vh); }
+  84% { transform: translate(8vw, -30vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Rests left of centre, mid-height. */
+@keyframes tour-peri {
+  0% { transform: translate(0, 0); }
+  22% { transform: translate(56vw, -36vh); }
+  46% { transform: translate(62vw, 36vh); }
+  68% { transform: translate(10vw, 42vh); }
+  86% { transform: translate(-22vw, 2vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Highlight band, rests over the bottom-right corner. */
+@keyframes tour-yellow-hi {
+  0% { transform: translate(0, 0); }
+  28% { transform: translate(-62vw, -28vh); }
+  54% { transform: translate(-72vw, -72vh); }
+  78% { transform: translate(-20vw, -76vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Highlight band, rests along the top. */
+@keyframes tour-peri-hi {
+  0% { transform: translate(0, 0); }
+  30% { transform: translate(2vw, 62vh); }
+  55% { transform: translate(-42vw, 82vh); }
+  78% { transform: translate(-46vw, 28vh); }
+  100% { transform: translate(0, 0); }
+}
+
+/* Per-blob route, period factor (times --field-flow) and phase. */
+.field__mover--orange-left { --tour: tour-orange-left; --k: 0.9; --phase: -12s; }
+.field__mover--orange-top { --tour: tour-orange-top; --k: 1.03; --phase: -31s; }
+.field__mover--orange-bottom { --tour: tour-orange-bottom; --k: 1.17; --phase: -50s; --ks: 0.32; --pb: -6s; }
+.field__mover--khaki { --tour: tour-khaki; --k: 0.97; --phase: -20s; --ks: 0.27; --pb: -3s; }
+.field__mover--peri-right { --tour: tour-peri-right; --k: 1.1; --phase: -42s; }
+.field__mover--peri { --tour: tour-peri; --k: 0.83; --phase: -7s; --ks: 0.24; --pb: -10s; }
+.field__mover--yellow-hi { --tour: tour-yellow-hi; --k: 1.23; --phase: -26s; }
+.field__mover--peri-hi { --tour: tour-peri-hi; --k: 1; --phase: -15s; }
+
+/* Phones: only the three blobs above the overlay keep touring, so the
    blended layer is composited once and the battery is spared. */
 @media (max-width: 52em) {
   .field__mover--orange-top,
   .field__mover--khaki,
   .field__mover--peri-right,
   .field__mover--yellow-hi,
-  .field__mover--peri-hi,
-  .field__mover--orange-top .field__mover-y,
-  .field__mover--khaki .field__mover-y,
-  .field__mover--peri-right .field__mover-y,
-  .field__mover--yellow-hi .field__mover-y,
-  .field__mover--peri-hi .field__mover-y {
+  .field__mover--peri-hi {
     animation: none;
   }
 }
