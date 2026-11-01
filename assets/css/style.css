@@ -92,18 +92,18 @@
     --surface: rgb(241 233 220 / 8%);  /* cream at 8%: a plate one step lighter than the field (BibTeX, email, buttons, the portrait frame), warm like paper under a lamp */
     --line: rgb(241 233 220 / 24%);  /* hairlines and borders: translucent cream */
     --fg: #F1E9DC;  /* cream ink (L 0.82): 15:1 on the bare ground, 4.5:1 up to L 0.144 behind the column */
-    --muted: #DBD2C3;  /* secondary text, parchment (L 0.65): 4.5:1 up to L 0.106 */
-    --accent: #F8CE88;  /* amber, the lamp's colour (L 0.66): links, icons, focus; 4.5:1 up to L 0.107, and on --surface */
+    --muted: #E3DBCC;  /* secondary text, light parchment (L 0.71): 4.5:1 up to L 0.12 */
+    --accent: #FAD69A;  /* amber, the lamp's colour (L 0.66): links, icons, focus; 4.5:1 up to L 0.107, and on --surface */
     --field-base: #1A1411;
     --field-orange: rgb(255 102 22 / 52%);  /* sunset orange: redder and purer than the day's #EE8432, so that dimmed by the wash it reads as ember rather than tan; 52% puts the core at L 0.09 (174 85 32) */
-    --field-peri: rgb(84 112 255 / 54%);  /* dusk blue: the periwinkle cooled by 20 degrees and saturated, a blue light instead of a grey-violet haze; its core is only L 0.06 */
-    --field-peri-deep: rgb(104 104 255 / 56%);  /* the disc above the overlay keeps a little of the periwinkle's violet */
-    --field-khaki: rgb(222 170 60 / 28%);  /* the khaki corner becomes dim gold: the base of the lamp-light */
+    --field-peri: rgb(84 112 255 / 60%);  /* dusk blue: the periwinkle cooled by 20 degrees and saturated, a blue light instead of a grey-violet haze; its core is only L 0.06 */
+    --field-peri-deep: rgb(104 104 255 / 62%);  /* the disc above the overlay keeps a little of the periwinkle's violet */
+    --field-khaki: rgb(222 170 60 / 32%);  /* the khaki corner becomes dim gold: the base of the lamp-light */
     --field-yellow: rgb(255 206 72 / 28%);  /* lamp yellow, screen-blended (the night-only rules below): a faint lamp in the corner where the day has acid yellow */
     --field-peri-hi: rgb(150 160 255 / 14%);  /* a cool haze along the top, screen-blended; the day's pink-lilac becomes dusk violet */
     --field-blur: clamp(72px, 17vmin, 160px);  /* softer edges than by day: night glows are light, not paint, so cores shrink and halos widen */
-    --field-wash: rgb(26 20 17 / 46%);  /* the ground itself at 46% behind the column: the glows stay visible through it, and 46% keeps any pile-up of blobs under L 0.106 */
-    --field-wash-feather: 16rem;  /* twice the day's feather, so the wash is a vignette and not a band with edges */
+    --field-wash: rgb(26 20 17 / 42%);  /* the ground itself at 42% behind the column: the glows stay visible through it, and 46% keeps any pile-up of blobs under L 0.106 */
+    --field-wash-feather: 22rem;  /* twice the day's feather, so the wash is a vignette and not a band with edges */
     --field-grain: var(--grain-dark);
     --field-grain-opacity: 1;
     color-scheme: dark;
@@ -115,18 +115,18 @@
   --surface: rgb(241 233 220 / 8%);
   --line: rgb(241 233 220 / 24%);
   --fg: #F1E9DC;
-  --muted: #DBD2C3;
-  --accent: #F8CE88;
+  --muted: #E3DBCC;
+  --accent: #FAD69A;
   --field-base: #1A1411;
   --field-orange: rgb(255 102 22 / 52%);
-  --field-peri: rgb(84 112 255 / 54%);
-  --field-peri-deep: rgb(104 104 255 / 56%);
-  --field-khaki: rgb(222 170 60 / 28%);
+  --field-peri: rgb(84 112 255 / 60%);
+  --field-peri-deep: rgb(104 104 255 / 62%);
+  --field-khaki: rgb(222 170 60 / 32%);
   --field-yellow: rgb(255 206 72 / 28%);
   --field-peri-hi: rgb(150 160 255 / 14%);
   --field-blur: clamp(72px, 17vmin, 160px);
-  --field-wash: rgb(26 20 17 / 46%);
-  --field-wash-feather: 16rem;
+  --field-wash: rgb(26 20 17 / 42%);
+  --field-wash-feather: 22rem;
   --field-grain: var(--grain-dark);
   --field-grain-opacity: 1;
   color-scheme: dark;
@@ -152,6 +152,54 @@
 
 :root[data-theme="dark"] body {
   background-blend-mode: normal, normal, screen, normal, normal, normal, normal;
+}
+
+/* Night-only: the wash ramps in with eased stops instead of a straight line, so
+   a bright core beside the column does not draw a soft vertical edge. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .field__wash {
+    background-image: linear-gradient(
+      to right,
+      transparent calc(50% - var(--field-wash-span) - var(--field-wash-feather)),
+      color-mix(in srgb, var(--field-wash) 22%, transparent) calc(50% - var(--field-wash-span) - var(--field-wash-feather) * 0.62),
+      color-mix(in srgb, var(--field-wash) 64%, transparent) calc(50% - var(--field-wash-span) - var(--field-wash-feather) * 0.26),
+      var(--field-wash) calc(50% - var(--field-wash-span)),
+      var(--field-wash) calc(50% + var(--field-wash-span)),
+      color-mix(in srgb, var(--field-wash) 64%, transparent) calc(50% + var(--field-wash-span) + var(--field-wash-feather) * 0.26),
+      color-mix(in srgb, var(--field-wash) 22%, transparent) calc(50% + var(--field-wash-span) + var(--field-wash-feather) * 0.62),
+      transparent calc(50% + var(--field-wash-span) + var(--field-wash-feather))
+    );
+  }
+}
+
+:root[data-theme="dark"] .field__wash {
+  background-image: linear-gradient(
+    to right,
+    transparent calc(50% - var(--field-wash-span) - var(--field-wash-feather)),
+    color-mix(in srgb, var(--field-wash) 22%, transparent) calc(50% - var(--field-wash-span) - var(--field-wash-feather) * 0.62),
+    color-mix(in srgb, var(--field-wash) 64%, transparent) calc(50% - var(--field-wash-span) - var(--field-wash-feather) * 0.26),
+    var(--field-wash) calc(50% - var(--field-wash-span)),
+    var(--field-wash) calc(50% + var(--field-wash-span)),
+    color-mix(in srgb, var(--field-wash) 64%, transparent) calc(50% + var(--field-wash-span) + var(--field-wash-feather) * 0.26),
+    color-mix(in srgb, var(--field-wash) 22%, transparent) calc(50% + var(--field-wash-span) + var(--field-wash-feather) * 0.62),
+    transparent calc(50% + var(--field-wash-span) + var(--field-wash-feather))
+  );
+}
+
+/* Night-only, phones: the wash covers the whole width and the blobs are small,
+   so the two main glows get more alpha there (the phone has contrast headroom). */
+@media (max-width: 52em) and (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --field-orange: rgb(255 102 22 / 64%);
+    --field-peri: rgb(84 112 255 / 70%);
+  }
+}
+
+@media (max-width: 52em) {
+  :root[data-theme="dark"] {
+    --field-orange: rgb(255 102 22 / 64%);
+    --field-peri: rgb(84 112 255 / 70%);
+  }
 }
 
 /* --------------------------------------------------------------------------
@@ -660,11 +708,13 @@ button {
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --field-wash: rgb(26 20 17 / 62%);
+      --field-grain-opacity: 0;
     }
   }
 
   :root[data-theme="dark"] {
     --field-wash: rgb(26 20 17 / 62%);
+    --field-grain-opacity: 0;
   }
 
   .field__overlay {
