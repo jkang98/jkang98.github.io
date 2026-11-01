@@ -103,14 +103,19 @@ year's list. This is the live markup of one entry; replace the parts in capitals
               <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
             </p>
             <div class="bib" hidden>
-<pre><code><span class="f">@inproceedings{<wbr>KEY,</span>
-<span class="f">  author    = {Kang, Jingwei and SURNAME, FIRSTNAME and SURNAME, FIRSTNAME},</span>
-<span class="f">  title     = {TITLE},</span>
-<span class="f">  booktitle = {Proceedings of the ... (VENUE 'YY)},</span>
-<span class="f">  publisher = {ACM},</span>
-<span class="f">  year      = {YEAR},</span>
-<span class="f">  pages     = {FIRST--LAST},</span>
-<span class="f">  doi       = {DOI}</span>
+<pre><code><span class="f">@inproceedings{<wbr>10.1145/XXXX.YYYY,</span>
+<span class="f">author = {Last, First and Last, First},</span>
+<span class="f">title = {Paper Title},</span>
+<span class="f">year = {2027},</span>
+<span class="f">publisher = {Association for Computing Machinery},</span>
+<span class="f">address = {New York, NY, USA},</span>
+<span class="f">url = {https://doi.org/10.1145/XXXX.YYYY},</span>
+<span class="f">doi = {10.1145/XXXX.YYYY},</span>
+<span class="f">booktitle = {Proceedings of …},</span>
+<span class="f">pages = {1–10},</span>
+<span class="f">numpages = {10},</span>
+<span class="f">location = {City, Country},</span>
+<span class="f">series = {SIGIR '27}</span>
 <span class="f">}</span></code></pre>
               <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
             </div>
@@ -119,7 +124,8 @@ year's list. This is the live markup of one entry; replace the parts in capitals
 
 Notes:
 
-- `KEY` is the BibTeX key, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
+- The BibTeX is the entry the paper's ACM Digital Library page exports (Cite → BibTeX), one field per
+  line; `KEY` is a short id of your own for the `pub-KEY` anchor, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
   Research links point at; it must be unique on the page. The BibTeX and Copy buttons
   find their own blocks, so nothing else needs an id.
 - Keep `pub--first` on the `<li>` (it draws the dash beside the title) and the hidden
