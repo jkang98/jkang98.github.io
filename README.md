@@ -119,7 +119,7 @@ year's list. This is the live markup of one entry; replace the parts in capitals
 Notes:
 
 - `KEY` is the BibTeX key, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
-  News and Research links point at; it must be unique on the page. The BibTeX and Copy buttons
+  Research links point at; it must be unique on the page. The BibTeX and Copy buttons
   find their own blocks, so nothing else needs an id.
 - Keep `pub--first` on the `<li>` (it draws the dash beside the title) and the hidden
   `(first author)` note, which screen readers announce in place of the dash, only when Jingwei

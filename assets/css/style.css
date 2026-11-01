@@ -59,7 +59,7 @@
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", "DejaVu Sans Mono", monospace;
 
   /* Type scale — one size per job */
-  --text-xs: 0.75rem;      /* 12px  running labels: news dates, "Papers", years on narrow screens */
+  --text-xs: 0.75rem;      /* 12px  running labels: "Papers", years on narrow screens */
   --text-ui: 0.9375rem;    /* 15px  navigation, author and venue lines, links, buttons */
   --text-sm: 1rem;         /* 16px  paper summaries */
   --text-body: 1.125rem;   /* 18px  running text */
@@ -315,7 +315,7 @@ button {
 }
 
 /* The small, letter-spaced running label: one treatment, three uses (the
-   "Papers" label, news dates, and the year headings on narrow screens). */
+   "Papers" label and the year headings on narrow screens). */
 .label,
 /* --------------------------------------------------------------------------
    The field: the page background
@@ -818,7 +818,7 @@ h1 {
 }
 
 /* Vertical padding on the links in single-row lists widens the touch target
-   without moving the text. Links inside running text (.news p, .related) get
+   without moving the text. Links inside running text (.related) get
    none: their padding boxes would overlap across lines and steal taps. */
 .quick-links a,
 .pub-links a,
@@ -890,12 +890,6 @@ h1 {
    scaffold and lays out its own date column, and the heading sits above it.
    Each item rule then runs across both columns like the year rules. (Under
    52em the date column narrows and the body keeps the measure; see below.) */
-#news > .body {
-  grid-column: 1 / -1;
-  max-width: none;
-  padding-left: 0;
-}
-
 /* --------------------------------------------------------------------------
    Research
    -------------------------------------------------------------------------- */
@@ -1398,11 +1392,6 @@ h1 {
   }
 
   .body,
-  #news > .body {
-    max-width: var(--measure);
-    padding-left: 0;
-  }
-
   .section--pubs {
     row-gap: 1rem;
   }
