@@ -250,6 +250,5 @@ a panel of its own over the field.
 
 ## Known gaps
 
-- The portrait is a placeholder monogram.
 - Education entries have no years.
 - No CV link yet (see above).
