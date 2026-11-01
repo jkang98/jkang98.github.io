@@ -52,18 +52,11 @@ Nothing in the page changes: all links are relative.
 ## Edit the text
 
 Everything visible is in `index.html`, in page order. Each part starts with a comment that looks
-like `<!-- ===== News … ===== -->`, so search for `=====` to jump between them.
+like `<!-- ===== Research … ===== -->`, so search for `=====` to jump between them.
 
 - **Intro** (`<section class="hero" id="about">`): the `<h1>`, the `<p class="role">` line and the
   two paragraphs inside `<div class="bio">`: the first says what the research is about, the second
   names the supervisor, collaborator and labs. Keep the bio to two to four short sentences.
-- **News** (`<ol class="news">`): one `<li>` per item, newest at the top. Each item is
-  `<time datetime="YYYY-MM">Mon YYYY</time>` followed by a `<p>`. Keep five to seven items and
-  drop the oldest when you add one. Link a paper with `href="#pub-KEY"` (see below).
-  Only the first five items show; the rest scroll inside the list (the `news-window` in
-  `index.html`, sized by `main.js`). With five items or fewer nothing scrolls. Each item is one
-  line of the form "A full / short / resource / doctoral symposium paper is published at …",
-  linked to its entry in Publications.
 - **Research**: an intro paragraph, then pairs of `<h3 class="side">` (theme name) and
   `<div class="body theme">` (one paragraph plus a `Papers` line that links to `#pub-KEY` ids).
 - **Publications**: see *Add a paper*.
@@ -144,8 +137,6 @@ Notes:
   whatever does not fit under the value with a hanging indent, and leaves the copied text as
   typed. The `<wbr>` after the opening brace of the first line lets a long citation key move
   whole to the next line on a narrow phone instead of breaking in the middle.
-- Add a dated line to News (`href="#pub-KEY"`) and, if it fits a theme, to that theme's `Papers`
-  line in Research.
 
 ## Changing the photo
 
