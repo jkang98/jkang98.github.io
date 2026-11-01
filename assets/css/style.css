@@ -942,20 +942,17 @@ h1 {
 }
 
 .theme-papers li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  column-gap: 0.6rem;
-  row-gap: 0.1rem;
   line-height: 1.45;
 }
 
+/* The venue key always sits on its own line under the title. */
 .theme-papers .venue {
+  display: block;
+  margin-top: 0.1rem;
   font-family: var(--font-ui);
   font-size: var(--text-ui);
   font-weight: 600;
   color: var(--muted);
-  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------
