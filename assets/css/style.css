@@ -314,9 +314,17 @@ button {
   padding-right: max(16px, env(safe-area-inset-right, 0px));
 }
 
-/* The small, letter-spaced running label: one treatment, three uses (the
+/* The small, letter-spaced running label: one treatment, two uses (the
    "Papers" label and the year headings on narrow screens). */
-.label,
+.label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
 /* --------------------------------------------------------------------------
    The field: the page background
 
@@ -1492,6 +1500,10 @@ h1 {
 }
 
 @media print {
+  .edu li {
+    break-inside: avoid;
+  }
+
   /* Plain white paper: no field, black ink, in whichever theme the page was. */
   :root,
   :root:not([data-theme="light"]),
