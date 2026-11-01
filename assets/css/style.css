@@ -822,23 +822,43 @@ h1 {
   margin-bottom: 0;
 }
 
+/* Three round icon buttons under the portrait: Google Scholar, LinkedIn,
+   email. Each link names itself with aria-label and title; the SVG inside is
+   decorative and takes the link colour. */
 .quick-links {
-  display: grid;
-  /* Row gap is twice the links' tap padding so the rows never overlap. */
-  row-gap: 0.75rem;
-  justify-items: start;
+  display: flex;
+  justify-content: center;
+  gap: 0.625rem;
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: var(--font-ui);
-  font-size: var(--text-ui);
-  font-weight: 500;
+}
+
+.quick-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.375rem;
+  height: 2.375rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--accent);
+}
+
+.quick-links a:hover {
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+
+.quick-links svg {
+  width: 1.125rem;
+  height: 1.125rem;
+  fill: currentColor;
 }
 
 /* Vertical padding on the links in single-row lists widens the touch target
    without moving the text. Links inside running text get
    none: their padding boxes would overlap across lines and steal taps. */
-.quick-links a,
 .pub-links a,
 .site-footer a {
   padding-block: 0.35rem;
@@ -1344,9 +1364,7 @@ h1 {
   .quick-links {
     grid-column: 1 / -1;
     grid-row: 3;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem 1.375rem;
+    justify-content: flex-start;
     margin-top: -0.25rem;
   }
 
