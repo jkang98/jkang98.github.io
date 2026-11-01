@@ -936,7 +936,8 @@ h1 {
   display: grid;
   row-gap: 0.55rem;
   margin: 0;
-  padding: 0;
+  padding-top: 0;
+  padding-bottom: 0;
   list-style: none;
 }
 
@@ -1415,7 +1416,11 @@ h1 {
     color: var(--muted);
   }
 
-  .body,
+  .body {
+    max-width: var(--measure);
+    padding-left: 0;
+  }
+
   .section--pubs {
     row-gap: 1rem;
   }
