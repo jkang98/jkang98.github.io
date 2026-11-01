@@ -18,9 +18,10 @@
    directly on it: a plum-black ink, a dark muted grey and a deep indigo for
    links, each chosen for 4.5:1 or better against the field behind the reading
    column, which a soft light wash keeps calmer than the edges. The dark theme
-   is the field's dark variant (near-black ground, the same blobs as muted
-   glows), not an inversion. Every colour on the page comes from the tokens
-   below.
+   is a night palette of the same place, not an inversion: a warm charcoal
+   ground, the orange as a sunset glow, the periwinkle as a dusk blue, the
+   yellow as lamp-light, cream type and amber links (the dark token blocks say
+   why). Every colour on the page comes from the tokens below.
    ========================================================================== */
 
 :root {
@@ -47,11 +48,13 @@
   --field-grain-opacity: 1;              /* multiplier on the grain tile's own strength */
   --field-flow: 22s;                     /* base period of one tour of the field (each blob uses a multiple of it), paced like midem's loop; 0s stops it */
   /* The grain tiles: 256px of SVG fractal noise (seamless), mapped to white (light theme) or
-     mid-grey (dark theme) specks. The last row of the colour matrix is the alpha ramp
+     warm umber (dark theme) specks. The last row of the colour matrix is the alpha ramp
      (alpha = a * noise + b): light 1.52 / -0.8 gives a 6/255 amplitude, as measured on the
-     reference; dark 0.88 / -0.46 is fainter. */
+     reference; dark 0.72 / -0.38 is fainter, and its speck colour sits at L 0.09, so the
+     grain lightens the charcoal but can never lift a glow behind the column above the
+     dark theme's contrast budget. */
   --grain-light: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 1.52 0 0 0 -0.8'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E");
-  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .4 0 0 0 0 .4 0.88 0 0 0 -0.46'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E");
+  --grain-dark: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='256' height='256'%3E%3Cfilter id='g' x='0' y='0' width='100%' height='100%' color-interpolation-filters='sRGB'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.3' numOctaves='2' stitchTiles='stitch' seed='3'/%3E%3CfeColorMatrix values='0 0 0 0 .42 0 0 0 0 .31 0 0 0 0 .19 0.72 0 0 0 -0.38'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23g)'/%3E%3C/svg%3E");
 
   --font-display: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
   --font-body: "Newsreader", "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
@@ -85,20 +88,22 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #1B1B1B;                       /* the field's near-black ground */
-    --surface: rgb(255 255 255 / 8%);
-    --line: rgb(236 230 236 / 22%);
-    --fg: #ECE6EC;                       /* cool off-white */
-    --muted: #D0C8D1;                    /* 4.5:1 on the brightest glow behind the column (L <= 0.093) */
-    --accent: #D6C2FC;                   /* pale lilac-periwinkle */
-    --field-base: #1B1B1B;
-    --field-orange: rgb(238 132 50 / 42%);   /* the same blobs, as muted glows (overlay doubles midtones on a dark ground, so the highlights stay faint) */
-    --field-peri: rgb(166 157 242 / 42%);
-    --field-peri-deep: rgb(155 145 238 / 46%);
-    --field-khaki: rgb(195 202 139 / 26%);
-    --field-yellow: rgb(228 247 38 / 14%);
-    --field-peri-hi: rgb(164 154 241 / 14%);
-    --field-wash: rgb(27 27 27 / 52%);   /* in the dark theme the wash dims the glows behind the column */
+    --bg: #1A1411;  /* warm charcoal: a brown-black on the orange's own hue, so every glow fades into the ground on-hue instead of into grey */
+    --surface: rgb(241 233 220 / 8%);  /* cream at 8%: a plate one step lighter than the field (BibTeX, email, buttons, the portrait frame), warm like paper under a lamp */
+    --line: rgb(241 233 220 / 24%);  /* hairlines and borders: translucent cream */
+    --fg: #F1E9DC;  /* cream ink (L 0.82): 15:1 on the bare ground, 4.5:1 up to L 0.144 behind the column */
+    --muted: #DBD2C3;  /* secondary text, parchment (L 0.65): 4.5:1 up to L 0.106 */
+    --accent: #F8CE88;  /* amber, the lamp's colour (L 0.66): links, icons, focus; 4.5:1 up to L 0.107, and on --surface */
+    --field-base: #1A1411;
+    --field-orange: rgb(255 102 22 / 52%);  /* sunset orange: redder and purer than the day's #EE8432, so that dimmed by the wash it reads as ember rather than tan; 52% puts the core at L 0.09 (174 85 32) */
+    --field-peri: rgb(84 112 255 / 54%);  /* dusk blue: the periwinkle cooled by 20 degrees and saturated, a blue light instead of a grey-violet haze; its core is only L 0.06 */
+    --field-peri-deep: rgb(104 104 255 / 56%);  /* the disc above the overlay keeps a little of the periwinkle's violet */
+    --field-khaki: rgb(222 170 60 / 28%);  /* the khaki corner becomes dim gold: the base of the lamp-light */
+    --field-yellow: rgb(255 206 72 / 28%);  /* lamp yellow, screen-blended (the night-only rules below): a faint lamp in the corner where the day has acid yellow */
+    --field-peri-hi: rgb(150 160 255 / 14%);  /* a cool haze along the top, screen-blended; the day's pink-lilac becomes dusk violet */
+    --field-blur: clamp(72px, 17vmin, 160px);  /* softer edges than by day: night glows are light, not paint, so cores shrink and halos widen */
+    --field-wash: rgb(26 20 17 / 46%);  /* the ground itself at 46% behind the column: the glows stay visible through it, and 46% keeps any pile-up of blobs under L 0.106 */
+    --field-wash-feather: 16rem;  /* twice the day's feather, so the wash is a vignette and not a band with edges */
     --field-grain: var(--grain-dark);
     --field-grain-opacity: 1;
     color-scheme: dark;
@@ -106,23 +111,47 @@
 }
 
 :root[data-theme="dark"] {
-  --bg: #1B1B1B;
-  --surface: rgb(255 255 255 / 8%);
-  --line: rgb(236 230 236 / 22%);
-  --fg: #ECE6EC;
-  --muted: #D0C8D1;
-  --accent: #D6C2FC;
-  --field-base: #1B1B1B;
-  --field-orange: rgb(238 132 50 / 42%);
-  --field-peri: rgb(166 157 242 / 42%);
-  --field-peri-deep: rgb(155 145 238 / 46%);
-  --field-khaki: rgb(195 202 139 / 26%);
-  --field-yellow: rgb(228 247 38 / 14%);
-  --field-peri-hi: rgb(164 154 241 / 14%);
-  --field-wash: rgb(27 27 27 / 52%);
+  --bg: #1A1411;
+  --surface: rgb(241 233 220 / 8%);
+  --line: rgb(241 233 220 / 24%);
+  --fg: #F1E9DC;
+  --muted: #DBD2C3;
+  --accent: #F8CE88;
+  --field-base: #1A1411;
+  --field-orange: rgb(255 102 22 / 52%);
+  --field-peri: rgb(84 112 255 / 54%);
+  --field-peri-deep: rgb(104 104 255 / 56%);
+  --field-khaki: rgb(222 170 60 / 28%);
+  --field-yellow: rgb(255 206 72 / 28%);
+  --field-peri-hi: rgb(150 160 255 / 14%);
+  --field-blur: clamp(72px, 17vmin, 160px);
+  --field-wash: rgb(26 20 17 / 46%);
+  --field-wash-feather: 16rem;
   --field-grain: var(--grain-dark);
   --field-grain-opacity: 1;
   color-scheme: dark;
+}
+
+/* Night-only rules. By day the overlay layer blends with `overlay`, which on a dark
+   ground can only darken (the old dark theme's yellow corner was invisible for this
+   reason); by night it blends with `screen`, so the two highlight blobs add light. The
+   body's document-anchored copy of the field blends its yellow layer the same way. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .field__overlay {
+    mix-blend-mode: screen;
+  }
+
+  :root:not([data-theme="light"]) body {
+    background-blend-mode: normal, normal, screen, normal, normal, normal, normal;
+  }
+}
+
+:root[data-theme="dark"] .field__overlay {
+  mix-blend-mode: screen;
+}
+
+:root[data-theme="dark"] body {
+  background-blend-mode: normal, normal, screen, normal, normal, normal, normal;
 }
 
 /* --------------------------------------------------------------------------
@@ -630,12 +659,12 @@ button {
 
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --field-wash: rgb(27 27 27 / 60%);
+      --field-wash: rgb(26 20 17 / 62%);
     }
   }
 
   :root[data-theme="dark"] {
-    --field-wash: rgb(27 27 27 / 60%);
+    --field-wash: rgb(26 20 17 / 62%);
   }
 
   .field__overlay {
