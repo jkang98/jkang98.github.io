@@ -115,23 +115,24 @@
     </header>
 
     <main id="main" tabindex="-1">
-      <!-- ===== Intro: name, role line, portrait and bio. The portrait is assets/img/portrait.jpg (4:5; see README "Changing the photo"). ===== -->
+      <!-- ===== Intro: name and role line, then the side column (portrait plus the three quick links) and the bio. The portrait is assets/img/portrait.jpg (4:5; see README "Changing the photo"). ===== -->
       <section class="hero" id="about" aria-labelledby="name">
         <div class="hero-head">
           <h1 id="name">Jingwei Kang</h1>
           <p class="role">PhD candidate&nbsp;· Information Retrieval Lab (IRLab), University of Amsterdam</p>
         </div>
-        <img class="portrait" src="assets/img/portrait.jpg" width="384" height="480" alt="Portrait of Jingwei Kang">
+        <div class="hero-side">
+          <img class="portrait" src="assets/img/portrait.jpg" width="384" height="480" alt="Portrait of Jingwei Kang">
+          <ul class="quick-links" role="list" aria-label="Profiles and email">
+            <li><a href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ" rel="me">Google Scholar</a></li>
+            <li><a href="https://www.linkedin.com/in/jingwei-kang-918597163/" rel="me">LinkedIn</a></li>
+            <li><a href="mailto:j.kang@uva.nl">j.kang@uva.nl</a></li>
+          </ul>
+        </div>
         <div class="hero-body">
           <div class="bio">
             <p>I study recommender systems in streaming media services, where recommendations are shown in carousel interfaces. My work focuses on user behaviour modelling and offline evaluation; I have also worked on learning to rank. I am a PhD candidate at the University of Amsterdam, supervised by <a href="https://scholar.google.com/citations?user=AVDkgFIAAAAJ">prof. dr. Maarten de Rijke</a> and <a href="https://scholar.google.com/citations?user=e9JynrAAAAAJ">dr. Harrie&nbsp;Oosterhuis</a>.</p>
           </div>
-          <ul class="quick-links" role="list" aria-label="Profiles and email">
-            <li><a href="https://scholar.google.com/citations?user=pT_2QWUAAAAJ" rel="me">Google Scholar</a></li>
-            <li><a href="https://orcid.org/0009-0003-9283-4060" rel="me">ORCID</a></li>
-            <li><a href="https://github.com/jkang98" rel="me">GitHub</a></li>
-            <li><a href="mailto:j.kang@uva.nl">j.kang@uva.nl</a></li>
-          </ul>
         </div>
       </section>
 

@@ -64,7 +64,7 @@ like `<!-- ===== Research … ===== -->`, so search for `=====` to jump between 
 - **Education** (`<ul class="edu">`): one `<li>` per degree, newest first; the years sit at the
   end of each `edu-detail` line (BSc 2016–2020, MSc 2021–2023).
 - **Contact**: the email address, the Copy button, the profile links, a commented-out CV link.
-  The address appears **seven times** in `index.html`: the hero quick link and the Contact link
+  The address appears **seven times** in `index.html`: the quick link under the portrait and the Contact link
   each carry it in `href="mailto:…"` and in the link text, the Copy button has it in its
   `data-copy` attribute, the JSON-LD block in `<head>` has it as `email`, and the comment above
   the Contact section names it. Use find-and-replace on `j.kang@uva.nl` across the file; it
