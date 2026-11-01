@@ -1,8 +1,40 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Cut from the same drawing as the portrait-plate monogram: the paper tile, one inset rule
-       standing for the plate's frame, and the Newsreader K in ink. A light tile reads on light and
-       dark tab strips alike. -->
-  <rect width="32" height="32" fill="#F2F5F1"/>
-  <rect x="2.5" y="2.5" width="27" height="27" fill="none" stroke="#1C2521" stroke-opacity=".5"/>
-  <path fill="#1C2521" d="M15.42 13.95L23.25 22.64L25.17 23.34L25.17 24L18.20 24L18.20 23.42L19.75 22.78L13.58 15.86L10.91 15.86L10.91 14.41L13.81 14.41L19.93 8.10L17.95 7.51L17.95 6.85L23.81 6.85L23.81 7.51L21.87 8.15L14.83 15.12L15.42 13.95ZM13.89 7.51L11.86 8.18L11.86 22.67L13.86 23.34L13.86 24L7.05 24L7.05 23.34L9.08 22.67L9.08 8.18L7.05 7.51L7.05 6.85L13.89 6.85L13.89 7.51Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Browser-tab icon: the JK monogram as the outlines of Newsreader 500, the page's display
+       face, so it looks the same on every system (an SVG icon cannot load web fonts). The tile is
+       a miniature of the page's field: the lilac ground #D290F7 with the orange #EE8432, periwinkle
+       #A69DF2 and acid-yellow #E4F726 glows in their places, under letters in the ink #241E24. In the
+       dark scheme the ground is #1B1B1B, the glows dim and the letters take the accent #D6C2FC. -->
+  <style>
+    .plate { fill: #D290F7; }
+    .glow { opacity: 1; }
+    .initials { fill: #241E24; }
+    @media (prefers-color-scheme: dark) {
+      .plate { fill: #1B1B1B; }
+      .glow { opacity: 0.45; }
+      .initials { fill: #D6C2FC; }
+    }
+  </style>
+  <defs>
+    <radialGradient id="orange" cx="0.1" cy="0.9" r="0.8">
+      <stop offset="0" stop-color="#EE8432"/>
+      <stop offset="0.45" stop-color="#EE8432" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#EE8432" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="peri" cx="0.3" cy="0.4" r="0.45">
+      <stop offset="0" stop-color="#A69DF2"/>
+      <stop offset="1" stop-color="#A69DF2" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="yellow" cx="0.95" cy="0.95" r="0.55">
+      <stop offset="0" stop-color="#E4F726" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#E4F726" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="tile"><rect width="64" height="64" rx="6"/></clipPath>
+  </defs>
+  <rect class="plate" width="64" height="64" rx="6"/>
+  <g class="glow" clip-path="url(#tile)">
+    <rect width="64" height="64" fill="url(#peri)"/>
+    <rect width="64" height="64" fill="url(#orange)"/>
+    <rect width="64" height="64" fill="url(#yellow)"/>
+  </g>
+  <path class="initials" d="M20.01 18.54L20.06 37.36Q20.06 39.79 19.23 41.74Q18.39 43.70 16.88 45.07Q15.36 46.45 13.30 47.17Q11.24 47.89 8.81 47.89L8.81 47.89Q7.26 47.89 6.19 47.52Q5.11 47.15 4.56 46.47Q4.00 45.80 4.00 44.90L4.00 44.90Q4.00 43.98 4.56 43.34Q5.11 42.70 6.15 42.70L6.15 42.70Q6.59 42.70 7.10 43.06Q7.61 43.42 8.22 43.89Q8.84 44.37 9.53 44.74Q10.22 45.11 11.06 45.11L11.06 45.11Q12.79 45.11 13.88 43.81Q14.97 42.52 14.97 39.37L14.97 39.37L14.97 18.54L11.20 17.32L11.20 16.11L23.72 16.11L23.72 17.32L20.01 18.54ZM42.23 29.07L56.51 44.92L60 46.20L60 47.40L47.30 47.40L47.30 46.34L50.12 45.18L38.87 32.54L33.99 32.54L33.99 29.91L39.29 29.91L50.44 18.40L46.83 17.32L46.83 16.11L57.52 16.11L57.52 17.32L53.98 18.50L41.14 31.20L42.23 29.07ZM39.43 17.32L35.73 18.54L35.73 44.97L39.38 46.20L39.38 47.40L26.96 47.40L26.96 46.20L30.66 44.97L30.66 18.54L26.96 17.32L26.96 16.11L39.43 16.11L39.43 17.32Z"/>
 </svg>

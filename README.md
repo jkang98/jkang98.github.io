@@ -1,212 +1,264 @@
 # Jingwei Kang — personal homepage
 
-A one-page academic homepage in plain HTML, CSS and a little JavaScript. No build step, no
-framework, no analytics. The only external resources are two Google Fonts (Newsreader and
-Source Sans 3).
+A plain static site: one HTML page, one stylesheet, one small script, two SVGs. No build step,
+no framework, no analytics. Edit the text in `index.html`, commit, push, done.
 
 ```
-index.html                        the page: all content lives here
-assets/css/style.css              design tokens (colours, fonts, scale) and all styles
-assets/js/main.js                 theme toggle, BibTeX disclosures, copy buttons (optional)
-assets/img/favicon.svg            browser-tab icon
-assets/img/portrait-placeholder.svg   monogram shown on the portrait plate until a photo exists
-.nojekyll                         tells GitHub Pages to serve the files as they are
-.htmlvalidate.json                settings for the HTML check (see "Checking the HTML")
+index.html                            the whole page (every section, every paper)
+assets/css/style.css                  colours, fonts, layout, the background field (light and dark themes)
+assets/js/main.js                     theme toggle, BibTeX show/hide, copy buttons
+assets/img/favicon.svg                browser-tab icon (JK monogram on a miniature of the field, a light and a dark version)
+assets/img/portrait-placeholder.svg   the JK monogram as a file (the page inlines the same drawing)
+.nojekyll                             tells GitHub Pages to serve the files exactly as they are
+.htmlvalidate.json                    settings for the HTML check (see "Check before publishing")
 ```
 
-All URLs are relative (`assets/css/style.css`, never `/assets/...`), so the site works at
-`https://jkang98.github.io/personal-website/`, at a repository root and on a custom domain
-without changes. Without JavaScript the page still works: every BibTeX entry is shown open and
-the toggle and copy buttons are hidden.
+All URLs inside the page are relative (`assets/css/style.css`, never `/assets/...`), so the site
+works at `https://jkang98.github.io/personal-website/`, at a custom domain, or opened from disk.
 
 ## Preview locally
 
+Run from inside this folder (the one that holds `index.html`):
+
 ```
 python3 -m http.server 8000        # then open http://localhost:8000/
-npx -y html-validate index.html    # should report no errors (see "Checking the HTML")
 ```
 
-Check a change at a narrow width (the browser's device toolbar at 390 px: nothing may scroll
-sideways) and in both themes (the toggle in the masthead).
+Double-clicking `index.html` also works. The two Google Fonts (Newsreader, Source Sans 3) need an
+internet connection; without it the page falls back to system serif and sans fonts.
 
-## Editing the text
+## Publish with GitHub Pages
 
-Everything visible is in `index.html`, in page order. Each section starts with a comment such as
-`<!-- ================= News ================= -->`.
+1. Push the branch that GitHub Pages will serve. If the repository has no `main` branch yet, create
+   it from the current branch and push it: `git switch -c main && git push -u origin main`.
+2. On GitHub open **Settings → Pages**. Under **Build and deployment** choose
+   **Deploy from a branch**, pick that branch (`main`) and `/ (root)`, and save.
+3. After a minute the site is live at **https://jkang98.github.io/personal-website/**.
 
-- **About** (`<section id="about">`): the `<h1>`, the role line, the two bio paragraphs and the
-  short row of links. The `<meta name="description">`, the `og:description` and the JSON-LD block
-  in the `<head>` paraphrase the bio: update them when it changes.
-- **News** (`<ul class="news">`): one `<li>` per item, newest first. Each item is a
-  `<time datetime="YYYY-MM">Mon YYYY</time>` followed by a `<p>`; link the paper's `#pub-…` id
-  where there is one. Keep five to seven items and drop the oldest when you add one.
-- **Research** (`<article class="theme">` blocks): a heading, one paragraph that synthesises,
-  and a `Papers` line (`<p class="refs">`: the label in one span, the links in
-  `<span class="refs-list">`) that links to publication entries by id. Leave the specifics to
-  the entries.
-  The drawing in the margin is an inline SVG inside `<div class="plate">`; delete that block if
-  you do not want it.
-- **Education** (`<ul class="edu">`): no years are shown because none were verified; add them to
-  the second line of an entry when you want them (`Radboud University, Nijmegen, YYYY–YYYY`).
-- **Contact** (`<section id="contact">`): the email address appears in three places (six
-  occurrences) in the file: the `About` link (`href` and visible text), the `Contact` row
-  (`href`, visible text and the `data-copy` attribute of the Copy button) and the JSON-LD
-  block. Replace all of them, for example with a global find-and-replace.
+Keep the empty `.nojekyll` file: it stops GitHub from running Jekyll over the files.
 
-The page is written in the first person. Keep sentences short and plain.
+### Custom domain (optional)
 
-## Adding a paper
+1. Add a file named `CNAME` at the repository root containing just the domain, for example
+   `www.example.org` (one line, no `https://`).
+2. At your DNS provider: for a subdomain such as `www`, add a **CNAME** record pointing to
+   `jkang98.github.io`. For a bare domain (`example.org`), add **A** records to GitHub's Pages
+   addresses `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`.
+3. Enter the same domain under **Settings → Pages → Custom domain**, wait for the DNS check, then
+   tick **Enforce HTTPS**.
 
-Publications are grouped by year, newest first. Each year is one `<div class="year-group">`
-holding an `<h3 class="year">` and a `<ul class="pub-group">`. For a new year, copy a whole
-`year-group` block, place it above the previous year and change the year in the heading text,
-its `id="year-YYYY"` and the list's `aria-labelledby`.
+Nothing in the page changes: all links are relative.
 
-Then add an entry at the top of that year's list. Pick a short `KEY` (for example `n2dcg`);
-it is used in four ids that must agree: `pub-KEY` (the entry, linked from News and Research),
-`t-KEY` (the title, which the links and buttons name through `aria-describedby`), `bib-KEY`
-(the panel the BibTeX button opens) and `bibcode-KEY` (the text the Copy button copies).
-Template, with the parts to edit in capitals:
+## Edit the text
+
+Everything visible is in `index.html`, in page order. Each part starts with a comment that looks
+like `<!-- ===== News … ===== -->`, so search for `=====` to jump between them.
+
+- **Intro** (`<section class="hero" id="about">`): the `<h1>`, the `<p class="role">` line and the
+  two paragraphs inside `<div class="bio">`: the first says what the research is about, the second
+  names the supervisor, collaborator and labs. Keep the bio to two to four short sentences.
+- **News** (`<ol class="news">`): one `<li>` per item, newest at the top. Each item is
+  `<time datetime="YYYY-MM">Mon YYYY</time>` followed by a `<p>`. Keep five to seven items and
+  drop the oldest when you add one. Link a paper with `href="#pub-KEY"` (see below).
+- **Research**: an intro paragraph, then pairs of `<h3 class="side">` (theme name) and
+  `<div class="body theme">` (one paragraph plus a `Papers` line that links to `#pub-KEY` ids).
+- **Publications**: see *Add a paper*.
+- **Education** (`<ul class="edu">`): the MSc and BSc entries carry no years because none were
+  known when the site was built. Add them to the `edu-detail` line when you want them shown,
+  e.g. `Radboud University, Nijmegen, the Netherlands, YYYY–YYYY`.
+- **Contact**: the email address, the Copy button, the profile links, a commented-out CV link.
+  The address appears **seven times** in `index.html`: the hero quick link and the Contact link
+  each carry it in `href="mailto:…"` and in the link text, the Copy button has it in its
+  `data-copy` attribute, the JSON-LD block in `<head>` has it as `email`, and the comment above
+  the Contact section names it. Use find-and-replace on `j.kang@uva.nl` across the file; it
+  catches all seven.
+- **Head**: `<meta name="description">` and the Open Graph description (keep them in step with
+  the bio), and the JSON-LD `Person` block. When you add or remove a profile in Contact, update
+  the `sameAs` list there too.
+- **Footer**: the year in `© 2026 Jingwei Kang` is typed by hand; update it once a year.
+
+The page is written in the first person in short, plain sentences. Inside the HTML write `&amp;`
+for `&` and `&lt;` for `<` (also inside the BibTeX). Hyphenated compounds (`eye-tracking`,
+`off-policy`) break at the hyphen, as in print; only two kinds of phrase are wrapped in
+`<span class="nb">…</span>` so that they never split: the names in the bio, and compounds whose
+first part is a single letter (`F-shaped`, `L-shaped`), which would otherwise leave a lone letter
+at a line end. Write the middle-dot separator (venue lines, `Papers` lines, the role line, the
+footer) as `&nbsp;· `, a no-break space before the dot: a line can then break after the dot but
+never end with it.
+
+## Add a paper
+
+Papers are grouped by year, newest first. Each year is an `<h3 class="side year" id="year-YYYY">`
+followed by an `<ol class="body pubs" role="list" aria-labelledby="year-YYYY">` (keep
+`role="list"`, see *Check before publishing*). If the year does not exist yet, add both above
+the previous year. Then put a new `<li class="pub">` at the top of that
+year's list. This is the live markup of one entry; replace the parts in capitals:
 
 ```html
-<li class="pub first-author" id="pub-KEY">
-  <h4 class="pub-title" id="t-KEY"><span class="mark" aria-hidden="true"></span>TITLE</h4>
-  <p class="pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, CO-AUTHOR ONE, CO-AUTHOR TWO <span class="first-label" aria-hidden="true">First author</span></p>
-  <p class="pub-venue"><span class="venue">VENUE ’YY</span>&nbsp;· FULL CONFERENCE NAME&nbsp;· CITY, MONTH&nbsp;YEAR&nbsp;· <span class="nb">pp.&nbsp;FIRST–LAST</span></p>
-  <p class="pub-summary">ONE SENTENCE ON WHAT THE PAPER SHOWS.</p>
-  <p class="pub-links">
-    <a href="https://arxiv.org/abs/XXXX.XXXXX" aria-describedby="t-KEY">arXiv:XXXX.XXXXX</a>
-    <a href="https://doi.org/10.1145/XXXXXXX.XXXXXXX" aria-describedby="t-KEY">doi:10.1145/XXXXXXX.XXXXXXX</a>
-    <button type="button" class="bib-toggle" aria-expanded="false" aria-controls="bib-KEY" aria-describedby="t-KEY">BibTeX</button>
-  </p>
-  <div class="bib" id="bib-KEY" hidden>
-<pre><code id="bibcode-KEY">@inproceedings{kangYYYYword,
-  author    = {Kang, Jingwei and SURNAME, FIRST NAME and
-               SURNAME, FIRST NAME},
-  title     = {TITLE, WITH {ACRONYMS} IN BRACES},
-  booktitle = {Proceedings of the FULL CONFERENCE NAME (VENUE 'YY)},
-  year      = {YYYY},
-  pages     = {FIRST--LAST},
-  publisher = {ACM},
-  doi       = {10.1145/XXXXXXX.XXXXXXX}
-}</code></pre>
-    <button type="button" class="btn copy" data-copy-target="bibcode-KEY" aria-describedby="t-KEY">Copy BibTeX</button>
-  </div>
-</li>
+          <li class="pub pub--first" id="pub-KEY">
+            <h4 class="pub-title">TITLE</h4>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, CO-AUTHOR, CO-AUTHOR</p>
+            <p class="pub-meta pub-venue"><span class="venue">VENUE ’YY</span>&nbsp;· FULL CONFERENCE NAME, CITY, COUNTRY, MONTH YEAR, pp. FIRST–LAST</p>
+            <p class="pub-summary">ONE SENTENCE ON WHAT THE PAPER DOES.</p>
+            <p class="pub-links">
+              <a href="https://arxiv.org/abs/ARXIV-ID">arXiv</a>
+              <a href="https://doi.org/DOI">DOI</a>
+              <button class="textbutton" type="button" aria-expanded="false">BibTeX</button>
+            </p>
+            <div class="bib" hidden>
+<pre><code><span class="f">@inproceedings{<wbr>KEY,</span>
+<span class="f">  author    = {Kang, Jingwei and SURNAME, FIRSTNAME and SURNAME, FIRSTNAME},</span>
+<span class="f">  title     = {TITLE},</span>
+<span class="f">  booktitle = {Proceedings of the ... (VENUE 'YY)},</span>
+<span class="f">  publisher = {ACM},</span>
+<span class="f">  year      = {YEAR},</span>
+<span class="f">  pages     = {FIRST--LAST},</span>
+<span class="f">  doi       = {DOI}</span>
+<span class="f">}</span></code></pre>
+              <p class="bib-foot"><button class="btn btn-copy" type="button">Copy</button><span class="copy-status" role="status" aria-live="polite"></span></p>
+            </div>
+          </li>
 ```
 
-Rules of thumb:
+Notes:
 
-- Not first author: drop the `first-author` class, the `<span class="mark">`, the hidden
-  `(first author)` span inside your name and the `<span class="first-label">` (the square
-  beside the title marks a first-author paper on wide screens; the label shows only in the
-  one-column layout). Keep `<span class="me">` around your own name in every entry: it is set
-  in bold and never breaks.
-- The dots in the venue line are written `&nbsp;·` (no-break space before the dot), so a line
-  that wraps ends with the dot instead of starting with it. `<span class="nb">` keeps a page
-  range or a date range such as `7–11` on one line, and a month and its year are joined the
-  same way (`July&nbsp;2026`).
-- Accepted but not yet published: end the venue line with `&nbsp;· to appear`, leave `pages`
-  out and add `note = {To appear}`.
-- Preprint without a DOI: leave the DOI link out and use `@misc` with `eprint = {XXXX.XXXXX}` and
-  `archivePrefix = {arXiv}`, as in the climate-impact entry.
-- The BibTeX can be pasted from the ACM Digital Library export. Keep every line at 72
-  characters or fewer, breaking long fields onto indented continuation lines as the existing
-  entries do: the block then fits the text column without wrapping (on a phone it keeps that
-  layout and scrolls sideways, and the Copy button copies the text as written). Escape `&` as
-  `&amp;` and `<` as `&lt;`, and keep the `<pre>` tag at the start of its line: everything
-  inside it is copied verbatim.
-- Add a dated line to News when the paper is worth announcing, and a link in the matching
-  Research theme's `Papers` line.
-- Run `npx -y html-validate index.html` afterwards: it reports a duplicated id and a button or
-  list whose `aria-controls`, `aria-describedby` or `aria-labelledby` names an id that does not
-  exist. It does not check `href="#…"` links or `data-copy-target`: click the new News and
-  Research links and the Copy button once, or list the fragment links that have no target with
+- `KEY` is the BibTeX key, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
+  News and Research links point at; it must be unique on the page. The BibTeX and Copy buttons
+  find their own blocks, so nothing else needs an id.
+- Keep `pub--first` on the `<li>` (it draws the dash beside the title) and the hidden
+  `(first author)` note, which screen readers announce in place of the dash, only when Jingwei
+  is the first author (write `(sole author)` for a single-author paper); remove both otherwise.
+  Always wrap Jingwei's name in `<span class="me">`.
+- Accepted but not yet published: leave out `pp.` and `pages`, end the venue line with
+  `&nbsp;· to appear` and add `note = {To appear}` to the BibTeX. A doctoral-symposium or workshop
+  paper: say so in the venue line and in a `note` (the RecSys ’26 entry carries
+  `note = {Doctoral Symposium}`), so a copied citation shows what kind of paper it is. Preprints
+  without a DOI: drop the DOI link and use `@misc` with `eprint = {ARXIV-ID}` and
+  `archivePrefix = {arXiv}` (the climate report shows the pattern).
+- The `<pre>` sits at the left margin of the file on purpose: its text, including the two-space
+  indentation, is what the Copy button copies. Write one field per line, however long, and keep
+  each line inside its own `<span class="f">…</span>`: the span only lays the line out, wrapping
+  whatever does not fit under the value with a hanging indent, and leaves the copied text as
+  typed. The `<wbr>` after the opening brace of the first line lets a long citation key move
+  whole to the next line on a narrow phone instead of breaking in the middle.
+- Add a dated line to News (`href="#pub-KEY"`) and, if it fits a theme, to that theme's `Papers`
+  line in Research.
 
-  ```
-  for r in $(grep -o 'href="#[^"]*"' index.html | cut -d'#' -f2 | tr -d '"' | sort -u); do grep -q "id=\"$r\"" index.html || echo "missing id: $r"; done
-  ```
+## Replace the monogram with a photo
 
-## Checking the HTML
-
-`npx -y html-validate index.html` reads `.htmlvalidate.json`, which starts from the
-`html-validate:recommended` preset and turns one rule off:
-
-- `no-redundant-role` is off, because every `<ul>` on the page carries `role="list"` on
-  purpose. Safari and VoiceOver stop announcing a list, and the position of each item in it,
-  once its bullets are removed with `list-style: none`; the explicit role brings that back.
-  The rule would flag the attribute as redundant, which it is only in other browsers. Keep
-  `role="list"` when you copy a list.
-
-Everything else is the preset. The check that matters most when adding a paper is its
-`no-missing-references` rule: an `aria-controls`, `aria-describedby` or `aria-labelledby`
-that names an id that does not exist is an error, so a mistyped `bib-KEY` or `t-KEY` cannot
-ship. Plain `href="#…"` links are not covered (see "Adding a paper").
-
-## Replacing the monogram with a photograph
-
-1. Save a square photo as `assets/img/portrait.jpg` (JPEG or WebP, about 640 × 640 pixels;
-   it is displayed at 136 px, so 640 px covers high-density screens with room to spare).
-2. In the `About` section of `index.html`, replace the line
+1. Save the photo as `assets/img/portrait.jpg` (JPEG, or `.webp`). Use a portrait crop with a
+   4:5 ratio, 640 × 800 pixels, under about 150 KB. It is displayed at 192 × 240 on desktop and
+   88 × 110 on phones; a different ratio is cropped to 4:5, not squashed.
+2. In the Intro section of `index.html` replace the whole inline `<svg class="portrait" …>…</svg>`
+   element (four lines, between `hero-head` and `hero-body`) with
 
    ```html
-   <div class="portrait"><img class="placeholder" src="assets/img/portrait-placeholder.svg" width="136" height="136" alt=""></div>
+   <img class="portrait" src="assets/img/portrait.jpg" width="640" height="800" alt="Portrait of Jingwei Kang">
    ```
 
-   with
+3. Delete `assets/img/portrait-placeholder.svg`; the `.portrait path` rule in `style.css` can go too.
 
-   ```html
-   <img class="portrait" src="assets/img/portrait.jpg" width="640" height="640" alt="Portrait of Jingwei Kang">
-   ```
+## Add a CV
 
-   A real photograph describes itself in `alt`; the placeholder has an empty `alt` because it
-   carries no information. The photo is cropped to the square plate (`object-fit: cover`).
-3. `assets/img/portrait-placeholder.svg`, the `.placeholder` rule and the two `--portrait-*`
-   tokens in `style.css` can then be deleted.
+Save the PDF as `assets/cv.pdf` and replace the HTML comment near the end of the Contact section
+with the link it contains:
 
-## Adding a CV
+```html
+<p><a href="assets/cv.pdf">Curriculum vitae (PDF)</a></p>
+```
 
-No CV is linked yet. Save it as `assets/cv.pdf` and uncomment the `CV (PDF)` list item at the
-end of the profile list in the `Contact` section.
+## The background (the field)
 
-## Colours, fonts and the theme toggle
+The page sits on a fixed colour field in the manner of midem.com: a lilac ground with soft
+orange, periwinkle and khaki blobs, a second layer of acid-yellow and periwinkle highlights blended
+over it, fine film grain and a continuous, liquid flow of every blob. It is built from the `--field-*` tokens at the top of
+`assets/css/style.css` and the section headed `The field` in the same file; the markup is the
+`<div class="field" aria-hidden="true">` at the top of `<body>` in `index.html`, one empty
+`<div>` per blob (each inside two `field__mover` wrappers that carry its flow; their order is the paint order). Nothing in the field carries content, and the
+print stylesheet drops it.
 
-Every colour is a token at the top of `assets/css/style.css`. The light palette is on `:root`;
-the dark palette appears twice, once under `@media (prefers-color-scheme: dark)` (people whose
-system is dark) and once under `:root[data-theme="dark"]` (the toggle). Change a colour in all
-three places, and keep text colours at 4.5:1 or better against `--bg` and `--bg-alt`; the
-ratios are noted beside each token. The two `<meta name="theme-color">` values in `index.html`
-should match `--bg` of each theme.
+- **Where the colours live.** `--field-base` is the ground; `--field-orange`, `--field-peri`
+  (periwinkle) and `--field-khaki` are the main blobs; `--field-yellow` and `--field-peri-hi` are
+  the two highlight blobs, which sit in `.field__overlay` and blend with `mix-blend-mode: overlay`
+  (that blend is what turns the lilac pale and the khaki corner acid yellow, so their alpha, not
+  their hue, sets how strong the highlights are). The dark theme repeats the same tokens with the
+  near-black ground `#1B1B1B` and the blobs at low alpha, so they read as muted glows.
+- **Where the blobs are.** Each blob is a `.field__blob--…` rule with a centre (`--x`, `--y`, in
+  viewport units), a half-size (`--rx`, `--ry`) and an optional `--rot`. The soft edge is the
+  `--field-blur` token (120px at 1440 × 900, smaller on phones): every blob is a radial gradient
+  whose stops trace a Gaussian edge of that width, which looks like a hard shape under
+  `filter: blur(120px)` but is painted once instead of being blurred every frame.
+- **To tone it down.** Raise `--field-wash` (the white band behind the reading column, 12% in the
+  light theme, a 40% near-black band in the dark theme), widen it with `--field-wash-span` and
+  `--field-wash-feather`, lower the blobs' alpha (write them as `rgb(238 132 50 / 60%)`), or lower
+  `--field-grain-opacity`. Readers who ask for reduced transparency get a stronger wash and no
+  highlights or grain automatically.
+- **To change the palette.** Change the six `--field-*` colours (light values on `:root`, dark
+  values in the two dark blocks). The text tokens below were chosen for 4.5:1 against the darkest
+  colour of the light field (its pure orange, relative luminance 0.35) and the brightest glow of
+  the dark field; if you make the field darker or the glows brighter, re-check the contrast.
+- **To slow or stop the flow.** Every blob tours the whole field on its own closed route (the
+  `@keyframes tour-…` rules: translations from its resting place through the corners and the
+  centre) and its own period (`--k` times the base `--field-flow`, 22 s, paced like midem's own loop).
+  `--field-flow: 44s` halves the pace, `0s` stops it. It is already off for readers who prefer reduced motion, and on
+  phones only the three blobs above the highlight layer move. To keep the page still in every
+  browser, remove the `field__mover` animations (or the mover wrappers) from the markup.
+- **The ground copy.** `body` carries a flat copy of the field (same tokens: the orange left
+  edge, the periwinkle and yellow on the right, the corners, the wash, the grain). A browser never
+  shows it, because the fixed field covers it; it is there for full-page screenshots and similar
+  renderings, which draw a fixed layer only once at the top. Change it together with the field
+  (its gradients are in the `body` rule), or remove it by setting `background-image: none` there.
+- **To remove it.** Delete the `<div class="field">` block from `index.html` and the
+  `background-image` of `body`; the page then shows the flat `--bg` colour, so pick a quieter
+  `--bg` and `--muted` at the same time.
 
-The fonts are loaded in the `<head>` of `index.html`; the fallback stacks are in the same token
-block of the stylesheet.
+The header scrolls with the page instead of sticking to the top: a bar that stays put would need
+a panel of its own over the field.
 
-The toggle stores the choice in `localStorage` under the key `theme`. When the chosen theme
-matches the system preference again, the override is removed and the page follows the system,
-so the button only ever overrides the system, never replaces it.
+## Colours, fonts, themes
 
-## Publishing on GitHub Pages
+- All colours are tokens at the top of `assets/css/style.css`: the page tokens `--bg`, `--surface`,
+  `--line`, `--fg`, `--muted`, `--accent` and the `--field-*` tokens of the background. The light
+  values sit on `:root`; the dark values appear twice, under `@media (prefers-color-scheme: dark)`
+  and under `:root[data-theme="dark"]`. Change a colour in all three places and keep text at 4.5:1
+  contrast or better against the field behind it (`--surface` and `--line` are translucent, so
+  they work on any part of the field). The two `<meta name="theme-color">` tags in `<head>` and
+  both SVGs in `assets/img/` repeat token values as literal hex (favicon.svg: the field's lilac,
+  orange, periwinkle and yellow with letters in `--fg`, or `--accent` in the dark scheme;
+  portrait-placeholder.svg: the colour `--surface` renders to over the lilac ground, with
+  `--accent` letters, for each theme); update them if those tokens change. The inline monogram in
+  `index.html` uses the tokens themselves and needs no change.
+- The monogram letters (in `index.html`, the favicon and the placeholder) are the outlines of
+  `JK` set in Newsreader 500, the display face, stored as SVG `<path>` data, so they look the same
+  before the web font loads and on systems without it. To change the initials, set the new
+  letters in Newsreader 500 in a vector editor, convert them to outlines and paste the path data
+  into the three places.
+- Fonts come from Google Fonts via the `<link>` in `<head>`: Newsreader for headings and prose,
+  Source Sans 3 for navigation, metadata and buttons. The link does not block the page: it is
+  requested as a print stylesheet and switched to all media once it has arrived (a `<noscript>`
+  copy serves browsers without JavaScript), so the text shows in the fallback fonts first and
+  swaps when the web fonts arrive. To swap a font, change the URL in both tags and the
+  `--font-display`, `--font-body` or `--font-ui` token.
+- The sizes form one scale (`--text-xs` … `--text-xl`). The small `--h2-shift` / `--side-shift`
+  values put the margin-column headings on the first prose baseline; re-measure them if you change
+  a font or a size.
+- The theme toggle follows the system preference until pressed; the choice is kept in
+  `localStorage` under the key `theme` and cleared again when it matches the system.
 
-1. Push the files to the `main` branch of the `personal-website` repository with `index.html`
-   at the root. If the site is on another branch (it was built on a `claude/…` branch), merge
-   it into `main` first: open a pull request on GitHub, or run
-   `git checkout main && git merge <branch> && git push`. Alternatively, pick that branch
-   instead of `main` in step 2. Keep `.nojekyll`: it stops GitHub from running the files
-   through Jekyll.
-2. On GitHub open **Settings → Pages**. Under **Build and deployment** choose
-   **Deploy from a branch**, select `main` and `/ (root)`, and save.
-3. After a minute the site is live at `https://jkang98.github.io/personal-website/`.
-   Every later push to `main` redeploys it.
+## Check before publishing
 
-### Custom domain
+- `npx -y html-validate index.html` must report no errors. `.htmlvalidate.json` extends the
+  recommended rule set and switches off one rule, `no-redundant-role`: the lists carry an explicit
+  `role="list"` on purpose, because Safari drops the list semantics of a list styled with
+  `list-style: none`, and the role gives VoiceOver users the item counts back.
+- Open the page at a phone width (about 390 px) in both themes: nothing should scroll sideways.
+- Click every new link, open one BibTeX entry and press Copy.
+- If you changed a `--field-*` colour or the text tokens, check the text contrast again in both
+  themes (the darkest spot of the light field and the brightest glow of the dark one sit behind
+  the left edge of the column).
 
-1. Add a file named `CNAME` at the repository root containing only the domain
-   (for example `www.example.org`), or enter the domain under
-   **Settings → Pages → Custom domain**, which creates that file for you.
-2. At your DNS provider, point the domain at GitHub Pages: for a subdomain such as `www`, a
-   `CNAME` record to `jkang98.github.io`; for an apex domain, `A` records to
-   `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`
-   (check GitHub's Pages documentation for the current addresses).
-3. Once the DNS check in the Pages settings passes, tick **Enforce HTTPS**.
+## Known gaps
 
-Nothing in the site needs to change for a custom domain: all links are relative.
+- The portrait is a placeholder monogram.
+- Education entries have no years.
+- No CV link yet (see above).
