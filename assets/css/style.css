@@ -954,8 +954,8 @@ h1 {
 }
 
 .news-window.has-more {
-  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.75rem), transparent);
-  mask-image: linear-gradient(to bottom, #000 calc(100% - 2.75rem), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 2.25rem), transparent);
+  mask-image: linear-gradient(to bottom, #000 calc(100% - 2.25rem), transparent);
 }
 
 .news-window:focus-visible {

@@ -257,7 +257,9 @@
       return;
     }
     var third = items[2];
-    win.style.setProperty('--news-window', (third.offsetTop + third.offsetHeight - items[0].offsetTop) + 'px');
+    // the third item plus the strip the bottom fade covers (2.25rem, see .news-window.has-more)
+    var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+    win.style.setProperty('--news-window', (third.offsetTop + third.offsetHeight - items[0].offsetTop + 2.25 * rem) + 'px');
     update();
   }
 
