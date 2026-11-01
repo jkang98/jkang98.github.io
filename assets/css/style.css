@@ -826,7 +826,7 @@ h1 {
 }
 
 /* Vertical padding on the links in single-row lists widens the touch target
-   without moving the text. Links inside running text (.related) get
+   without moving the text. Links inside running text get
    none: their padding boxes would overlap across lines and steal taps. */
 .quick-links a,
 .pub-links a,
@@ -902,20 +902,30 @@ h1 {
    Research
    -------------------------------------------------------------------------- */
 
-.theme p {
-  margin-bottom: 0.6em;
+/* Research: each theme lists its papers, newest first, title then venue key. */
+.theme-papers {
+  display: grid;
+  row-gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.related {
-  margin: 0;
+.theme-papers li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  column-gap: 0.6rem;
+  row-gap: 0.1rem;
+  line-height: 1.45;
+}
+
+.theme-papers .venue {
   font-family: var(--font-ui);
   font-size: var(--text-ui);
-  line-height: 1.5;
+  font-weight: 600;
   color: var(--muted);
-}
-
-.related .label {
-  margin-right: 0.5rem;
+  white-space: nowrap;
 }
 
 /* --------------------------------------------------------------------------

@@ -135,36 +135,28 @@
         </div>
       </section>
 
-      <!-- ===== Research: an intro, then pairs of <h3 class="side"> (theme name) and <div class="body theme"> (text + Papers line). ===== -->
+      <!-- ===== Research: three themes. Each is an <h3 class="side"> (the theme) plus a <ul class="body theme-papers"> that lists its papers,
+           newest first, as links to the entries under Publications (no summaries here). To file a new paper, add one <li> to the right list. ===== -->
       <section class="section" id="research" aria-labelledby="research-heading">
         <h2 id="research-heading">Research</h2>
-        <div class="body">
-          <p>Most of my work starts from one observation: recommendations are often shown as carousels, yet most click models and evaluation metrics assume a single ranked list. The themes below follow from that.</p>
-        </div>
 
-        <h3 class="side">How people browse carousels</h3>
-        <div class="body theme">
-          <p>RecGaze is the first public dataset that combines eye tracking, clicks and cursor movements on carousels (87 users, 3,477 interactions) and shows a golden-triangle, <span class="nb">F-shaped</span> browsing pattern. A second study tests four assumptions imported from web search and finds that most of them fail: the <span class="nb">F-pattern</span> holds only vertically, users follow an <span class="nb">L-shaped</span> path after clicking, the examination hypothesis does not hold, and users skip carousel headings.</p>
-          <p class="related"><span class="label">Papers</span><a href="#pub-deleon2025recgaze">RecGaze</a> (SIGIR ’25)&nbsp;· <a href="#pub-kang2026eyetracking">Following the Eye-Tracking Evidence</a> (SIGIR ’26)</p>
-        </div>
+        <h3 class="side">User behaviour modelling</h3>
+        <ul class="body theme-papers" role="list">
+          <li><a href="#pub-kang2026eyetracking">Following the Eye-Tracking Evidence: Established <span class="nb">Web-Search</span> Assumptions Fail in Carousel Interfaces</a> <span class="venue">SIGIR ’26</span></li>
+          <li><a href="#pub-kang2025rethinking">Rethinking Click Models in Light of Carousel Interfaces: <span class="nb">Theory-Based</span> Categorization and Design of Click Models</a> <span class="venue">ICTIR ’25</span></li>
+          <li><a href="#pub-deleon2025recgaze">RecGaze: The First Eye Tracking and User Interaction Dataset for Carousel Interfaces</a> <span class="venue">SIGIR ’25</span></li>
+        </ul>
 
-        <h3 class="side">Click models for carousels</h3>
-        <div class="body theme">
-          <p>Click-model taxonomies were built for single ranked lists. I replace them with three mathematically grounded design choices that cover single-list, grid and carousel click models, both probabilistic graphical models and neural ones, and use those choices to derive a click model made for carousels.</p>
-          <p class="related"><span class="label">Papers</span><a href="#pub-kang2025rethinking">Rethinking Click Models</a> (ICTIR ’25)&nbsp;· <a href="#pub-kang2026click">PhD research overview</a> (RecSys ’26)</p>
-        </div>
+        <h3 class="side">Offline evaluation</h3>
+        <ul class="body theme-papers" role="list">
+          <li><a href="#pub-kang2026n2dcg">Revisiting N2DCG: An Empirically Grounded Reformulation of Carousel Recommendation Evaluation</a> <span class="venue">CIKM ’26</span></li>
+        </ul>
 
-        <h3 class="side">Evaluating carousels offline and off-policy</h3>
-        <div class="body theme">
-          <p>N2DCG, the usual NDCG adaptation for carousels, relies on an ideal ranking that violates carousel constraints and on a discount that does not match observed browsing; our reformulation grounds both in eye-tracking data. Off-policy evaluation of carousel recommendation policies from logged data belongs to the same programme.</p>
-          <p class="related"><span class="label">Papers</span><a href="#pub-kang2026n2dcg">Revisiting N2DCG</a> (CIKM ’26)&nbsp;· <a href="#pub-kang2026click">PhD research overview</a> (RecSys ’26)</p>
-        </div>
-
-        <h3 class="side">Stochastic and online learning to rank</h3>
-        <div class="body theme">
-          <p>Estimating the Hessian of ranking objectives makes gradient-boosted decision trees usable for stochastic learning to rank; with collaborators I also built a large-scale web search dataset for federated online learning to rank.</p>
-          <p class="related"><span class="label">Papers</span><a href="#pub-kang2024hessian">Estimating the Hessian Matrix of Ranking Objectives</a> (SIGIR ’24)&nbsp;· <a href="#pub-gregoriadis2025federated">A&nbsp;Large-Scale Web Search Dataset</a> (CIKM ’25)</p>
-        </div>
+        <h3 class="side">Learning to rank</h3>
+        <ul class="body theme-papers" role="list">
+          <li><a href="#pub-gregoriadis2025federated">A <span class="nb">Large-Scale</span> Web Search Dataset for Federated Online Learning to Rank</a> <span class="venue">CIKM ’25</span></li>
+          <li><a href="#pub-kang2024hessian">Estimating the Hessian Matrix of Ranking Objectives for Stochastic Learning to Rank with Gradient Boosted Trees</a> <span class="venue">SIGIR ’24</span></li>
+        </ul>
       </section>
 
       <!-- ===== Publications: grouped by year, newest first. Each year is an <h3 class="side year"> plus an <ol class="body pubs">.

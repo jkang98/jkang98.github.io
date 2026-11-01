@@ -57,8 +57,9 @@ like `<!-- ===== Research … ===== -->`, so search for `=====` to jump between 
 - **Intro** (`<section class="hero" id="about">`): the `<h1>`, the `<p class="role">` line and the
   two paragraphs inside `<div class="bio">`: the first says what the research is about, the second
   names the supervisor, collaborator and labs. Keep the bio to two to four short sentences.
-- **Research**: an intro paragraph, then pairs of `<h3 class="side">` (theme name) and
-  `<div class="body theme">` (one paragraph plus a `Papers` line that links to `#pub-KEY` ids).
+- **Research**: three themes. Each is an `<h3 class="side">` (the theme) followed by a
+  `<ul class="body theme-papers">` that lists its papers, newest first, as links to the entries
+  under Publications. No summaries here; those live in Publications.
 - **Publications**: see *Add a paper*.
 - **Education** (`<ul class="edu">`): one `<li>` per degree, newest first; the years sit at the
   end of each `edu-detail` line (BSc 2016–2020, MSc 2021–2023).
@@ -78,7 +79,7 @@ for `&` and `&lt;` for `<` (also inside the BibTeX). Hyphenated compounds (`eye-
 `off-policy`) break at the hyphen, as in print; only two kinds of phrase are wrapped in
 `<span class="nb">…</span>` so that they never split: the names in the bio, and compounds whose
 first part is a single letter (`F-shaped`, `L-shaped`), which would otherwise leave a lone letter
-at a line end. Write the middle-dot separator (venue lines, `Papers` lines, the role line, the
+at a line end. Write the middle-dot separator (venue lines, the role line, the
 footer) as `&nbsp;· `, a no-break space before the dot: a line can then break after the dot but
 never end with it.
 
