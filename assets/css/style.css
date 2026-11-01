@@ -840,7 +840,6 @@ h1 {
    none: their padding boxes would overlap across lines and steal taps. */
 .quick-links a,
 .pub-links a,
-.profiles a,
 .site-footer a {
   padding-block: 0.35rem;
 }
@@ -1251,39 +1250,6 @@ h1 {
 
 .email:hover {
   border-color: var(--muted);
-}
-
-.profiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-  gap: 0.625rem 1.5rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-family: var(--font-ui);
-  font-size: var(--text-ui);
-}
-
-.profiles a {
-  font-weight: 500;
-}
-
-.profiles .handle {
-  margin-left: 0.3rem;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.profiles .handle::before {
-  content: "·";
-  margin-right: 0.3rem;
-}
-
-.address {
-  margin: 1.5rem 0 0;
-  font-family: var(--font-ui);
-  font-size: var(--text-ui);
-  color: var(--muted);
 }
 
 /* --------------------------------------------------------------------------
