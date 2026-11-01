@@ -8,7 +8,7 @@ index.html                            the whole page (every section, every paper
 assets/css/style.css                  colours, fonts, layout, the background field (light and dark themes)
 assets/js/main.js                     theme toggle, BibTeX show/hide, copy buttons
 assets/img/favicon.svg                browser-tab icon (JK monogram on a miniature of the field, a light and a dark version)
-assets/img/portrait-placeholder.svg   the JK monogram as a file (the page inlines the same drawing)
+assets/img/portrait.jpg               the portrait photo (4:5, 384 × 480)
 .nojekyll                             tells GitHub Pages to serve the files exactly as they are
 .htmlvalidate.json                    settings for the HTML check (see "Check before publishing")
 ```
@@ -144,19 +144,13 @@ Notes:
 - Add a dated line to News (`href="#pub-KEY"`) and, if it fits a theme, to that theme's `Papers`
   line in Research.
 
-## Replace the monogram with a photo
+## Changing the photo
 
-1. Save the photo as `assets/img/portrait.jpg` (JPEG, or `.webp`). Use a portrait crop with a
-   4:5 ratio, 640 × 800 pixels, under about 150 KB. It is displayed at 192 × 240 on desktop and
-   88 × 110 on phones; a different ratio is cropped to 4:5, not squashed.
-2. In the Intro section of `index.html` replace the whole inline `<svg class="portrait" …>…</svg>`
-   element (four lines, between `hero-head` and `hero-body`) with
-
-   ```html
-   <img class="portrait" src="assets/img/portrait.jpg" width="640" height="800" alt="Portrait of Jingwei Kang">
-   ```
-
-3. Delete `assets/img/portrait-placeholder.svg`; the `.portrait path` rule in `style.css` can go too.
+Save the new photo as `assets/img/portrait.jpg` (JPEG or `.webp`, 4:5 ratio, about 384 × 480
+pixels or 640 × 800 for sharper HiDPI screens, under 150 KB) and keep the `width`/`height`
+attributes on the `<img class="portrait">` in the Intro section in the same 4:5 ratio. It is
+displayed at 192 × 240 on desktop and 88 × 110 on phones; a different ratio is cropped to 4:5,
+not squashed.
 
 ## Add a CV
 
@@ -225,14 +219,11 @@ a panel of its own over the field.
   they work on any part of the field). The two `<meta name="theme-color">` tags in `<head>` and
   both SVGs in `assets/img/` repeat token values as literal hex (favicon.svg: the field's lilac,
   orange, periwinkle and yellow with letters in `--fg`, or `--accent` in the dark scheme;
-  portrait-placeholder.svg: the colour `--surface` renders to over the lilac ground, with
-  `--accent` letters, for each theme); update them if those tokens change. The inline monogram in
-  `index.html` uses the tokens themselves and needs no change.
-- The monogram letters (in `index.html`, the favicon and the placeholder) are the outlines of
+- The monogram letters in the favicon are the outlines of
   `JK` set in Newsreader 500, the display face, stored as SVG `<path>` data, so they look the same
   before the web font loads and on systems without it. To change the initials, set the new
   letters in Newsreader 500 in a vector editor, convert them to outlines and paste the path data
-  into the three places.
+  into the favicon.
 - Fonts come from Google Fonts via the `<link>` in `<head>`: Newsreader for headings and prose,
   Source Sans 3 for navigation, metadata and buttons. The link does not block the page: it is
   requested as a print stylesheet and switched to all media once it has arrived (a `<noscript>`

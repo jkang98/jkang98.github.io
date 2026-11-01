@@ -776,14 +776,6 @@ button {
   background: var(--surface);
 }
 
-/* The inline SVG monogram that stands in for a photo: the outlines of "JK" in
-   Newsreader 500, the display face, filled with a page token so that it
-   follows the theme toggle (an <img> could only follow the system scheme) and
-   needs no font to load. A photo replaces the whole <svg>. */
-.portrait path {
-  fill: var(--accent);
-}
-
 .hero-head {
   grid-column: 2;
   grid-row: 1;

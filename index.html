@@ -116,16 +116,13 @@
     </header>
 
     <main id="main" tabindex="-1">
-      <!-- ===== Intro: name, role line, portrait and bio. The monogram is an inline SVG (the letters are Newsreader outlines, so no font needs to load) so that it follows the theme toggle; to use a photo, replace the whole <svg class="portrait"> with an <img> (see README.md). ===== -->
+      <!-- ===== Intro: name, role line, portrait and bio. The portrait is assets/img/portrait.jpg (4:5; see README "Changing the photo"). ===== -->
       <section class="hero" id="about" aria-labelledby="name">
         <div class="hero-head">
           <h1 id="name">Jingwei Kang</h1>
           <p class="role">PhD candidate&nbsp;· Information Retrieval Lab (IRLab), University of Amsterdam</p>
         </div>
-        <svg class="portrait" viewBox="0 0 320 400" role="img" aria-labelledby="portrait-title" focusable="false">
-          <title id="portrait-title">Monogram with the initials J K, standing in for a portrait of Jingwei Kang</title>
-          <path d="M131.0 167.4L131.1 213.0Q131.1 218.8 129.1 223.6Q127.1 228.3 123.4 231.6Q119.7 235.0 114.8 236.7Q109.8 238.4 103.9 238.4L103.9 238.4Q100.1 238.4 97.5 237.5Q94.9 236.7 93.6 235.0Q92.2 233.4 92.2 231.2L92.2 231.2Q92.2 229.0 93.6 227.4Q94.9 225.9 97.4 225.9L97.4 225.9Q98.5 225.9 99.7 226.8Q101.0 227.6 102.5 228.8Q103.9 229.9 105.6 230.8Q107.3 231.7 109.3 231.7L109.3 231.7Q113.5 231.7 116.2 228.6Q118.8 225.5 118.8 217.8L118.8 217.8L118.8 167.4L109.7 164.5L109.7 161.6L140.0 161.6L140.0 164.5L131.0 167.4ZM184.8 192.9L219.3 231.3L227.8 234.4L227.8 237.3L197.0 237.3L197.0 234.7L203.8 231.9L176.6 201.3L164.8 201.3L164.8 194.9L177.6 194.9L204.6 167.1L195.9 164.5L195.9 161.6L221.8 161.6L221.8 164.5L213.2 167.3L182.1 198.1L184.8 192.9ZM178.0 164.5L169.0 167.4L169.0 231.4L177.9 234.4L177.9 237.3L147.8 237.3L147.8 234.4L156.8 231.4L156.8 167.4L147.8 164.5L147.8 161.6L178.0 161.6L178.0 164.5Z"/>
-        </svg>
+        <img class="portrait" src="assets/img/portrait.jpg" width="384" height="480" alt="Portrait of Jingwei Kang">
         <div class="hero-body">
           <div class="bio">
             <p>I study how people browse carousel interfaces in streaming and recommender systems, and how to model and evaluate that behaviour: click models, eye-tracking studies, offline metrics made for carousels, and off-policy evaluation from logged interactions. I have also worked on stochastic learning to rank with gradient-boosted trees, and on online learning to rank.</p>
