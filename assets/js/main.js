@@ -236,3 +236,33 @@
     });
   });
 })();
+
+/* The news window: size it to the first three items (measured after the
+   fonts load, and again on resize) and fade its bottom edge while there is
+   more to scroll. With fewer than four items it is not limited at all. */
+(function () {
+  var win = document.querySelector('.news-window');
+  if (!win) { return; }
+  var items = win.querySelectorAll('.news > li');
+
+  function update() {
+    var more = win.scrollTop + win.clientHeight < win.scrollHeight - 1;
+    win.classList.toggle('has-more', more);
+  }
+
+  function size() {
+    if (items.length < 4) {
+      win.style.removeProperty('--news-window');
+      win.classList.remove('has-more');
+      return;
+    }
+    var third = items[2];
+    win.style.setProperty('--news-window', (third.offsetTop + third.offsetHeight - items[0].offsetTop) + 'px');
+    update();
+  }
+
+  win.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', size);
+  size();
+  if (document.fonts && document.fonts.ready) { document.fonts.ready.then(size); }
+})();
