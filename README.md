@@ -93,9 +93,9 @@ the previous year. Then put a new `<li class="pub">` at the top of that
 year's list. This is the live markup of one entry; replace the parts in capitals:
 
 ```html
-          <li class="pub pub--first" id="pub-KEY">
+          <li class="pub" id="pub-KEY">
             <h4 class="pub-title">TITLE</h4>
-            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang<span class="visually-hidden"> (first author)</span></span>, CO-AUTHOR, CO-AUTHOR</p>
+            <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span>, CO-AUTHOR, CO-AUTHOR</p>
             <p class="pub-meta pub-venue"><span class="venue">VENUE ’YY</span>&nbsp;· FULL CONFERENCE NAME, CITY, COUNTRY, MONTH YEAR, pp. FIRST–LAST</p>
             <p class="pub-summary">ONE SENTENCE ON WHAT THE PAPER DOES.</p>
             <p class="pub-links">
@@ -129,9 +129,6 @@ Notes:
   line; `KEY` is a short id of your own for the `pub-KEY` anchor, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
   Research links point at; it must be unique on the page. The BibTeX and Copy buttons
   find their own blocks, so nothing else needs an id.
-- Keep `pub--first` on the `<li>` (it draws the dash beside the title) and the hidden
-  `(first author)` note, which screen readers announce in place of the dash, only when Jingwei
-  is the first author (write `(sole author)` for a single-author paper); remove both otherwise.
   Always wrap Jingwei's name in `<span class="me">`.
 - Accepted but not yet published: leave out `pp.` and `pages`, end the venue line with
   `&nbsp;· to appear` and add `note = {To appear}` to the BibTeX. A doctoral-symposium or workshop

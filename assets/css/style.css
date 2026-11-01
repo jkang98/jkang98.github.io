@@ -1008,35 +1008,6 @@ h1 {
   line-height: 1.3;
 }
 
-/* The first-author mark: a short accent dash. It hangs in the gutter beside
-   the title on wide screens and sits inline before the title on narrow ones;
-   the legend in the section intro uses the same mark. It is drawn as a border,
-   not a background, so that forced-colours mode (Windows High Contrast, which
-   drops backgrounds but keeps borders) still shows it. */
-.mark,
-.pub--first .pub-title::before {
-  content: "";
-  display: inline-block;
-  width: 1rem;
-  height: 0;
-  border-top: 2px solid var(--accent);
-  vertical-align: 0.3em;
-}
-
-.mark {
-  margin-inline: 0.15rem;
-}
-
-.pub--first .pub-title::before {
-  position: absolute;
-  top: 0.68em;
-  left: calc(1.125rem - var(--gutter));
-}
-
-.pub + .pub.pub--first .pub-title::before {
-  top: calc(1.5rem + 0.68em);
-}
-
 .pub-meta {
   margin: 0.3rem 0 0;
   font-family: var(--font-ui);
@@ -1431,23 +1402,6 @@ h1 {
   .pubs ~ .pubs {
     padding-top: 0;
     border-top: 0;
-  }
-
-  /* Without a gutter to hang in, the first-author dash becomes a short
-     overline above the title, so every title keeps the same left edge as its
-     authors, venue and summary. */
-  .pub--first .pub-title {
-    padding-left: 0;
-    text-indent: 0;
-  }
-
-  .pub--first .pub-title::before,
-  .pub + .pub.pub--first .pub-title::before {
-    position: static;
-    top: auto;
-    display: block;
-    width: 1rem;
-    margin: 0 0 0.45rem;
   }
 
   /* The date becomes a narrow label beside its item. */
