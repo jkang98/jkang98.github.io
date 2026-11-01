@@ -68,7 +68,7 @@ like `<!-- ===== Research … ===== -->`, so search for `=====` to jump between 
   each carry it in `href="mailto:…"` and in the link text, the Copy button has it in its
   `data-copy` attribute, the JSON-LD block in `<head>` has it as `email`, and the comment above
   the Contact section names it. Use find-and-replace on `j.kang@uva.nl` across the file; it
-  catches all seven.
+  catches all six.
 - **Head**: `<meta name="description">` and the Open Graph description (keep them in step with
   the bio), and the JSON-LD `Person` block. When you add or remove a profile link under the portrait, update
   the `sameAs` list there too.
