@@ -14,7 +14,7 @@ assets/img/portrait.jpg               the portrait photo (4:5, 384 × 480)
 ```
 
 All URLs inside the page are relative (`assets/css/style.css`, never `/assets/...`), so the site
-works at `https://jkang98.github.io/personal-website/`, at a custom domain, or opened from disk.
+works at `https://jkang98.github.io/`, at a custom domain, or opened from disk.
 
 ## Preview locally
 
@@ -33,7 +33,8 @@ internet connection; without it the page falls back to system serif and sans fon
    it from the current branch and push it: `git switch -c main && git push -u origin main`.
 2. On GitHub open **Settings → Pages**. Under **Build and deployment** choose
    **Deploy from a branch**, pick that branch (`main`) and `/ (root)`, and save.
-3. After a minute the site is live at **https://jkang98.github.io/personal-website/**.
+3. After a minute the site is live at **https://jkang98.github.io/** (the repository is named
+   `jkang98.github.io`, which is what puts it at the root of that address).
 
 Keep the empty `.nojekyll` file: it stops GitHub from running Jekyll over the files.
 
