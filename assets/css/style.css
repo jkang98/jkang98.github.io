@@ -1082,6 +1082,11 @@ h1 {
   scroll-margin-top: 1.5rem;
 }
 
+/* An award on the type line, in the accent colour. */
+.pub-kind .award {
+  color: var(--accent);
+}
+
 /* The paper type sits as a running label between the year and the title; the
    6px of padding puts its baseline on the year's baseline (measured). */
 .pub-kind {

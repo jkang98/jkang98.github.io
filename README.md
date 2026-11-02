@@ -127,7 +127,8 @@ year's list. This is the live markup of one entry; replace the parts in capitals
 Notes:
 
 - The first line of an entry, `pub-kind`, names the paper type: Full paper, Short paper, Resource paper or
-  Doctoral symposium (plain text, no link).
+  Doctoral symposium (plain text, no link). An award goes on the same line as
+  `<span class="award">· Best Paper Honorable Mention</span>`.
 - The BibTeX is the entry the paper's ACM Digital Library page exports (Cite → BibTeX), one field per
   line; `KEY` is a short id of your own for the `pub-KEY` anchor, e.g. `kang2027carousel`. The only id you type is `id="pub-KEY"`, which
   Research links point at; it must be unique on the page. The BibTeX and Copy buttons
