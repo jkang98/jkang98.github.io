@@ -63,7 +63,7 @@ like `<!-- ===== Research … ===== -->`, so search for `=====` to jump between 
   under Publications. No summaries here; those live in Publications.
 - **Publications**: see *Add a paper*.
 - **Education** (`<ul class="edu">`): one `<li>` per degree, newest first; the years sit at the
-  end of each `edu-detail` line (BSc 2016–2020, MSc 2021–2023).
+  end of each `edu-detail` line (B.Sc. 2016–2020, M.Sc. 2021–2023).
 - **Contact**: one sentence, the email address with its Copy button, and a commented-out CV link.
   The address appears **7 times** in `index.html`: the icon link under the portrait carries it in
   `href="mailto:…"`, its `aria-label` and its `title`, the Contact link in `href` and in the link text, the Copy button has it in its
