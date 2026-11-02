@@ -2,10 +2,10 @@
    Jingwei Kang — personal academic homepage
    Direction: "Classic academic, refined"
 
-   Layout concept: one centred reading column (max 56rem) in which every
-   section below the hero shares the same two-column scaffold — a 14rem
+   Layout concept: one centred reading column (max 60rem) in which every
+   section below the hero shares the same two-column scaffold — a 15rem
    margin column for the section heading and its sub-headings (years, research
-   themes) and a 38.5rem prose column — collapsing to a single column under 52em.
+   themes) and a 41.5rem prose column — collapsing to a single column under 52em.
 
    Type: Newsreader (display and prose, optical sizing on), Source Sans 3
    (navigation, metadata, labels, buttons), the system monospace for BibTeX.
@@ -42,7 +42,7 @@
   --field-peri-deep: #9B91EE;            /* the periwinkle disc above the overlay, a shade deeper since it takes no highlight */
   --field-blur: clamp(56px, 13vmin, 120px);  /* softness of every blob edge (sigma); 120px at 1440 x 900 */
   --field-wash: rgb(255 255 255 / 12%);  /* the light wash behind the reading column */
-  --field-wash-span: 28.5rem;            /* half-width of the full-strength wash (half the 56rem page, plus a little) */
+  --field-wash-span: 30.5rem;            /* half-width of the full-strength wash (half the 60rem page, plus a little) */
   --field-wash-feather: 8rem;            /* the wash fades out over this width on each side */
   --field-grain: var(--grain-light);
   --field-grain-opacity: 1;              /* multiplier on the grain tile's own strength */
@@ -72,10 +72,10 @@
   --text-mono: 0.8125rem;  /* 13px  BibTeX */
 
   /* Layout */
-  --page: 56rem;           /* content width of the page (gutters come on top): 14 + 3.5 + 38.5rem */
-  --margin-col: 14rem;     /* heading column beside every section; also the portrait width */
+  --page: 60rem;           /* content width of the page (gutters come on top): 15 + 3.5 + 41.5rem */
+  --margin-col: 15rem;     /* heading column beside every section; also the portrait width */
   --gutter: 3.5rem;        /* between the margin column and the prose */
-  --measure: 38.5rem;      /* prose column: about 80 characters of Newsreader at 18px */
+  --measure: 41.5rem;      /* prose column: about 85 characters of Newsreader at 18px */
 
   /* Baseline nudges so margin-column headings sit on the first prose baseline
      (measured with the web fonts loaded; see README) */
@@ -382,7 +382,7 @@ button {
 }
 
 /* One outer wrapper carries the side gutter; --page is the content width,
-   so the scaffold (14rem + 3.5rem + 38.5rem) fits exactly. */
+   so the scaffold (15rem + 3.5rem + 41.5rem) fits exactly. */
 .page {
   box-sizing: content-box;
   max-width: var(--page);
