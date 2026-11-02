@@ -1082,6 +1082,14 @@ h1 {
   scroll-margin-top: 1.5rem;
 }
 
+/* The paper type sits as a running label between the year and the title; the
+   6px of padding puts its baseline on the year's baseline (measured). */
+.pub-kind {
+  margin: 0 0 0.3rem;
+  padding-top: 6px;
+  line-height: 1.5;
+}
+
 .pub-title {
   font-size: var(--text-md);
   line-height: 1.3;

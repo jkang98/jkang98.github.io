@@ -160,7 +160,7 @@
         </ul>
       </section>
 
-      <!-- ===== Publications: grouped by year, newest first. Each year is an <h3 class="side year"> plus an <ol class="body pubs">.
+      <!-- ===== Publications: grouped by year, newest first. Each year is an <h3 class="side year"> plus an <ol class="body pubs">. Each entry opens with a <p class="pub-kind label"> naming the paper type (Full paper / Short paper / Resource paper / Doctoral symposium).
            To add a paper, copy one <li class="pub"> block (template in README.md). Only id="pub-KEY" needs to be unique; the
            BibTeX and Copy buttons find their own blocks. In the BibTeX keep the <pre> at the left margin and one field per line,
            each line in its own <span class="f">: the Copy button copies the plain text, the spans only lay it out. ===== -->
@@ -170,6 +170,7 @@
         <h3 class="side year" id="year-2026">2026</h3>
         <ol class="body pubs" role="list" aria-labelledby="year-2026">
           <li class="pub" id="pub-kang2026n2dcg">
+            <p class="pub-kind label">Short paper</p>
             <h4 class="pub-title">Revisiting N2DCG: An Empirically Grounded Reformulation of Carousel Recommendation Evaluation</h4>
             <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span>, Santiago de Leon-Martinez, Maarten de Rijke, Harrie Oosterhuis</p>
             <p class="pub-meta pub-venue"><span class="venue">CIKM ’26</span>&nbsp;· 35th ACM International Conference on Information and Knowledge Management, Rome, Italy, November 2026&nbsp;· to appear</p>
@@ -197,9 +198,10 @@
           </li>
 
           <li class="pub" id="pub-kang2026click">
+            <p class="pub-kind label">Doctoral symposium</p>
             <h4 class="pub-title">From Click Modeling to Offline and Off-Policy Evaluation in Carousel Recommendation</h4>
             <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span></p>
-            <p class="pub-meta pub-venue"><span class="venue">RecSys ’26</span>&nbsp;· 20th ACM Conference on Recommender Systems, Doctoral Symposium, Minneapolis, USA, September 2026, pp. 1932–1938</p>
+            <p class="pub-meta pub-venue"><span class="venue">RecSys ’26</span>&nbsp;· 20th ACM Conference on Recommender Systems, Minneapolis, USA, September 2026, pp. 1932–1938</p>
             <p class="pub-summary">Lays out the PhD programme: a click-model design framework built on relations between observed variables, discrete-choice click models, carousel-specific offline metrics, and off-policy evaluation of carousel recommendation policies from logged data.</p>
             <p class="pub-links">
               <a href="https://arxiv.org/abs/2608.22022">arXiv</a>
@@ -226,6 +228,7 @@
           </li>
 
           <li class="pub" id="pub-kang2026eyetracking">
+            <p class="pub-kind label">Full paper</p>
             <h4 class="pub-title">Following the Eye-Tracking Evidence: Established Web-Search Assumptions Fail in Carousel Interfaces</h4>
             <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Harrie Oosterhuis</p>
             <p class="pub-meta pub-venue"><span class="venue">SIGIR ’26</span>&nbsp;· 49th International ACM SIGIR Conference on Research and Development in Information Retrieval, Melbourne, Australia, July 2026, pp. 734–744</p>
@@ -258,6 +261,7 @@
         <h3 class="side year" id="year-2025">2025</h3>
         <ol class="body pubs" role="list" aria-labelledby="year-2025">
           <li class="pub" id="pub-gregoriadis2025federated">
+            <p class="pub-kind label">Resource paper</p>
             <h4 class="pub-title">A&nbsp;Large-Scale Web Search Dataset for Federated Online Learning to Rank</h4>
             <p class="pub-meta pub-authors">Marcel Gregoriadis, <span class="me">Jingwei Kang</span>, Johan Pouwelse</p>
             <p class="pub-meta pub-venue"><span class="venue">CIKM ’25</span>&nbsp;· 34th ACM International Conference on Information and Knowledge Management, November 2025, pp. 6387–6391</p>
@@ -287,6 +291,7 @@
           </li>
 
           <li class="pub" id="pub-kang2025rethinking">
+            <p class="pub-kind label">Full paper</p>
             <h4 class="pub-title">Rethinking Click Models in Light of Carousel Interfaces: Theory-Based Categorization and Design of Click Models</h4>
             <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Santiago de Leon-Martinez, Harrie Oosterhuis</p>
             <p class="pub-meta pub-venue"><span class="venue">ICTIR ’25</span>&nbsp;· International ACM SIGIR Conference on Innovative Concepts and Theories in Information Retrieval, July 2025, pp. 44–55</p>
@@ -316,9 +321,10 @@
           </li>
 
           <li class="pub" id="pub-deleon2025recgaze">
+            <p class="pub-kind label">Resource paper</p>
             <h4 class="pub-title">RecGaze: The First Eye Tracking and User Interaction Dataset for Carousel Interfaces</h4>
             <p class="pub-meta pub-authors">Santiago de Leon-Martinez, <span class="me">Jingwei Kang</span>, Róbert Móro, Maarten de Rijke, Branislav Kveton, Harrie Oosterhuis, Maria Bielikova</p>
-            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’25</span>&nbsp;· 48th International ACM SIGIR Conference on Research and Development in Information Retrieval, resource &amp; reproducibility track, July 2025, pp. 3702–3711</p>
+            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’25</span>&nbsp;· 48th International ACM SIGIR Conference on Research and Development in Information Retrieval, July 2025, pp. 3702–3711</p>
             <p class="pub-summary">The first public carousel dataset combining eye tracking, clicks and cursor movements (87 users, 3,477 interactions), revealing a golden-triangle, <span class="nb">F-shaped</span> browsing pattern.</p>
             <p class="pub-links">
               <a href="https://arxiv.org/abs/2504.20792">arXiv</a>
@@ -349,9 +355,10 @@
         <h3 class="side year" id="year-2024">2024</h3>
         <ol class="body pubs" role="list" aria-labelledby="year-2024">
           <li class="pub" id="pub-kang2024hessian">
+            <p class="pub-kind label">Short paper</p>
             <h4 class="pub-title">Estimating the Hessian Matrix of Ranking Objectives for Stochastic Learning to Rank with Gradient Boosted Trees</h4>
             <p class="pub-meta pub-authors"><span class="me">Jingwei Kang</span>, Maarten de Rijke, Harrie Oosterhuis</p>
-            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’24</span>&nbsp;· 47th International ACM SIGIR Conference on Research and Development in Information Retrieval, short paper, July 2024, pp. 2390–2394</p>
+            <p class="pub-meta pub-venue"><span class="venue">SIGIR ’24</span>&nbsp;· 47th International ACM SIGIR Conference on Research and Development in Information Retrieval, July 2024, pp. 2390–2394</p>
             <p class="pub-summary">Makes gradient-boosted decision trees usable for stochastic learning to rank by estimating the Hessian of ranking objectives.</p>
             <p class="pub-links">
               <a href="https://arxiv.org/abs/2404.12190">arXiv</a>
