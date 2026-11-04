@@ -213,6 +213,11 @@
 }
 
 html {
+  /* Fluid scale: every width and size on the page is in rem, so one root size
+     scales the whole layout with the screen while keeping the line length.
+     16px up to a 1200px viewport, 17px at 1440, 19.5px at 1920, 20px cap
+     (rem-based terms keep the reader's own font-size preference in play). */
+  font-size: clamp(1rem, 0.5208vw + 0.59375rem, 1.25rem);
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   /* Anchor jumps leave a little air above the section's hairline. */
